@@ -832,5 +832,26 @@ underscoring its practical effectiveness and reliability.</p>
 
     <!-- End of Statcounter Code -->
 
+  <!-- Vercel Speed Insights: ESM 优先，失败时回退到 Vercel 内置脚本 -->
+  <script type="module">
+    (async () => {
+      try {
+        const mod = await import('https://unpkg.com/@vercel/speed-insights@latest/dist/index.mjs');
+        if (mod && typeof mod.injectSpeedInsights === 'function') {
+          mod.injectSpeedInsights();
+          console.log('[SpeedInsights] injected via ESM');
+          return;
+        }
+        throw new Error('ESM module missing injectSpeedInsights');
+      } catch (err) {
+        const s = document.createElement('script');
+        s.defer = true;
+        s.src = '/_vercel/speed-insights/script.js';
+        s.onload = () => console.log('[SpeedInsights] fallback script loaded');
+        document.head.appendChild(s);
+      }
+    })();
+  </script>
+
   </body>
   </html>
