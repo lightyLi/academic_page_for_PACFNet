@@ -209,6 +209,66 @@ function normalizeDataPositive(data) {
 }
 
 /**
+ * Replace all leading zeros with the first non-zero value
+ * This prevents an artificial vertical jump at the start of ECG plots.
+ */
+function replaceLeadingZeros(values, epsilon = 1e-9) {
+    if (!Array.isArray(values) || values.length === 0) return values;
+    let firstIdx = 0;
+    while (firstIdx < values.length && Math.abs(values[firstIdx]) <= epsilon) {
+        firstIdx++;
+    }
+    if (firstIdx === 0 || firstIdx >= values.length) return values;
+    const v = values[firstIdx];
+    for (let i = 0; i < firstIdx; i++) {
+        values[i] = v;
+    }
+    return values;
+}
+
+/**
+ * Replace leading zeros for time-series points (objects with .y)
+ */
+function replaceLeadingZerosPoints(points, epsilon = 1e-9) {
+    if (!Array.isArray(points) || points.length === 0) return points;
+    let firstIdx = 0;
+    while (
+        firstIdx < points.length &&
+        Math.abs(points[firstIdx]?.y ?? 0) <= epsilon
+    ) {
+        firstIdx++;
+    }
+    if (firstIdx === 0 || firstIdx >= points.length) return points;
+    const v = points[firstIdx].y;
+    for (let i = 0; i < firstIdx; i++) {
+        points[i].y = v;
+    }
+    return points;
+}
+
+/**
+ * Flatten initial ramp: from x=0 开始，直到第一个显著非零点（> threshold）为止，
+ * 将这段的 y 统一设置为该显著非零点的 y。用于 ECG 去除起始“竖线”。
+ */
+function fixECGInitialSegment(points, threshold = 0.02) {
+    if (!Array.isArray(points) || points.length === 0) return points;
+    // 找到第一个显著非零点（归一化后 > threshold）
+    let idx = 0;
+    while (
+        idx < points.length &&
+        !(typeof points[idx]?.y === "number" && points[idx].y > threshold)
+    ) {
+        idx++;
+    }
+    if (idx === 0 || idx >= points.length) return points;
+    const v = points[idx].y;
+    for (let i = 0; i <= idx; i++) {
+        points[i].y = v;
+    }
+    return points;
+}
+
+/**
  * Create Chart.js configuration for combined ECG and PCG display
  */
 function createCombinedChartConfig(
@@ -753,7 +813,10 @@ function updateCombinedChart(signalName) {
         }));
     }
 
-    const ecgStretched = contrastStretchPoints01(ecgData.points, 0.1, 0.95);
+    let ecgStretched = contrastStretchPoints01(ecgData.points, 0.1, 0.95);
+
+    // 拉伸后再次修复起始段，确保左侧没有竖线
+    ecgStretched = fixECGInitialSegment(ecgStretched, 0.05);
 
     // Create combined chart
     const ctx = canvas.getContext("2d");
@@ -840,12 +903,15 @@ async function loadECGSignal(signalName) {
 
         // Assume sample rate is 2000 Hz (PhysioNet 2016 dataset reference)
         const sampleRate = DEFAULT_ECG_SAMPLE_RATE;
-        const { points, totalDuration, downsampledCount } = buildTimeSeries(
+        let { points, totalDuration, downsampledCount } = buildTimeSeries(
             samples,
             sampleRate,
             MAX_POINTS,
             true // Use [0, 1] normalization for ECG
         );
+
+        // 修复起始段：把 x=0 开始直到第一个显著非零点之间的 y 设置为该点的 y
+        points = fixECGInitialSegment(points, 0.02);
 
         console.log(
             `✓ Loaded ECG: ${downsampledCount} points (downsampled from ${samples.length})`
