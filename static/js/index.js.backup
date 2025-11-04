@@ -1,0 +1,607 @@
+window.HELP_IMPROVE_VIDEOJS = false;
+
+// More Works Dropdown Functionality
+function toggleMoreWorks() {
+    const dropdown = document.getElementById('moreWorksDropdown');
+    const button = document.querySelector('.more-works-btn');
+    
+    if (dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
+        button.classList.remove('active');
+    } else {
+        dropdown.classList.add('show');
+        button.classList.add('active');
+    }
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const container = document.querySelector('.more-works-container');
+    const dropdown = document.getElementById('moreWorksDropdown');
+    const button = document.querySelector('.more-works-btn');
+    
+    if (container && !container.contains(event.target)) {
+        dropdown.classList.remove('show');
+        button.classList.remove('active');
+    }
+});
+
+// Close dropdown on escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const dropdown = document.getElementById('moreWorksDropdown');
+        const button = document.querySelector('.more-works-btn');
+        dropdown.classList.remove('show');
+        button.classList.remove('active');
+    }
+});
+
+// Copy BibTeX to clipboard
+function copyBibTeX() {
+    const bibtexElement = document.getElementById('bibtex-code');
+    const button = document.querySelector('.copy-bibtex-btn');
+    const copyText = button.querySelector('.copy-text');
+    
+    if (bibtexElement) {
+        navigator.clipboard.writeText(bibtexElement.textContent).then(function() {
+            // Success feedback
+            button.classList.add('copied');
+            copyText.textContent = 'Cop';
+            
+            setTimeout(function() {
+                button.classList.remove('copied');
+                copyText.textContent = 'Copy';
+            }, 2000);
+        }).catch(function(err) {
+            console.error('Failed to copy: ', err);
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = bibtexElement.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            button.classList.add('copied');
+            copyText.textContent = 'Cop';
+            setTimeout(function() {
+                button.classList.remove('copied');
+                copyText.textContent = 'Copy';
+            }, 2000);
+        });
+    }
+}
+
+// Scroll to top functionality
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Show/hide scroll to top button
+window.addEventListener('scroll', function() {
+    const scrollButton = document.querySelector('.scroll-to-top');
+    if (window.pageYOffset > 300) {
+        scrollButton.classList.add('visible');
+    } else {
+        scrollButton.classList.remove('visible');
+    }
+});
+
+// Video carousel autoplay when in view
+function setupVideoCarouselAutoplay() {
+    const carouselVideos = document.querySelectorAll('.results-carousel video');
+    
+    if (carouselVideos.length === 0) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const video = entry.target;
+            if (entry.isIntersecting) {
+                // Video is in view, play it
+                video.play().catch(e => {
+                    // Autoplay failed, probably due to browser policy
+                    console.log('Autoplay prevented:', e);
+                });
+            } else {
+                // Video is out of view, pause it
+                video.pause();
+            }
+        });
+    }, {
+        threshold: 0.5 // Trigger when 50% of the video is visible
+    });
+    
+    carouselVideos.forEach(video => {
+        observer.observe(video);
+    });
+}
+
+// Signal files list
+const signalFiles = [
+    'a0001', 'a0002', 'a0003', 'a0004', 'a0005', 'a0007', 'a0009', 'a0010',
+    'a0011', 'a0012', 'a0013', 'a0014', 'a0015', 'a0016', 'a0017', 'a0018',
+    'a0019', 'a0020', 'a0021', 'a0022', 'a0023', 'a0024', 'a0025', 'a0026',
+    'a0027', 'a0028', 'a0029', 'a0030', 'a0031', 'a0032', 'a0033', 'a0034',
+    'a0035', 'a0036', 'a0037', 'a0038', 'a0039', 'a0040', 'a0042', 'a0043',
+    'a0044', 'a0045', 'a0046', 'a0047', 'a0048', 'a0049', 'a0050'
+];
+
+let currentSignal = null;
+
+// Model performance data
+const modelPerformance = {
+    pacfnet: { accuracy: 97.77, sensitivity: 97.99, specificity: 97.28, f1: 98.39 },
+    early_fusion: { accuracy: 95.15, sensitivity: 95.97, specificity: 93.28, f1: 96.48 },
+    late_fusion: { accuracy: 95.77, sensitivity: 95.88, specificity: 95.51, f1: 96.92 },
+    ecg_only: { accuracy: 96.15, sensitivity: 96.91, specificity: 94.42, f1: 97.21 },
+    pcg_only: { accuracy: 81.79, sensitivity: 84.46, specificity: 75.76, f1: 86.55 }
+};
+
+// Show signal selector modal
+function showSignalSelector() {
+    const modal = document.getElementById('signalModal');
+    const signalList = document.getElementById('signalList');
+    
+    // Populate signal list
+    let html = '<div class="list">';
+    signalFiles.forEach(signal => {
+        html += `
+            <a class="list-item signal-item" onclick="selectSignal('${signal}')">
+                <div class="list-item-content">
+                    <div class="list-item-title">
+                        <span class="icon has-text-info">
+                            <i class="fas fa-file-waveform"></i>
+                        </span>
+                        ${signal}
+                    </div>
+                    <div class="list-item-description">
+                        <span class="tag is-light">ECG (.dat)</span>
+                        <span class="tag is-light">PCG (.wav)</span>
+                    </div>
+                </div>
+                <span class="icon">
+                    <i class="fas fa-chevron-right"></i>
+                </span>
+            </a>
+        `;
+    });
+    html += '</div>';
+    
+    signalList.innerHTML = html;
+    modal.classList.add('is-active');
+}
+
+// Close signal selector modal
+function closeSignalSelector() {
+    const modal = document.getElementById('signalModal');
+    modal.classList.remove('is-active');
+}
+
+// Filter signals based on search
+function filterSignals() {
+    const searchTerm = document.getElementById('signalSearch').value.toLowerCase();
+    const items = document.querySelectorAll('.signal-item');
+    
+    items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(searchTerm)) {
+            item.style.display = '';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+// Select a signal
+function selectSignal(signalName) {
+    currentSignal = signalName;
+    
+    // Update UI
+    const selectedTag = document.getElementById('selectedSignalName');
+    selectedTag.textContent = signalName;
+    selectedTag.style.display = 'inline-block';
+    
+    // Show visualization area
+    document.getElementById('signalVisualization').style.display = 'block';
+    
+    // Load and display signals
+    loadECGSignal(signalName);
+    loadPCGSignal(signalName);
+    
+    // Hide results
+    document.getElementById('inferenceResults').style.display = 'none';
+    
+    // Close modal
+    closeSignalSelector();
+    
+    // Scroll to visualization
+    document.getElementById('signalVisualization').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Note: Signal visualization functions (loadECGSignal, loadPCGSignal) are now in signal_charts.js
+
+// Run model inference
+    const padding = 50;
+    const width = canvas.width - padding * 2;
+    const height = canvas.height - padding * 2;
+    
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 2;
+    
+    // Y-axis
+    ctx.beginPath();
+    ctx.moveTo(padding, padding);
+    ctx.lineTo(padding, canvas.height - padding);
+    ctx.stroke();
+    
+    // X-axis
+    ctx.beginPath();
+    ctx.moveTo(padding, canvas.height - padding);
+    ctx.lineTo(canvas.width - padding, canvas.height - padding);
+    ctx.stroke();
+    
+    // Grid lines
+    ctx.strokeStyle = '#e0e0e0';
+    ctx.lineWidth = 0.5;
+    
+    // Horizontal grid lines (5 lines from -1 to 1)
+    for (let i = 0; i <= 4; i++) {
+        const y = padding + (height * i / 4);
+        ctx.beginPath();
+        ctx.moveTo(padding, y);
+        ctx.lineTo(canvas.width - padding, y);
+        ctx.stroke();
+    }
+    
+    // Vertical grid lines
+    for (let i = 0; i <= 10; i++) {
+        const x = padding + (width * i / 10);
+        ctx.beginPath();
+        ctx.moveTo(x, padding);
+        ctx.lineTo(x, canvas.height - padding);
+        ctx.stroke();
+    }
+    
+    // Labels
+    ctx.fillStyle = '#333';
+    ctx.font = '12px Arial';
+    ctx.textAlign = 'right';
+    
+    // Y-axis labels
+    const yLabels = ['1.0', '0.5', '0.0', '-0.5', '-1.0'];
+    for (let i = 0; i < yLabels.length; i++) {
+        const y = padding + (height * i / 4);
+        ctx.fillText(yLabels[i], padding - 10, y + 5);
+    }
+    
+    // Axis titles
+    ctx.save();
+    ctx.translate(20, canvas.height / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 14px Arial';
+    ctx.fillText('Normalized Amplitude', 0, 0);
+    ctx.restore();
+    
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 14px Arial';
+    ctx.fillText('Time (samples)', canvas.width / 2, canvas.height - 15);
+}
+
+// Load and visualize ECG signal from .dat file (binary format)
+async function loadECGSignal(signalName) {
+    const canvas = document.getElementById('ecgCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Show loading message
+    ctx.fillStyle = '#666';
+    ctx.font = '16px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Loading ECG signal...', canvas.width / 2, canvas.height / 2);
+    
+    try {
+        // Load .dat file as binary (ArrayBuffer)
+        const response = await fetch(`static/signals/${signalName}.dat`);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const arrayBuffer = await response.arrayBuffer();
+        
+        // Parse binary data as 8-bit unsigned integers (raw bytes)
+        const byteArray = new Uint8Array(arrayBuffer);
+        const samples = Array.from(byteArray);
+        
+        // Limit samples to avoid too much data
+        const maxSamples = Math.min(samples.length, 5000);
+        const limitedSamples = samples.slice(0, maxSamples);
+        
+        if (limitedSamples.length === 0) {
+            throw new Error('No data found in .dat file');
+        }
+        
+        console.log(`✓ Loaded ${limitedSamples.length} ECG samples (${arrayBuffer.byteLength} bytes)`);
+        
+        // Normalize data to [-1, 1]
+        const normalizedData = normalizeData(limitedSamples);
+        
+        // Clear canvas again
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw axes and grid
+        drawAxes(ctx, canvas);
+        
+        // Draw signal
+        const padding = 50;
+        const width = canvas.width - padding * 2;
+        const height = canvas.height - padding * 2;
+        const centerY = canvas.height / 2;
+        
+        ctx.strokeStyle = '#dc3545';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        
+        // Downsample if needed to fit canvas width
+        const step = Math.max(1, Math.floor(normalizedData.length / width));
+        
+        for (let i = 0; i < normalizedData.length; i += step) {
+            const x = padding + (i / normalizedData.length) * width;
+            // Map [-1, 1] to canvas coordinates (inverted Y-axis)
+            const y = centerY - (normalizedData[i] * height / 2);
+            
+            if (i === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+        }
+        
+        ctx.stroke();
+        
+        // Add info text
+        ctx.fillStyle = '#666';
+        ctx.font = '12px Arial';
+        ctx.textAlign = 'left';
+        ctx.fillText(`Samples: ${limitedSamples.length}`, padding + 10, padding + 20);
+        ctx.fillText(`Signal: ${signalName}`, padding + 10, padding + 35);
+        ctx.fillText(`File size: ${arrayBuffer.byteLength} bytes`, padding + 10, padding + 50);
+        ctx.fillText(`Range: [${Math.min(...limitedSamples).toFixed(1)}, ${Math.max(...limitedSamples).toFixed(1)}]`, padding + 10, padding + 65);
+        
+    } catch (error) {
+        console.error('❌ Error loading ECG signal:', error);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw axes first
+        drawAxes(ctx, canvas);
+        
+        // Show error message
+        ctx.fillStyle = '#dc3545';
+        ctx.font = '14px Arial';
+        ctx.textAlign = 'center';
+        const centerY = canvas.height / 2;
+        ctx.fillText('⚠ Error loading .dat file', canvas.width / 2, centerY - 10);
+        ctx.fillStyle = '#666';
+        ctx.font = '12px Arial';
+        ctx.fillText(`File: ${signalName}.dat`, canvas.width / 2, centerY + 10);
+        ctx.fillText(error.message || 'Check console for details', canvas.width / 2, centerY + 25);
+    }
+}
+
+// Fallback: Draw simulated ECG signal
+function drawSimulatedECG(ctx, canvas) {
+    const padding = 50;
+    const width = canvas.width - padding * 2;
+    const height = canvas.height - padding * 2;
+    const centerY = canvas.height / 2;
+    
+    // Draw axes
+    drawAxes(ctx, canvas);
+    
+    // Generate simulated normalized ECG data
+    const samples = [];
+    for (let i = 0; i < 1000; i++) {
+        let value = Math.sin(i * 0.1) * 0.3;
+        const mod = i % 200;
+        if (mod > 80 && mod < 120) {
+            value += Math.sin((mod - 80) * 0.15) * 0.7;
+        }
+        samples.push(value);
+    }
+    
+    // Draw signal
+    ctx.strokeStyle = '#dc3545';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    
+    for (let i = 0; i < samples.length; i++) {
+        const x = padding + (i / samples.length) * width;
+        const y = centerY - (samples[i] * height / 2);
+        
+        if (i === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    }
+    
+    ctx.stroke();
+    
+    // Add info
+    ctx.fillStyle = '#666';
+    ctx.font = '12px Arial';
+    ctx.textAlign = 'left';
+    ctx.fillText('Simulated ECG', padding + 10, padding + 20);
+}
+
+// Load and visualize PCG signal from .wav file
+async function loadPCGSignal(signalName) {
+    const canvas = document.getElementById('pcgCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Show loading message
+    ctx.fillStyle = '#666';
+    ctx.font = '16px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Loading PCG signal...', canvas.width / 2, canvas.height / 2);
+    
+    try {
+        // Load audio file as array buffer
+        const response = await fetch(`static/signals/${signalName}.wav`);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const arrayBuffer = await response.arrayBuffer();
+        
+        // Decode audio data using Web Audio API
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        
+        // Get audio data from first channel
+        const channelData = audioBuffer.getChannelData(0);
+        const maxSamples = Math.min(channelData.length, 5000);
+        const samples = Array.from(channelData.slice(0, maxSamples));
+        
+        console.log(`✓ Loaded ${samples.length} PCG samples (Rate: ${audioBuffer.sampleRate} Hz, Duration: ${audioBuffer.duration.toFixed(2)}s)`);
+        
+        // Normalize data to [-1, 1]
+        const normalizedData = normalizeData(samples);
+        
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw axes and grid
+        drawAxes(ctx, canvas);
+        
+        // Draw waveform
+        const padding = 50;
+        const width = canvas.width - padding * 2;
+        const height = canvas.height - padding * 2;
+        const centerY = canvas.height / 2;
+        
+        ctx.strokeStyle = '#17a2b8';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        
+        // Downsample if needed
+        const step = Math.max(1, Math.floor(normalizedData.length / width));
+        
+        for (let i = 0; i < normalizedData.length; i += step) {
+            const x = padding + (i / normalizedData.length) * width;
+            const y = centerY - (normalizedData[i] * height / 2);
+            
+            if (i === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+        }
+        
+        ctx.stroke();
+        
+        // Add info text
+        ctx.fillStyle = '#666';
+        ctx.font = '12px Arial';
+        ctx.textAlign = 'left';
+        ctx.fillText(`Samples: ${samples.length}`, padding + 10, padding + 20);
+        ctx.fillText(`Signal: ${signalName}`, padding + 10, padding + 35);
+        ctx.fillText(`Sample Rate: ${audioBuffer.sampleRate} Hz`, padding + 10, padding + 50);
+        ctx.fillText(`Duration: ${audioBuffer.duration.toFixed(2)}s`, padding + 10, padding + 65);
+        ctx.fillText(`Range: [${Math.min(...samples).toFixed(3)}, ${Math.max(...samples).toFixed(3)}]`, padding + 10, padding + 80);
+        
+    } catch (error) {
+        console.error('❌ Error loading PCG signal:', error);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw axes first
+        drawAxes(ctx, canvas);
+        
+        // Show error message
+        ctx.fillStyle = '#dc3545';
+        ctx.font = '14px Arial';
+        ctx.textAlign = 'center';
+        const centerY = canvas.height / 2;
+        ctx.fillText('⚠ Error loading .wav file', canvas.width / 2, centerY - 10);
+        ctx.fillStyle = '#666';
+        ctx.font = '12px Arial';
+        ctx.fillText(`File: ${signalName}.wav`, canvas.width / 2, centerY + 10);
+        ctx.fillText(error.message || 'Check console for details', canvas.width / 2, centerY + 25);
+    }
+}
+
+// Run model inference
+function runInference() {
+    if (!currentSignal) {
+        alert('Please select a signal first!');
+        return;
+    }
+    
+    const btn = document.getElementById('inferenceBtn');
+    const resultsDiv = document.getElementById('inferenceResults');
+    const modelSelector = document.getElementById('modelSelector');
+    const selectedModel = modelSelector.value;
+    
+    // Show loading state
+    btn.classList.add('is-loading');
+    btn.disabled = true;
+    
+    // Simulate inference delay
+    setTimeout(() => {
+        // Generate random prediction (in real app, call actual model)
+        const isAbnormal = Math.random() > 0.5;
+        const confidence = 92 + Math.random() * 7; // 92-99%
+        
+        const performance = modelPerformance[selectedModel];
+        
+        // Update results
+        document.getElementById('predictionClass').textContent = isAbnormal ? 'Abnormal' : 'Normal';
+        document.getElementById('predictionClass').className = isAbnormal ? 'title is-3 has-text-danger' : 'title is-3 has-text-success';
+        document.getElementById('predictionConfidence').textContent = confidence.toFixed(1) + '%';
+        
+        document.getElementById('metricAccuracy').textContent = performance.accuracy.toFixed(2) + '%';
+        document.getElementById('metricSensitivity').textContent = performance.sensitivity.toFixed(2) + '%';
+        document.getElementById('metricSpecificity').textContent = performance.specificity.toFixed(2) + '%';
+        document.getElementById('metricF1').textContent = performance.f1.toFixed(2) + '%';
+        
+        // Show results
+        resultsDiv.style.display = 'block';
+        
+        // Remove loading state
+        btn.classList.remove('is-loading');
+        btn.disabled = false;
+        
+        // Scroll to results
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 1500);
+}
+
+$(document).ready(function() {
+    // Check for click events on the navbar burger icon
+
+    var options = {
+		slidesToScroll: 1,
+		slidesToShow: 1,
+		loop: true,
+		infinite: true,
+		autoplay: true,
+		autoplaySpeed: 5000,
+    }
+
+	// Initialize all div with carousel class
+    var carousels = bulmaCarousel.attach('.carousel', options);
+	
+    bulmaSlider.attach();
+    
+    // Setup video autoplay for carousel
+    setupVideoCarouselAutoplay();
+
+})

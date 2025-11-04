@@ -277,10 +277,14 @@ body {
 
 .results-carousel .item img,
 .results-carousel video {
-  margin: 0;
+  margin: 0 auto;
   border-radius: var(--border-radius);
-  width: 100%;
+  max-width: 100%;
+  max-height: 70vh;
+  width: auto;
   height: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .results-carousel .subtitle {
@@ -732,6 +736,63 @@ a:focus {
 }
 
 
+/* Table Styles */
+.table-container {
+  overflow-x: auto;
+  margin: 1rem 0;
+  background: var(--background-primary);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.results-carousel .item .table-container {
+  margin: 1rem auto;
+  max-width: 100%;
+}
+
+.table {
+  font-size: 0.9rem;
+  background-color: var(--background-primary);
+  margin-bottom: 0;
+}
+
+.table thead th {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  vertical-align: middle;
+  padding: 1rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.table tbody td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: var(--background-secondary);
+}
+
+.table tbody tr:hover {
+  background-color: var(--background-accent);
+  transition: var(--transition);
+}
+
+.table tbody tr:last-child {
+  background-color: #f0f7ff;
+  font-weight: 500;
+}
+
+.table.is-bordered th,
+.table.is-bordered td {
+  border: 1px solid var(--border-color);
+}
+
 /* Print styles */
 @media print {
   .more-works-container {
@@ -747,6 +808,196 @@ a:focus {
     color: var(--text-primary) !important;
     box-shadow: none !important;
   }
+  
+  .table {
+    page-break-inside: avoid;
+  }
+}
+
+/* Signal Selector Modal Styles */
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  margin-bottom: 0.5rem;
+  background: white;
+}
+
+.list-item:hover {
+  background: var(--background-accent);
+  border-color: var(--primary-color);
+  transform: translateX(5px);
+  box-shadow: var(--shadow-md);
+}
+
+.list-item-content {
+  flex: 1;
+}
+
+.list-item-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.list-item-description {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.modal-card {
+  max-width: 600px;
+  width: 90%;
+}
+
+/* Canvas Styles */
+#ecgCanvas, #pcgCanvas {
+  background: white;
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+#ecgCanvas {
+  width: 900px;
+  height: 320px;
+}
+
+#pcgCanvas {
+  width: 900px;
+  height: 320px;
+}
+
+/* Inference Demo Styles */
+.notification.is-success.is-light {
+  background-color: #f0f9ff;
+  border-left: 4px solid #10b981;
+}
+
+/* Loading animation */
+.button.is-loading {
+  pointer-events: none;
+}
+
+/* Mobile responsive for tables */
+@media screen and (max-width: 768px) {
+  .table {
+    font-size: 0.75rem;
+  }
+  
+  .table thead th,
+  .table tbody td {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.7rem;
+  }
+  
+  .table-container {
+    padding: 1rem;
+  }
+  
+  .results-carousel .subtitle {
+    font-size: 0.9rem !important;
+  }
+  
+  #ecgCanvas {
+    width: 100% !important;
+    height: 250px !important;
+  }
+  
+  #pcgCanvas {
+    width: 100% !important;
+    height: 250px !important;
+  }
+  
+  .modal-card {
+    width: 95%;
+  }
+}
+
+/* Enhanced UI Styles */
+#inferenceBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(72, 187, 120, 0.4) !important;
+}
+
+#inferenceBtn:active {
+  transform: translateY(0);
+}
+
+.tags.has-addons {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Select dropdown enhancement */
+#modelSelector:hover {
+  border-color: #17a2b8 !important;
+  box-shadow: 0 0 0 0.125em rgba(23, 162, 184, 0.25);
+}
+
+#modelSelector:focus {
+  border-color: #17a2b8 !important;
+  box-shadow: 0 0 0 0.125em rgba(23, 162, 184, 0.35);
+}
+
+/* Button pulse animation for inference */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(72, 187, 120, 0.5);
+  }
+}
+
+#inferenceBtn.is-loading::after {
+  animation: spinAround 500ms infinite linear;
+}
+
+/* Signal container fade in */
+#selectedSignalContainer {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Help text icon */
+.help .icon {
+  vertical-align: middle;
+}
+
+/* Enhanced box shadows on hover */
+.box:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12) !important;
+  transition: box-shadow 0.3s ease;
 }
 
 
