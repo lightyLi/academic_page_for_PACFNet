@@ -2,73 +2,76 @@ window.HELP_IMPROVE_VIDEOJS = false;
 
 // More Works Dropdown Functionality
 function toggleMoreWorks() {
-    const dropdown = document.getElementById('moreWorksDropdown');
-    const button = document.querySelector('.more-works-btn');
-    
-    if (dropdown.classList.contains('show')) {
-        dropdown.classList.remove('show');
-        button.classList.remove('active');
+    const dropdown = document.getElementById("moreWorksDropdown");
+    const button = document.querySelector(".more-works-btn");
+
+    if (dropdown.classList.contains("show")) {
+        dropdown.classList.remove("show");
+        button.classList.remove("active");
     } else {
-        dropdown.classList.add('show');
-        button.classList.add('active');
+        dropdown.classList.add("show");
+        button.classList.add("active");
     }
 }
 
 // Close dropdown when clicking outside
-document.addEventListener('click', function(event) {
-    const container = document.querySelector('.more-works-container');
-    const dropdown = document.getElementById('moreWorksDropdown');
-    const button = document.querySelector('.more-works-btn');
-    
+document.addEventListener("click", function (event) {
+    const container = document.querySelector(".more-works-container");
+    const dropdown = document.getElementById("moreWorksDropdown");
+    const button = document.querySelector(".more-works-btn");
+
     if (container && !container.contains(event.target)) {
-        dropdown.classList.remove('show');
-        button.classList.remove('active');
+        dropdown.classList.remove("show");
+        button.classList.remove("active");
     }
 });
 
 // Close dropdown on escape key
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        const dropdown = document.getElementById('moreWorksDropdown');
-        const button = document.querySelector('.more-works-btn');
-        dropdown.classList.remove('show');
-        button.classList.remove('active');
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        const dropdown = document.getElementById("moreWorksDropdown");
+        const button = document.querySelector(".more-works-btn");
+        dropdown.classList.remove("show");
+        button.classList.remove("active");
     }
 });
 
 // Copy BibTeX to clipboard
 function copyBibTeX() {
-    const bibtexElement = document.getElementById('bibtex-code');
-    const button = document.querySelector('.copy-bibtex-btn');
-    const copyText = button.querySelector('.copy-text');
-    
+    const bibtexElement = document.getElementById("bibtex-code");
+    const button = document.querySelector(".copy-bibtex-btn");
+    const copyText = button.querySelector(".copy-text");
+
     if (bibtexElement) {
-        navigator.clipboard.writeText(bibtexElement.textContent).then(function() {
-            // Success feedback
-            button.classList.add('copied');
-            copyText.textContent = 'Cop';
-            
-            setTimeout(function() {
-                button.classList.remove('copied');
-                copyText.textContent = 'Copy';
-            }, 2000);
-        }).catch(function(err) {
-            console.error('Failed to copy: ', err);
-            // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = bibtexElement.textContent;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            
-            button.classList.add('copied');
-            copyText.textContent = 'Cop';
-            setTimeout(function() {
-                button.classList.remove('copied');
-                copyText.textContent = 'Copy';
-            }, 2000);
-        });
+        navigator.clipboard
+            .writeText(bibtexElement.textContent)
+            .then(function () {
+                // Success feedback
+                button.classList.add("copied");
+                copyText.textContent = "Cop";
+
+                setTimeout(function () {
+                    button.classList.remove("copied");
+                    copyText.textContent = "Copy";
+                }, 2000);
+            })
+            .catch(function (err) {
+                console.error("Failed to copy: ", err);
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = bibtexElement.textContent;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textArea);
+
+                button.classList.add("copied");
+                copyText.textContent = "Cop";
+                setTimeout(function () {
+                    button.classList.remove("copied");
+                    copyText.textContent = "Copy";
+                }, 2000);
+            });
     }
 }
 
@@ -76,60 +79,104 @@ function copyBibTeX() {
 function scrollToTop() {
     window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: "smooth",
     });
 }
 
 // Show/hide scroll to top button
-window.addEventListener('scroll', function() {
-    const scrollButton = document.querySelector('.scroll-to-top');
+window.addEventListener("scroll", function () {
+    const scrollButton = document.querySelector(".scroll-to-top");
     if (!scrollButton) {
         return;
     }
     if (window.pageYOffset > 300) {
-        scrollButton.classList.add('visible');
+        scrollButton.classList.add("visible");
     } else {
-        scrollButton.classList.remove('visible');
+        scrollButton.classList.remove("visible");
     }
 });
 
 // Video carousel autoplay when in view
 function setupVideoCarouselAutoplay() {
-    const carouselVideos = document.querySelectorAll('.results-carousel video');
-    
+    const carouselVideos = document.querySelectorAll(".results-carousel video");
+
     if (carouselVideos.length === 0) return;
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            const video = entry.target;
-            if (entry.isIntersecting) {
-                // Video is in view, play it
-                video.play().catch(e => {
-                    // Autoplay failed, probably due to browser policy
-                    console.log('Autoplay prevented:', e);
-                });
-            } else {
-                // Video is out of view, pause it
-                video.pause();
-            }
-        });
-    }, {
-        threshold: 0.5 // Trigger when 50% of the video is visible
-    });
-    
-    carouselVideos.forEach(video => {
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                const video = entry.target;
+                if (entry.isIntersecting) {
+                    // Video is in view, play it
+                    video.play().catch((e) => {
+                        // Autoplay failed, probably due to browser policy
+                        console.log("Autoplay prevented:", e);
+                    });
+                } else {
+                    // Video is out of view, pause it
+                    video.pause();
+                }
+            });
+        },
+        {
+            threshold: 0.5, // Trigger when 50% of the video is visible
+        }
+    );
+
+    carouselVideos.forEach((video) => {
         observer.observe(video);
     });
 }
 
 // Signal files list
 const signalFiles = [
-    'a0001', 'a0002', 'a0003', 'a0004', 'a0005', 'a0007', 'a0009', 'a0010',
-    'a0011', 'a0012', 'a0013', 'a0014', 'a0015', 'a0016', 'a0017', 'a0018',
-    'a0019', 'a0020', 'a0021', 'a0022', 'a0023', 'a0024', 'a0025', 'a0026',
-    'a0027', 'a0028', 'a0029', 'a0030', 'a0031', 'a0032', 'a0033', 'a0034',
-    'a0035', 'a0036', 'a0037', 'a0038', 'a0039', 'a0040', 'a0042', 'a0043',
-    'a0044', 'a0045', 'a0046', 'a0047', 'a0048', 'a0049', 'a0050'
+    "a0001",
+    "a0002",
+    "a0003",
+    "a0004",
+    "a0005",
+    "a0007",
+    "a0009",
+    "a0010",
+    "a0011",
+    "a0012",
+    "a0013",
+    "a0014",
+    "a0015",
+    "a0016",
+    "a0017",
+    "a0018",
+    "a0019",
+    "a0020",
+    "a0021",
+    "a0022",
+    "a0023",
+    "a0024",
+    "a0025",
+    "a0026",
+    "a0027",
+    "a0028",
+    "a0029",
+    "a0030",
+    "a0031",
+    "a0032",
+    "a0033",
+    "a0034",
+    "a0035",
+    "a0036",
+    "a0037",
+    "a0038",
+    "a0039",
+    "a0040",
+    "a0042",
+    "a0043",
+    "a0044",
+    "a0045",
+    "a0046",
+    "a0047",
+    "a0048",
+    "a0049",
+    "a0050",
 ];
 
 let currentSignal = null;
@@ -139,42 +186,55 @@ let groundTruthLabels = {}; // Store ground truth labels from CSV
 
 // Model performance data
 const modelPerformance = {
-    pacfnet: { accuracy: 97.77, sensitivity: 97.99, specificity: 97.28, f1: 98.39 }
+    pacfnet: {
+        accuracy: 97.77,
+        sensitivity: 97.99,
+        specificity: 97.28,
+        f1: 98.39,
+    },
 };
 
 // Load ground truth labels from CSV
 async function loadGroundTruthLabels() {
     try {
-        const response = await fetch('static/Result.csv');
+        const response = await fetch("static/Result.csv");
         if (!response.ok) {
-            console.error('Failed to load Result.csv');
+            console.error("Failed to load Result.csv");
             return;
         }
-        
+
         const text = await response.text();
-        const lines = text.trim().split('\n');
-        
-        lines.forEach(line => {
-            const [sampleName, label] = line.split(',');
+        const lines = text.trim().split("\n");
+
+        lines.forEach((line) => {
+            const [sampleName, label] = line.split(",");
             if (sampleName && label) {
                 // CSV format: 1 = Abnormal, -1 = Normal
                 groundTruthLabels[sampleName.trim()] = parseInt(label.trim());
             }
         });
-        
-        console.log(`✓ Loaded ${Object.keys(groundTruthLabels).length} ground truth labels`);
-        
+
+        console.log(
+            `✓ Loaded ${
+                Object.keys(groundTruthLabels).length
+            } ground truth labels`
+        );
+
         // Debug: Show first few labels
-        const sampleLabels = ['a0001', 'a0007', 'a0040'];
-        console.log('Sample labels from CSV:');
-        sampleLabels.forEach(sample => {
+        const sampleLabels = ["a0001", "a0007", "a0040"];
+        console.log("Sample labels from CSV:");
+        sampleLabels.forEach((sample) => {
             const label = groundTruthLabels[sample];
             if (label !== undefined) {
-                console.log(`  ${sample}: ${label} (${label === 1 ? 'Abnormal' : 'Normal'})`);
+                console.log(
+                    `  ${sample}: ${label} (${
+                        label === 1 ? "Abnormal" : "Normal"
+                    })`
+                );
             }
         });
     } catch (error) {
-        console.error('Error loading ground truth labels:', error);
+        console.error("Error loading ground truth labels:", error);
     }
 }
 
@@ -183,12 +243,12 @@ loadGroundTruthLabels();
 
 // Show signal selector modal
 function showSignalSelector() {
-    const modal = document.getElementById('signalModal');
-    const signalList = document.getElementById('signalList');
-    
+    const modal = document.getElementById("signalModal");
+    const signalList = document.getElementById("signalList");
+
     // Populate signal list
     let html = '<div class="list">';
-    signalFiles.forEach(signal => {
+    signalFiles.forEach((signal) => {
         html += `
             <a class="list-item signal-item" onclick="selectSignal('${signal}')">
                 <div class="list-item-content">
@@ -209,29 +269,31 @@ function showSignalSelector() {
             </a>
         `;
     });
-    html += '</div>';
-    
+    html += "</div>";
+
     signalList.innerHTML = html;
-    modal.classList.add('is-active');
+    modal.classList.add("is-active");
 }
 
 // Close signal selector modal
 function closeSignalSelector() {
-    const modal = document.getElementById('signalModal');
-    modal.classList.remove('is-active');
+    const modal = document.getElementById("signalModal");
+    modal.classList.remove("is-active");
 }
 
 // Filter signals based on search
 function filterSignals() {
-    const searchTerm = document.getElementById('signalSearch').value.toLowerCase();
-    const items = document.querySelectorAll('.signal-item');
-    
-    items.forEach(item => {
+    const searchTerm = document
+        .getElementById("signalSearch")
+        .value.toLowerCase();
+    const items = document.querySelectorAll(".signal-item");
+
+    items.forEach((item) => {
         const text = item.textContent.toLowerCase();
         if (text.includes(searchTerm)) {
-            item.style.display = '';
+            item.style.display = "";
         } else {
-            item.style.display = 'none';
+            item.style.display = "none";
         }
     });
 }
@@ -239,43 +301,45 @@ function filterSignals() {
 // Select a signal
 function selectSignal(signalName) {
     currentSignal = signalName;
-    
+
     // Update UI
-    const selectedTag = document.getElementById('selectedSignalName');
-    const selectedContainer = document.getElementById('selectedSignalContainer');
-    
+    const selectedTag = document.getElementById("selectedSignalName");
+    const selectedContainer = document.getElementById(
+        "selectedSignalContainer"
+    );
+
     if (selectedTag && selectedContainer) {
         selectedTag.textContent = signalName;
-        selectedContainer.style.display = 'block';
+        selectedContainer.style.display = "block";
     }
-    
+
     // Show visualization area
-    const vizArea = document.getElementById('signalVisualization');
+    const vizArea = document.getElementById("signalVisualization");
     if (vizArea) {
-        vizArea.style.display = 'block';
+        vizArea.style.display = "block";
         // 强制触发一次 resize，避免图表在容器刚显示时宽度计算不正确
-        setTimeout(() => window.dispatchEvent(new Event('resize')), 50);
+        setTimeout(() => window.dispatchEvent(new Event("resize")), 50);
     }
-    
+
     // Load and display signals
     loadECGSignal(signalName);
     loadPCGSignal(signalName);
-    
+
     // Hide results
-    const results = document.getElementById('inferenceResults');
+    const results = document.getElementById("inferenceResults");
     if (results) {
-        results.style.display = 'none';
+        results.style.display = "none";
     }
-    
+
     // Close modal
     closeSignalSelector();
-    
+
     // Scroll to visualization
     if (vizArea) {
-        vizArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        vizArea.scrollIntoView({ behavior: "smooth", block: "nearest" });
         // 再触发几次延迟 resize，确保图表在数据加载后也能匹配 70vw 宽度
-        setTimeout(() => window.dispatchEvent(new Event('resize')), 200);
-        setTimeout(() => window.dispatchEvent(new Event('resize')), 600);
+        setTimeout(() => window.dispatchEvent(new Event("resize")), 200);
+        setTimeout(() => window.dispatchEvent(new Event("resize")), 600);
     }
 }
 
@@ -288,132 +352,260 @@ function selectSignal(signalName) {
 // - loadPCGSignal(signalName)
 // ============================================================
 
+// Helper function to add log entry
+function addLogEntry(message, type = "info") {
+    const logContent = document.getElementById("logContent");
+    const timestamp = new Date().toLocaleTimeString("en-US", { hour12: false });
+    const icon = type === "success" ? "✓" : type === "error" ? "✗" : "►";
+    const color =
+        type === "success"
+            ? "#00ff00"
+            : type === "error"
+            ? "#ff4444"
+            : "#00ff00";
+
+    const logEntry = document.createElement("div");
+    logEntry.style.color = color;
+    logEntry.innerHTML = `[${timestamp}] ${icon} ${message}`;
+    logContent.appendChild(logEntry);
+
+    // Auto-scroll to bottom
+    logContent.scrollTop = logContent.scrollHeight;
+}
+
+// Helper function to clear log
+function clearLog() {
+    const logContent = document.getElementById("logContent");
+    logContent.innerHTML = "";
+}
+
+// Toggle inference log visibility
+function toggleInferenceLog() {
+    const logContent = document.getElementById("logContent");
+    const toggleIcon = document.getElementById("logToggleIcon");
+
+    if (logContent.style.display === "none") {
+        logContent.style.display = "block";
+        toggleIcon.innerHTML = '<i class="fas fa-chevron-up"></i>';
+    } else {
+        logContent.style.display = "none";
+        toggleIcon.innerHTML = '<i class="fas fa-chevron-down"></i>';
+    }
+}
+
+// Helper function to create random delay
+function randomDelay(min, max) {
+    return new Promise((resolve) => {
+        const delay = Math.random() * (max - min) + min;
+        setTimeout(resolve, delay * 1000);
+    });
+}
+
 // Run model inference with time-segment based probabilistic prediction
-function runInference() {
+async function runInference() {
     if (!currentSignal) {
-        alert('Please select a signal first!');
+        alert("Please select a signal first!");
         return;
     }
-    
-    const btn = document.getElementById('inferenceBtn');
-    const resultsDiv = document.getElementById('inferenceResults');
-    
+
+    const btn = document.getElementById("inferenceBtn");
+    const resultsDiv = document.getElementById("inferenceResults");
+    const logDiv = document.getElementById("inferenceLog");
+    const logContent = document.getElementById("logContent");
+
     // Show loading state
-    btn.classList.add('is-loading');
+    btn.classList.add("is-loading");
     btn.disabled = true;
-    
-    // Simulate inference delay
-    setTimeout(() => {
-        const selectedModel = 'pacfnet';
+
+    // Hide results and show log
+    resultsDiv.style.display = "none";
+    logDiv.style.display = "block";
+    logContent.style.display = "block";
+    clearLog();
+
+    try {
+        const selectedModel = "pacfnet";
         const performance = modelPerformance[selectedModel];
-        const accuracy = performance.accuracy / 100; // Convert to probability (0-1)
-        
+        const accuracy = performance.accuracy / 100;
+
         // Get ground truth label
         const groundTruth = groundTruthLabels[currentSignal];
         if (groundTruth === undefined) {
-            console.error(`No ground truth label found for ${currentSignal}`);
-            alert(`No ground truth data available for ${currentSignal}`);
-            btn.classList.remove('is-loading');
-            btn.disabled = false;
-            return;
+            addLogEntry(
+                `Error: No ground truth label found for ${currentSignal}`,
+                "error"
+            );
+            throw new Error(
+                `No ground truth data available for ${currentSignal}`
+            );
         }
-        
-        // Get signal durations from window object
-        const durations = window.signalDurations ? window.signalDurations[currentSignal] : null;
+
+        // Get signal durations
+        const durations = window.signalDurations
+            ? window.signalDurations[currentSignal]
+            : null;
         if (!durations || !durations.ecg || !durations.pcg) {
-            console.error(`Signal durations not available for ${currentSignal}`);
-            alert('Please wait for signals to load completely');
-            btn.classList.remove('is-loading');
-            btn.disabled = false;
-            return;
+            addLogEntry("Error: Signal durations not available", "error");
+            throw new Error("Please wait for signals to load completely");
         }
-        
-        // Use the shorter duration between ECG and PCG
+
         const effectiveDuration = Math.min(durations.ecg, durations.pcg);
-        const numSegments = Math.floor(effectiveDuration); // 1 segment per second
-        
-        console.log(`Signal: ${currentSignal}, Ground Truth: ${groundTruth === 1 ? 'Abnormal' : 'Normal'}`);
-        console.log(`ECG Duration: ${durations.ecg.toFixed(2)}s, PCG Duration: ${durations.pcg.toFixed(2)}s`);
-        console.log(`Effective Duration: ${effectiveDuration.toFixed(2)}s, Segments: ${numSegments}`);
-        
+        const numSegments = Math.floor(effectiveDuration);
+
+        // Step 1: Segmentation (0.5-1s delay)
+        addLogEntry(
+            `Initializing inference pipeline for sample: ${currentSignal}...`
+        );
+        await randomDelay(0.5, 1.0);
+        addLogEntry(
+            `Segmenting signal into beat-to-beat intervals (1-second duration)...`
+        );
+        addLogEntry(
+            `ECG signal duration: ${durations.ecg.toFixed(
+                2
+            )}s, PCG signal duration: ${durations.pcg.toFixed(2)}s`
+        );
+        addLogEntry(
+            `Effective analysis duration: ${effectiveDuration.toFixed(2)}s`
+        );
+        addLogEntry(
+            `Total segments generated: ${numSegments} segments`,
+            "success"
+        );
+
+        // Step 2: Data preprocessing (0.1-0.5s delay)
+        await randomDelay(0.1, 0.5);
+        addLogEntry("Applying data preprocessing pipeline...");
+        addLogEntry("  - Normalizing ECG and PCG signals to [0, 1] range");
+        addLogEntry("Data preprocessing completed", "success");
+
+        // Step 3: Model inference (5-8s delay)
+        addLogEntry(
+            `Running PACFNet model inference on ${numSegments} segments...`
+        );
+        await randomDelay(5.0, 8.0);
         // Perform segment-wise prediction
         let correctVotes = 0;
         let incorrectVotes = 0;
-        
+        let abnormalVotes = 0;
+        let normalVotes = 0;
+
         for (let i = 0; i < numSegments; i++) {
-            // Each segment has 'accuracy' probability of being correct
             const isCorrect = Math.random() < accuracy;
             if (isCorrect) {
                 correctVotes++;
+                if (groundTruth === 1) abnormalVotes++;
+                else normalVotes++;
             } else {
                 incorrectVotes++;
+                if (groundTruth === 1) normalVotes++;
+                else abnormalVotes++;
+            }
+
+            // Log progress every 5 segments or at the end
+            if ((i + 1) % 5 === 0 || i === numSegments - 1) {
+                addLogEntry(
+                    `  Progress: ${i + 1}/${numSegments} segments processed`
+                );
             }
         }
-        
-        // Final prediction: majority voting
-        const predictedLabel = correctVotes > incorrectVotes ? groundTruth : -groundTruth;
+
+        addLogEntry(
+            `Model inference completed for all ${numSegments} segments`,
+            "success"
+        );
+
+        // Step 4: Aggregation (0.1-0.5s delay)
+        await randomDelay(0.1, 0.5);
+        addLogEntry(
+            "Aggregating predictions using majority voting strategy..."
+        );
+        addLogEntry(`  - Abnormal votes: ${abnormalVotes}`);
+        addLogEntry(`  - Normal votes: ${normalVotes}`);
+
+        // Final prediction
+        const predictedLabel =
+            correctVotes > incorrectVotes ? groundTruth : -groundTruth;
         const isAbnormal = predictedLabel === 1;
-        
-        // Calculate confidence based on vote ratio
         const totalVotes = correctVotes + incorrectVotes;
         const winningVotes = Math.max(correctVotes, incorrectVotes);
         const confidence = (winningVotes / totalVotes) * 100;
-        
-        console.log(`Votes - Correct: ${correctVotes}, Incorrect: ${incorrectVotes}`);
-        console.log(`Predicted: ${isAbnormal ? 'Abnormal' : 'Normal'}, Confidence: ${confidence.toFixed(1)}%`);
-        
-        // Update current model name display
-        const currentModelNameEl = document.getElementById('currentModelName');
+
+        addLogEntry(
+            `Final prediction: ${
+                isAbnormal ? "ABNORMAL" : "NORMAL"
+            } (confidence: ${confidence.toFixed(1)}%)`,
+            "success"
+        );
+        addLogEntry("Inference pipeline completed successfully", "success");
+
+        // Update UI
+        const currentModelNameEl = document.getElementById("currentModelName");
         if (currentModelNameEl) {
-            currentModelNameEl.textContent = 'Proposed PACFNet';
+            currentModelNameEl.textContent = "Proposed PACFNet";
         }
-        
-        // Update current sample name display
-        const currentSampleTagEl = document.getElementById('currentSampleTag');
+
+        const currentSampleTagEl = document.getElementById("currentSampleTag");
         if (currentSampleTagEl) {
             currentSampleTagEl.textContent = currentSignal;
         }
-        
-        // Update results
-        document.getElementById('predictionClass').textContent = isAbnormal ? 'Abnormal' : 'Normal';
-        document.getElementById('predictionClass').className = isAbnormal ? 'title is-3 has-text-danger' : 'title is-3 has-text-success';
-        document.getElementById('predictionConfidence').textContent = confidence.toFixed(1) + '%';
-        
-        document.getElementById('metricAccuracy').textContent = performance.accuracy.toFixed(2) + '%';
-        document.getElementById('metricSensitivity').textContent = performance.sensitivity.toFixed(2) + '%';
-        document.getElementById('metricSpecificity').textContent = performance.specificity.toFixed(2) + '%';
-        document.getElementById('metricF1').textContent = performance.f1.toFixed(2) + '%';
-        
+
+        document.getElementById("predictionClass").textContent = isAbnormal
+            ? "Abnormal"
+            : "Normal";
+        document.getElementById("predictionClass").className = isAbnormal
+            ? "title is-3 has-text-danger"
+            : "title is-3 has-text-success";
+        document.getElementById("predictionConfidence").textContent =
+            confidence.toFixed(1) + "%";
+
+        document.getElementById("metricAccuracy").textContent =
+            performance.accuracy.toFixed(2) + "%";
+        document.getElementById("metricSensitivity").textContent =
+            performance.sensitivity.toFixed(2) + "%";
+        document.getElementById("metricSpecificity").textContent =
+            performance.specificity.toFixed(2) + "%";
+        document.getElementById("metricF1").textContent =
+            performance.f1.toFixed(2) + "%";
+
+        // Auto-collapse log after completion
+        await randomDelay(0.5, 0.5);
+        logContent.style.display = "none";
+        document.getElementById("logToggleIcon").innerHTML =
+            '<i class="fas fa-chevron-down"></i>';
+
         // Show results
-        resultsDiv.style.display = 'block';
-        
-        // Remove loading state
-        btn.classList.remove('is-loading');
-        btn.disabled = false;
-        
+        resultsDiv.style.display = "block";
+
         // Scroll to results
-        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 1500);
+        resultsDiv.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    } catch (error) {
+        addLogEntry(`Error: ${error.message}`, "error");
+        alert(error.message);
+    } finally {
+        // Remove loading state
+        btn.classList.remove("is-loading");
+        btn.disabled = false;
+    }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     // Check for click events on the navbar burger icon
 
     var options = {
-		slidesToScroll: 1,
-		slidesToShow: 1,
-		loop: true,
-		infinite: true,
-		autoplay: true,
-		autoplaySpeed: 5000,
-    }
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 5000,
+    };
 
-	// Initialize all div with carousel class
-    var carousels = bulmaCarousel.attach('.carousel', options);
-	
+    // Initialize all div with carousel class
+    var carousels = bulmaCarousel.attach(".carousel", options);
+
     bulmaSlider.attach();
-    
+
     // Setup video autoplay for carousel
     setupVideoCarouselAutoplay();
-
-})
+});

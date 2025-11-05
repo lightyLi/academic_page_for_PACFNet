@@ -320,6 +320,26 @@
                 </div>
               </div>
 
+              <!-- Inference Log -->
+              <div id="inferenceLog" style="display: none; margin-top: 2rem;">
+                <div class="box" style="background: #f5f5f5; border-left: 4px solid #3273dc;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; cursor: pointer;" onclick="toggleInferenceLog()">
+                    <h5 class="title is-5" style="margin: 0;">
+                      <span class="icon has-text-info">
+                        <i class="fas fa-terminal"></i>
+                      </span>
+                      Inference Log
+                    </h5>
+                    <span class="icon" id="logToggleIcon">
+                      <i class="fas fa-chevron-up"></i>
+                    </span>
+                  </div>
+                  <div id="logContent" style="background: #2b2b2b; color: #00ff00; padding: 1rem; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.9rem; max-height: 300px; overflow-y: auto; line-height: 1.6;">
+                    <!-- Log entries will be added here -->
+                  </div>
+                </div>
+              </div>
+
               <!-- Inference Results -->
               <div id="inferenceResults" style="display: none; margin-top: 2rem;">
                 <div class="notification is-success is-light">
