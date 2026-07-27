@@ -15,9 +15,12 @@ let signalDurationData = { ecg: 0, pcg: 0 };
 
 // Constants
 const INITIAL_VIEW_SECONDS = 5;
+const MIN_VIEW_SECONDS = 0.2;
 const MAX_POINTS = 6000;
 const DEFAULT_ECG_SAMPLE_RATE = 2000;
 const DEFAULT_PCG_SAMPLE_RATE = 2000;
+const PAN_DEADZONE_PX = 4;
+const PAN_DAMPING = 0.65;
 
 // Register zoom/pan plugin if available
 if (typeof Chart !== "undefined" && Chart.register) {
@@ -384,16 +387,29 @@ function createCombinedChartConfig(
                     },
                 },
                 zoom: {
+                    limits: {
+                        x: {
+                            min: 0,
+                            max: totalDuration,
+                            minRange: Math.min(MIN_VIEW_SECONDS, totalDuration),
+                        },
+                    },
+                    pan: {
+                        // Custom pointer pan is used instead (hard clamp + no inertia).
+                        enabled: false,
+                    },
                     zoom: {
                         wheel: {
                             enabled: true,
+                            speed: 0.05,
                         },
                         pinch: {
                             enabled: true,
                         },
                         mode: "x",
-                        limits: {
-                            x: { min: 0, max: totalDuration },
+                        onZoomComplete({ chart }) {
+                            clampView(chart);
+                            updateViewRangeLabel(chart);
                         },
                     },
                 },
@@ -417,7 +433,7 @@ function createCombinedChartConfig(
                     },
                     ticks: {
                         callback: function (value) {
-                            return value.toFixed(1);
+                            return Number(value).toFixed(1);
                         },
                         font: {
                             size: 11,
@@ -645,6 +661,120 @@ function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
 }
 
+function computeClampedView(
+    min,
+    max,
+    totalDuration,
+    minSpan = MIN_VIEW_SECONDS
+) {
+    if (
+        typeof SignalViewMath !== "undefined" &&
+        SignalViewMath.computeClampedView
+    ) {
+        return SignalViewMath.computeClampedView(
+            min,
+            max,
+            totalDuration,
+            minSpan
+        );
+    }
+    // Fallback if math helper script failed to load.
+    const total = Math.max(0, Number(totalDuration) || 0);
+    if (total <= 0 || !Number.isFinite(total)) {
+        return { min: 0, max: 0 };
+    }
+    let lo = Number(min);
+    let hi = Number(max);
+    if (!Number.isFinite(lo) || !Number.isFinite(hi) || hi <= lo) {
+        return { min: 0, max: Math.min(INITIAL_VIEW_SECONDS, total) };
+    }
+    let span = hi - lo;
+    const minSpanClamped = Math.min(Math.max(minSpan, 1e-6), total);
+    if (span < minSpanClamped) span = minSpanClamped;
+    if (span > total) span = total;
+    lo = clamp(lo, 0, Math.max(0, total - span));
+    hi = lo + span;
+    if (hi > total) {
+        hi = total;
+        lo = Math.max(0, hi - span);
+    }
+    return { min: lo, max: hi };
+}
+
+function getChartTotalDuration(chart) {
+    if (!chart) return 0;
+    if (Number.isFinite(chart.$signalTotalDuration)) {
+        return chart.$signalTotalDuration;
+    }
+    const limitMax = chart.options?.plugins?.zoom?.limits?.x?.max;
+    if (Number.isFinite(limitMax)) {
+        return limitMax;
+    }
+    return Math.max(
+        Number(signalDurationData.ecg) || 0,
+        Number(signalDurationData.pcg) || 0
+    );
+}
+
+function getViewRange(chart) {
+    const scale = chart && chart.scales && chart.scales.x;
+    const total = getChartTotalDuration(chart);
+    if (!scale) {
+        return computeClampedView(0, INITIAL_VIEW_SECONDS, total);
+    }
+    const min = scale.options.min ?? scale.min ?? 0;
+    const max = scale.options.max ?? scale.max ?? total;
+    return computeClampedView(min, max, total);
+}
+
+function setViewRange(chart, min, max, options = {}) {
+    if (!chart || !chart.scales || !chart.scales.x) return null;
+    const total = getChartTotalDuration(chart);
+    const clamped = computeClampedView(min, max, total);
+    chart.scales.x.options.min = clamped.min;
+    chart.scales.x.options.max = clamped.max;
+    if (options.update !== false) {
+        chart.update("none");
+    }
+    updateViewRangeLabel(chart);
+    return clamped;
+}
+
+function clampView(chart) {
+    if (!chart) return null;
+    const current = getViewRange(chart);
+    return setViewRange(chart, current.min, current.max);
+}
+
+function resetView(chart) {
+    const target = chart || combinedChart;
+    if (!target) return null;
+    const total = getChartTotalDuration(target);
+    const span = Math.min(INITIAL_VIEW_SECONDS, total);
+    return setViewRange(target, 0, span);
+}
+
+function stepView(chart, direction) {
+    const target = chart || combinedChart;
+    if (!target) return null;
+    const view = getViewRange(target);
+    const span = view.max - view.min;
+    const delta = (direction < 0 ? -1 : 1) * span * 0.5;
+    return setViewRange(target, view.min + delta, view.max + delta);
+}
+
+function updateViewRangeLabel(chart) {
+    const label = document.getElementById("signalViewRangeLabel");
+    if (!label) return;
+    const target = chart || combinedChart;
+    if (!target) {
+        label.textContent = "";
+        return;
+    }
+    const view = getViewRange(target);
+    label.textContent = `${view.min.toFixed(1)}s – ${view.max.toFixed(1)}s`;
+}
+
 /**
  * Sync x-axis range between two charts
  */
@@ -655,8 +785,13 @@ function syncChartXAxis(sourceChart, targetChart) {
     const targetScale = targetChart.scales.x;
 
     if (sourceScale && targetScale) {
-        targetScale.options.min = sourceScale.options.min;
-        targetScale.options.max = sourceScale.options.max;
+        const clamped = computeClampedView(
+            sourceScale.options.min ?? sourceScale.min,
+            sourceScale.options.max ?? sourceScale.max,
+            getChartTotalDuration(sourceChart)
+        );
+        targetScale.options.min = clamped.min;
+        targetScale.options.max = clamped.max;
         targetChart.update("none");
     }
 }
@@ -665,15 +800,18 @@ function attachPanHandlers(chart, totalDuration) {
     if (!chart || !chart.canvas) return;
 
     const canvas = chart.canvas;
+    chart.$signalTotalDuration = totalDuration;
 
     if (chart._panHandlers) {
         canvas.removeEventListener("pointerdown", chart._panHandlers.down);
         window.removeEventListener("pointermove", chart._panHandlers.move);
         window.removeEventListener("pointerup", chart._panHandlers.up);
         window.removeEventListener("pointercancel", chart._panHandlers.up);
+        canvas.removeEventListener("dblclick", chart._panHandlers.dblclick);
     }
 
     let dragging = false;
+    let dragActive = false;
     let startX = 0;
     let startMin = 0;
     let startMax = 0;
@@ -687,17 +825,19 @@ function attachPanHandlers(chart, totalDuration) {
     };
 
     const onPointerDown = (event) => {
+        // Ignore non-primary buttons (e.g. right click).
+        if (typeof event.button === "number" && event.button !== 0) return;
         const scale = chart.scales.x;
         if (!scale) return;
 
+        const view = getViewRange(chart);
         dragging = true;
+        dragActive = false;
         startX = getClientX(event);
-        startMin = scale.min ?? scale.options.min ?? 0;
-        startMax = scale.max ?? scale.options.max ?? totalDuration;
+        startMin = view.min;
+        startMax = view.max;
         viewSpan = startMax - startMin;
-
         canvas.style.cursor = "grabbing";
-        event.preventDefault();
     };
 
     const onPointerMove = (event) => {
@@ -709,54 +849,86 @@ function attachPanHandlers(chart, totalDuration) {
         if (!chartArea) return;
 
         const currentX = getClientX(event);
-        const deltaPx = currentX - startX;
+        const rawDeltaPx = currentX - startX;
+        if (!dragActive && Math.abs(rawDeltaPx) < PAN_DEADZONE_PX) {
+            return;
+        }
+        dragActive = true;
+
         const width = chartArea.right - chartArea.left;
         if (width <= 0) return;
 
+        const deltaPx = rawDeltaPx * PAN_DAMPING;
         const valuePerPixel = viewSpan / width;
         const deltaValue = deltaPx * valuePerPixel;
 
-        let newMin = startMin - deltaValue;
-        let newMax = startMax - deltaValue;
+        setViewRange(chart, startMin - deltaValue, startMax - deltaValue);
 
-        if (viewSpan >= totalDuration) {
-            newMin = 0;
-            newMax = totalDuration;
-        } else {
-            newMin = clamp(newMin, 0, totalDuration - viewSpan);
-            newMax = newMin + viewSpan;
-        }
-
-        scale.options.min = newMin;
-        scale.options.max = newMax;
-        chart.update("none");
-
-        // Sync with the other chart
         if (chart === ecgChart && pcgChart) {
             syncChartXAxis(ecgChart, pcgChart);
         } else if (chart === pcgChart && ecgChart) {
             syncChartXAxis(pcgChart, ecgChart);
         }
+
+        event.preventDefault();
     };
 
     const onPointerUp = () => {
         if (!dragging) return;
         dragging = false;
-        canvas.style.cursor = "default";
+        dragActive = false;
+        clampView(chart);
+        canvas.style.cursor = "grab";
     };
 
-    canvas.addEventListener("pointerdown", onPointerDown, { passive: false });
+    const onDblClick = (event) => {
+        event.preventDefault();
+        resetView(chart);
+    };
+
+    canvas.addEventListener("pointerdown", onPointerDown, { passive: true });
     window.addEventListener("pointermove", onPointerMove, { passive: false });
     window.addEventListener("pointerup", onPointerUp);
     window.addEventListener("pointercancel", onPointerUp);
+    canvas.addEventListener("dblclick", onDblClick);
 
     chart._panHandlers = {
         down: onPointerDown,
         move: onPointerMove,
         up: onPointerUp,
+        dblclick: onDblClick,
     };
 
     canvas.style.cursor = "grab";
+    updateViewRangeLabel(chart);
+}
+
+function signalViewStepLeft() {
+    stepView(combinedChart, -1);
+}
+
+function signalViewStepRight() {
+    stepView(combinedChart, 1);
+}
+
+function signalViewReset() {
+    resetView(combinedChart);
+}
+
+if (typeof window !== "undefined") {
+    window.signalViewStepLeft = signalViewStepLeft;
+    window.signalViewStepRight = signalViewStepRight;
+    window.signalViewReset = signalViewReset;
+    window.SignalChartView = {
+        computeClampedView,
+        clampView,
+        resetView,
+        stepView,
+        getViewRange,
+        setViewRange,
+        INITIAL_VIEW_SECONDS,
+        MIN_VIEW_SECONDS,
+    };
 }
 
 /**

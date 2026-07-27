@@ -1000,6 +1000,82 @@ a:focus {
   transition: box-shadow 0.3s ease;
 }
 
+/* -------- Signal chart view controls -------- */
+.signal-chart-stage {
+  position: relative;
+}
+
+.signal-view-controls {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.4rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(6px);
+}
+
+.signal-view-range {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #667eea;
+  font-variant-numeric: tabular-nums;
+  margin-right: 0.15rem;
+  min-width: 5.5rem;
+  text-align: right;
+}
+
+.signal-view-btn {
+  appearance: none;
+  border: 1px solid rgba(102, 126, 234, 0.35);
+  background: #fff;
+  color: #4a4a4a;
+  border-radius: 7px;
+  min-width: 1.85rem;
+  height: 1.85rem;
+  padding: 0 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.signal-view-btn:hover {
+  background: #667eea;
+  border-color: #667eea;
+  color: #fff;
+}
+
+.signal-view-reset {
+  min-width: 3.1rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+  .signal-view-controls {
+    right: 6px;
+    bottom: 6px;
+    gap: 0.25rem;
+    padding: 0.25rem 0.3rem;
+  }
+
+  .signal-view-range {
+    display: none;
+  }
+
+  .signal-view-btn {
+    min-width: 2.1rem;
+    height: 2.1rem;
+  }
+}
+
 /* -------- Upload guide modal -------- */
 .upload-guide-card {
   max-width: 520px;
