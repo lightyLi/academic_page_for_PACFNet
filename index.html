@@ -489,6 +489,18 @@
       <button class="delete" aria-label="close" onclick="closeUploadGuide()"></button>
     </header>
     <section class="modal-card-body upload-guide-body">
+      <div id="uploadPreviousBlock" class="upload-previous-block" style="display: none;">
+        <p class="upload-previous-label">Previous upload in this browser</p>
+        <p id="uploadPreviousMeta" class="upload-previous-meta"></p>
+        <button type="button" class="button is-primary is-fullwidth" id="uploadPreviousBtn" onclick="loadPreviousUpload()">
+          <span class="icon">
+            <i class="fas fa-history"></i>
+          </span>
+          <span>Use Previous Upload</span>
+        </button>
+        <p class="upload-previous-or">or upload new files</p>
+      </div>
+
       <ol class="upload-guide-steps">
         <li>
           <strong>Select the folder</strong>
@@ -511,9 +523,9 @@
       <button class="button is-light" onclick="closeUploadGuide()">Cancel</button>
       <button class="button is-link" id="uploadGuideContinueBtn" onclick="confirmUploadGuide()">
         <span class="icon">
-          <i class="fas fa-arrow-right"></i>
+          <i class="fas fa-folder-open"></i>
         </span>
-        <span>Continue</span>
+        <span>Upload New Files</span>
       </button>
     </footer>
   </div>

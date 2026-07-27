@@ -260,35 +260,9 @@
     return first;
   }
 
-  async function pickWithFsAccess(prefs) {
-    // Resume previously authorized folder when possible.
-    if (prefs && prefs.directoryHandle) {
-      const allowed = await ensureDirectoryPermission(prefs.directoryHandle);
-      if (!allowed) {
-        throw UploadError("FOLDER_PERMISSION_DENIED");
-      }
-      try {
-        const fileName =
-          (prefs.fileNames && prefs.fileNames.find((n) => /\.wav$/i.test(n))) ||
-          (prefs.fileNames && prefs.fileNames[0]) ||
-          `${prefs.localStem}.wav`;
-        return await pairFromDirectoryHandle(prefs.directoryHandle, fileName);
-      } catch (err) {
-        if (err && err.reason === "PAIR_NOT_FOUND") {
-          const selectedName = await pickFileInDirectory(
-            prefs.directoryHandle,
-            null
-          );
-          return await pairFromDirectoryHandle(
-            prefs.directoryHandle,
-            selectedName
-          );
-        }
-        throw err;
-      }
-    }
-
-    // Step 1: directory picker greys out files on purpose — user must Select the folder.
+  async function pickWithFsAccess() {
+    // Always require an explicit new folder + file choice.
+    // Previous uploads are restored only via "Use Previous Upload" in the modal.
     setUploadUiState({
       busy: true,
       message:
@@ -301,23 +275,7 @@
       mode: "read",
     });
 
-    const preferred =
-      prefs && prefs.localStem ? `${prefs.localStem}.wav` : null;
-    let selectedName = null;
-    if (preferred) {
-      const names = await listDirectoryFileNames(dirHandle);
-      const hit = names.find(
-        (n) => n.toLowerCase() === preferred.toLowerCase()
-      );
-      if (hit) {
-        selectedName = hit;
-      }
-    }
-
-    if (!selectedName) {
-      selectedName = await pickFileInDirectory(dirHandle, preferred);
-    }
-
+    const selectedName = await pickFileInDirectory(dirHandle, null);
     return await pairFromDirectoryHandle(dirHandle, selectedName);
   }
 
@@ -516,15 +474,8 @@
       let pair;
       try {
         if (supportsFsAccess()) {
-          pair = await pickWithFsAccess(prefs);
+          pair = await pickWithFsAccess();
         } else {
-          if (prefs && prefs.mode === "fallback") {
-            setUploadUiState({
-              busy: true,
-              message: ERRORS.FALLBACK_RESELECT_REQUIRED,
-              error: "",
-            });
-          }
           pair = await pickWithFallback(prefs);
         }
       } catch (err) {
@@ -591,6 +542,8 @@
     startLocalSignalUpload,
     verifyLocalPair,
     getLocalSignalBlobs,
+    getPreviousUploadSummary,
+    loadPreviousUpload,
     purgeExpired,
     getPrefs,
     getSession,
@@ -600,11 +553,48 @@
     ERRORS,
   };
 
-  function showUploadGuide() {
-    const modal = document.getElementById("uploadGuideModal");
-    if (modal) {
-      modal.classList.add("is-active");
+  async function getPreviousUploadSummary() {
+    await purgeExpired();
+    const prefs = await getPrefs();
+    if (!prefs || !prefs.recordId) {
+      return null;
     }
+    const session = await getSession(prefs.recordId);
+    if (!session) {
+      return null;
+    }
+    const stem = session.localStem || session.id;
+    return {
+      id: session.id,
+      localStem: stem,
+      expiresAt: session.expiresAt,
+      label: `Local · ${hoursLeft(session.expiresAt)}h left · ${stem}.wav/.dat`,
+    };
+  }
+
+  async function showUploadGuide() {
+    const modal = document.getElementById("uploadGuideModal");
+    const prevBlock = document.getElementById("uploadPreviousBlock");
+    const prevMeta = document.getElementById("uploadPreviousMeta");
+    if (!modal) {
+      return;
+    }
+
+    try {
+      const previous = await getPreviousUploadSummary();
+      if (previous && prevBlock && prevMeta) {
+        prevMeta.textContent = previous.label;
+        prevBlock.style.display = "block";
+      } else if (prevBlock) {
+        prevBlock.style.display = "none";
+      }
+    } catch (err) {
+      if (prevBlock) {
+        prevBlock.style.display = "none";
+      }
+    }
+
+    modal.classList.add("is-active");
   }
 
   function closeUploadGuide() {
@@ -624,9 +614,49 @@
     }, 50);
   }
 
+  async function loadPreviousUpload() {
+    closeUploadGuide();
+    setUploadUiState({
+      busy: true,
+      message: "Loading previous upload…",
+      error: "",
+    });
+    try {
+      const previous = await getPreviousUploadSummary();
+      if (!previous) {
+        setUploadUiState({
+          busy: false,
+          message: "",
+          error: "Previous upload expired. Please upload new files.",
+        });
+        return null;
+      }
+      await applyVerifiedUpload({
+        id: previous.id,
+        localStem: previous.localStem,
+        expiresAt: previous.expiresAt,
+      });
+      setUploadUiState({
+        busy: false,
+        message: `Loaded previous upload: ${previous.id}`,
+        error: "",
+      });
+      return previous;
+    } catch (err) {
+      console.error("[upload]", err);
+      setUploadUiState({
+        busy: false,
+        message: "",
+        error: "Failed to load previous upload. Please upload new files.",
+      });
+      return null;
+    }
+  }
+
   global.showUploadGuide = showUploadGuide;
   global.closeUploadGuide = closeUploadGuide;
   global.confirmUploadGuide = confirmUploadGuide;
+  global.loadPreviousUpload = loadPreviousUpload;
   global.startLocalSignalUpload = function startLocalSignalUploadSafe() {
     return startLocalSignalUpload().catch((err) => {
       console.error("[upload]", err);
