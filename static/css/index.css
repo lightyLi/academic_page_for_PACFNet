@@ -1087,6 +1087,11 @@ a:focus {
   margin-top: 0.15rem;
 }
 
+.signal-note-status {
+  color: #4a4a4a;
+  font-weight: 500;
+}
+
 .signal-note-success {
   color: #257953;
   font-weight: 500;

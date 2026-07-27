@@ -210,19 +210,35 @@
     };
   }
 
+  function signalFilePickerTypes() {
+    // Keep filters broad: macOS often greys out .dat when MIME types are too strict.
+    return [
+      {
+        description: "ECG/PCG signals (.wav / .dat)",
+        accept: {
+          "audio/wav": [".wav"],
+          "audio/x-wav": [".wav"],
+          "audio/*": [".wav"],
+          "application/octet-stream": [".dat"],
+          "application/x-dat": [".dat"],
+          "text/plain": [".dat"],
+        },
+      },
+    ];
+  }
+
   async function pickFileInDirectory(dirHandle, preferredName) {
     if (typeof global.showOpenFilePicker === "function") {
+      setUploadUiState({
+        busy: true,
+        message:
+          "Step 2/2: Select one .wav or .dat file — the matching pair in this folder is detected automatically.",
+        error: "",
+      });
       const pickerOpts = {
         multiple: false,
-        types: [
-          {
-            description: "ECG/PCG signal files",
-            accept: {
-              "audio/wav": [".wav"],
-              "application/octet-stream": [".dat"],
-            },
-          },
-        ],
+        excludeAcceptAllOption: false,
+        types: signalFilePickerTypes(),
       };
       if (dirHandle) {
         pickerOpts.startIn = dirHandle;
@@ -245,7 +261,8 @@
   }
 
   async function pickWithFsAccess(prefs) {
-    if (prefs && prefs.mode === "fs-access" && prefs.directoryHandle) {
+    // Resume previously authorized folder when possible.
+    if (prefs && prefs.directoryHandle) {
       const allowed = await ensureDirectoryPermission(prefs.directoryHandle);
       if (!allowed) {
         throw UploadError("FOLDER_PERMISSION_DENIED");
@@ -270,6 +287,14 @@
         throw err;
       }
     }
+
+    // Step 1: directory picker greys out files on purpose — user must Select the folder.
+    setUploadUiState({
+      busy: true,
+      message:
+        "Step 1/2: Select the folder that contains your signals. Files are greyed out here — click Select on the folder.",
+      error: "",
+    });
 
     const dirHandle = await global.showDirectoryPicker({
       id: "pacfnet-signals",
@@ -300,12 +325,16 @@
     return new Promise((resolve, reject) => {
       const input = document.createElement("input");
       input.type = "file";
-      input.accept = ".wav,.dat,audio/wav";
+      // Direct file selection (not directory): choose both .wav and .dat together.
+      input.accept = ".wav,.dat,audio/wav,audio/x-wav";
       input.multiple = true;
-      // Prefer directory selection when supported so same-folder pairing works.
-      if ("webkitdirectory" in input) {
-        input.setAttribute("webkitdirectory", "");
-      }
+
+      setUploadUiState({
+        busy: true,
+        message:
+          "Select both paired files together (.wav and .dat with the same filename).",
+        error: "",
+      });
 
       input.onchange = () => {
         const files = Array.from(input.files || []);
@@ -379,6 +408,10 @@
     if (status) {
       status.textContent = message || "";
       status.style.display = message ? "block" : "none";
+      const isSuccess =
+        typeof message === "string" && /^Verified as\b/i.test(message);
+      status.classList.toggle("signal-note-success", isSuccess);
+      status.classList.toggle("signal-note-status", !isSuccess);
     }
     if (errEl) {
       errEl.textContent = error || "";
@@ -470,7 +503,9 @@
   async function startLocalSignalUpload() {
     setUploadUiState({
       busy: true,
-      message: "Select a local ECG/PCG pair…",
+      message: supportsFsAccess()
+        ? "Step 1/2: Select the folder that contains your signals. Files are greyed out here — click Select on the folder."
+        : "Select both paired files together (.wav and .dat with the same filename).",
       error: "",
     });
 
