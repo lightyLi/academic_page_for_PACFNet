@@ -600,6 +600,33 @@
     ERRORS,
   };
 
+  function showUploadGuide() {
+    const modal = document.getElementById("uploadGuideModal");
+    if (modal) {
+      modal.classList.add("is-active");
+    }
+  }
+
+  function closeUploadGuide() {
+    const modal = document.getElementById("uploadGuideModal");
+    if (modal) {
+      modal.classList.remove("is-active");
+    }
+  }
+
+  function confirmUploadGuide() {
+    closeUploadGuide();
+    // Defer so the modal closes before the native picker opens.
+    setTimeout(() => {
+      startLocalSignalUpload().catch((err) => {
+        console.error("[upload]", err);
+      });
+    }, 50);
+  }
+
+  global.showUploadGuide = showUploadGuide;
+  global.closeUploadGuide = closeUploadGuide;
+  global.confirmUploadGuide = confirmUploadGuide;
   global.startLocalSignalUpload = function startLocalSignalUploadSafe() {
     return startLocalSignalUpload().catch((err) => {
       console.error("[upload]", err);

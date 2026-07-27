@@ -1000,6 +1000,99 @@ a:focus {
   transition: box-shadow 0.3s ease;
 }
 
+/* -------- Upload guide modal -------- */
+.upload-guide-card {
+  max-width: 520px;
+  width: min(92vw, 520px);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(102, 126, 234, 0.28);
+}
+
+.upload-guide-head {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-bottom: none;
+}
+
+.upload-guide-head .modal-card-title {
+  color: #fff;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.upload-guide-head .delete {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.upload-guide-head .delete::before,
+.upload-guide-head .delete::after {
+  background-color: #fff;
+}
+
+.upload-guide-body {
+  padding: 1.5rem 1.5rem 1rem;
+}
+
+.upload-guide-steps {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #4a4a4a;
+}
+
+.upload-guide-steps li {
+  margin-bottom: 0.9rem;
+  line-height: 1.45;
+}
+
+.upload-guide-steps li strong {
+  display: block;
+  color: #363636;
+  margin-bottom: 0.2rem;
+}
+
+.upload-guide-steps li span {
+  display: block;
+  color: #6b6b6b;
+  font-size: 0.92rem;
+}
+
+.upload-guide-tip {
+  margin: 0.25rem 0 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 10px;
+  background: #f3f0ff;
+  color: #5b4b8a;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.upload-guide-tip code {
+  background: rgba(118, 75, 162, 0.12);
+  color: #5b4b8a;
+  padding: 0.05rem 0.3rem;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.upload-guide-foot {
+  justify-content: flex-end;
+  gap: 0.5rem;
+  border-top: 1px solid #eee;
+  background: #fafafa;
+}
+
+.upload-guide-foot .button.is-link {
+  background-color: #667eea;
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.upload-guide-foot .button.is-link:hover {
+  background-color: #5a6fd6;
+}
+
 /* -------- Signal select panel (centered + responsive) -------- */
 .signal-select-panel {
   margin-bottom: 2rem;

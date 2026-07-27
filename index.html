@@ -263,7 +263,7 @@
                 </span>
                 <span>Browse Signal Files</span>
               </button>
-              <button id="uploadLocalSignalsBtn" class="button is-link is-medium signal-action-btn" onclick="startLocalSignalUpload()">
+              <button id="uploadLocalSignalsBtn" class="button is-link is-medium signal-action-btn" onclick="showUploadGuide()">
                 <span class="icon">
                   <i class="fas fa-upload"></i>
                 </span>
@@ -292,12 +292,7 @@
                 <span class="icon is-small">
                   <i class="fas fa-info-circle"></i>
                 </span>
-                <span>Choose a signal sample from the PhysioNet 2016 dataset (388 available).</span>
-              </p>
-              <p class="signal-note">
-                <span>Or upload a local ECG (.dat) + PCG (.wav) pair with matching filenames.</span>
-                <span class="signal-note-break">In Chrome/Edge: first select the folder (files look disabled — that is normal), then pick one .wav/.dat file.</span>
-                <span class="signal-note-break">Content is verified by hash against hosted training-a files (cached in this browser for 24 hours).</span>
+                <span>Browse 388 hosted samples, or upload a matching local .dat + .wav pair.</span>
               </p>
               <p id="uploadStatusMessage" class="signal-note signal-note-status" style="display: none;"></p>
               <p id="uploadErrorMessage" class="signal-note signal-note-error" style="display: none;"></p>
@@ -477,6 +472,50 @@
         <!-- Signal list will be populated by JavaScript -->
       </div>
     </section>
+  </div>
+</div>
+
+<!-- Upload Guide Modal -->
+<div id="uploadGuideModal" class="modal">
+  <div class="modal-background" onclick="closeUploadGuide()"></div>
+  <div class="modal-card upload-guide-card">
+    <header class="modal-card-head upload-guide-head">
+      <p class="modal-card-title">
+        <span class="icon">
+          <i class="fas fa-upload"></i>
+        </span>
+        <span>Upload Local Signals</span>
+      </p>
+      <button class="delete" aria-label="close" onclick="closeUploadGuide()"></button>
+    </header>
+    <section class="modal-card-body upload-guide-body">
+      <ol class="upload-guide-steps">
+        <li>
+          <strong>Select the folder</strong>
+          <span>Files may look disabled — that is normal. Click <em>Select</em> on the folder.</span>
+        </li>
+        <li>
+          <strong>Pick one .wav or .dat file</strong>
+          <span>The matching pair with the same filename is found automatically.</span>
+        </li>
+        <li>
+          <strong>Wait for verification</strong>
+          <span>Content is hash-checked against hosted training-a samples (cached 24 hours).</span>
+        </li>
+      </ol>
+      <p class="upload-guide-tip">
+        Tip: ECG = <code>.dat</code>, PCG = <code>.wav</code>, same basename (e.g. <code>a0407.dat</code> + <code>a0407.wav</code>).
+      </p>
+    </section>
+    <footer class="modal-card-foot upload-guide-foot">
+      <button class="button is-light" onclick="closeUploadGuide()">Cancel</button>
+      <button class="button is-link" id="uploadGuideContinueBtn" onclick="confirmUploadGuide()">
+        <span class="icon">
+          <i class="fas fa-arrow-right"></i>
+        </span>
+        <span>Continue</span>
+      </button>
+    </footer>
   </div>
 </div>
 <!-- End Model Inference Demo -->
