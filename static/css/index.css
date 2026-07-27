@@ -1006,19 +1006,21 @@ a:focus {
 }
 
 .signal-view-controls {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  z-index: 5;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.35rem;
-  padding: 0.3rem 0.4rem;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(6px);
+  width: fit-content;
+  margin-left: auto;
+  /* Sit under the plot and flush to the card's bottom-right edge. */
+  margin-top: 0.1rem;
+  margin-right: -1.5rem;
+  margin-bottom: -0.5rem;
+  padding: 0.2rem 0.35rem 0.35rem 0.35rem;
+  border-radius: 8px 0 0 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .signal-view-range {
@@ -1060,10 +1062,9 @@ a:focus {
 
 @media screen and (max-width: 768px) {
   .signal-view-controls {
-    right: 6px;
-    bottom: 6px;
     gap: 0.25rem;
-    padding: 0.25rem 0.3rem;
+    padding: 0.2rem 0;
+    margin-top: 0.1rem;
   }
 
   .signal-view-range {
