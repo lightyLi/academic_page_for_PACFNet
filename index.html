@@ -248,59 +248,60 @@
         
         <div class="box" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.1);">
           <!-- Signal Selection -->
-          <div class="field" style="margin-bottom: 2rem;">
-            <label class="label" style="font-size: 1.1rem; font-weight: 600; color: #363636; margin-bottom: 1rem;">
+          <div class="signal-select-panel field">
+            <label class="label signal-select-title">
               <span class="icon has-text-primary">
                 <i class="fas fa-heartbeat"></i>
               </span>
               Select Signal Sample
             </label>
-            <div class="field is-grouped is-grouped-multiline">
-              <div class="control">
-                <button class="button is-primary is-medium" onclick="showSignalSelector()" style="border-radius: 8px; font-weight: 500; padding: 0.75rem 1.5rem;">
-                  <span class="icon">
-                    <i class="fas fa-folder-open"></i>
-                  </span>
-                  <span>Browse Signal Files</span>
-                </button>
-              </div>
-              <div class="control">
-                <button id="uploadLocalSignalsBtn" class="button is-link is-medium" onclick="startLocalSignalUpload()" style="border-radius: 8px; font-weight: 500; padding: 0.75rem 1.5rem;">
-                  <span class="icon">
-                    <i class="fas fa-upload"></i>
-                  </span>
-                  <span>Upload Local Signals</span>
-                </button>
-              </div>
-              <div class="control" id="selectedSignalContainer" style="display: none;">
-                <div class="tags has-addons">
-                  <span class="tag is-medium is-info" style="border-radius: 8px 0 0 8px; font-weight: 500;">
+
+            <div class="signal-select-actions">
+              <button class="button is-primary is-medium signal-action-btn" onclick="showSignalSelector()">
+                <span class="icon">
+                  <i class="fas fa-folder-open"></i>
+                </span>
+                <span>Browse Signal Files</span>
+              </button>
+              <button id="uploadLocalSignalsBtn" class="button is-link is-medium signal-action-btn" onclick="startLocalSignalUpload()">
+                <span class="icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span>Upload Local Signals</span>
+              </button>
+              <div class="signal-select-status" id="selectedSignalContainer" style="display: none;">
+                <div class="tags has-addons is-centered">
+                  <span class="tag is-medium is-info signal-selected-label">
                     <span class="icon">
                       <i class="fas fa-check-circle"></i>
                     </span>
                     <span>Selected:</span>
                   </span>
-                  <span id="selectedSignalName" class="tag is-medium is-light" style="border-radius: 0 8px 8px 0; font-family: monospace; font-weight: 600;"></span>
+                  <span id="selectedSignalName" class="tag is-medium is-light signal-selected-name"></span>
                 </div>
               </div>
-              <div class="control" id="uploadSpinner" style="display: none; align-items: center;">
+              <div class="signal-upload-spinner" id="uploadSpinner" style="display: none;">
                 <span class="icon has-text-link">
                   <i class="fas fa-spinner fa-spin"></i>
                 </span>
               </div>
             </div>
-            <p class="help" style="margin-top: 0.5rem; color: #7a7a7a;">
-              <span class="icon is-small">
-                <i class="fas fa-info-circle"></i>
-              </span>
-              Choose a signal sample from the PhysioNet 2016 dataset (388 available)
-            </p>
-            <p class="help" style="margin-top: 0.25rem; color: #7a7a7a;">
-              Or upload a local ECG (.dat) + PCG (.wav) pair with matching filenames; content is verified by hash against hosted training-a files (cached in this browser for 24 hours).
-            </p>
-            <p id="uploadStatusMessage" class="help has-text-success" style="display: none; margin-top: 0.35rem;"></p>
-            <p id="uploadErrorMessage" class="help has-text-danger" style="display: none; margin-top: 0.35rem;"></p>
-            <span id="selectedLocalMeta" class="tag is-warning is-light" style="display: none; margin-top: 0.5rem; border-radius: 6px;"></span>
+
+            <div class="signal-select-notes">
+              <p class="signal-note">
+                <span class="icon is-small">
+                  <i class="fas fa-info-circle"></i>
+                </span>
+                <span>Choose a signal sample from the PhysioNet 2016 dataset (388 available).</span>
+              </p>
+              <p class="signal-note">
+                <span>Or upload a local ECG (.dat) + PCG (.wav) pair with matching filenames.</span>
+                <span class="signal-note-break">Content is verified by hash against hosted training-a files (cached in this browser for 24 hours).</span>
+              </p>
+              <p id="uploadStatusMessage" class="signal-note signal-note-success" style="display: none;"></p>
+              <p id="uploadErrorMessage" class="signal-note signal-note-error" style="display: none;"></p>
+              <span id="selectedLocalMeta" class="tag is-warning is-light signal-local-meta" style="display: none;"></span>
+            </div>
           </div>
 
           <!-- Signal Visualization Area -->

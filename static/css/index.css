@@ -1000,5 +1000,144 @@ a:focus {
   transition: box-shadow 0.3s ease;
 }
 
+/* -------- Signal select panel (centered + responsive) -------- */
+.signal-select-panel {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.signal-select-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #363636;
+  margin-bottom: 1.1rem !important;
+}
+
+.signal-select-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.signal-action-btn {
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  padding: 0.75rem 1.5rem !important;
+  min-height: 2.75rem;
+}
+
+.signal-select-status {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.signal-selected-label {
+  border-radius: 8px 0 0 8px !important;
+  font-weight: 500;
+}
+
+.signal-selected-name {
+  border-radius: 0 8px 8px 0 !important;
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.signal-upload-spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signal-select-notes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 auto;
+  max-width: 40rem;
+  padding: 0 0.75rem;
+}
+
+.signal-note {
+  margin: 0;
+  color: #7a7a7a;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  text-align: center;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.signal-note .icon {
+  vertical-align: middle;
+  margin-right: 0.2rem;
+}
+
+.signal-note-break {
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.signal-note-success {
+  color: #257953;
+  font-weight: 500;
+}
+
+.signal-note-error {
+  color: #cc0f35;
+  font-weight: 500;
+}
+
+.signal-local-meta {
+  margin-top: 0.25rem;
+  border-radius: 6px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .signal-select-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .signal-action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .signal-select-notes {
+    max-width: 100%;
+    padding: 0 0.25rem;
+  }
+
+  .signal-note {
+    font-size: 0.85rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .signal-select-title {
+    font-size: 1rem;
+  }
+
+  .signal-action-btn {
+    padding: 0.7rem 1rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  .signal-note {
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+}
 
 
