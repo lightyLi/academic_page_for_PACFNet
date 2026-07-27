@@ -7,6 +7,22 @@
 (function (global) {
   "use strict";
 
+  const helpers = global.PACFNetUploadHelpers;
+  if (!helpers) {
+    console.error(
+      "[upload] PACFNetUploadHelpers missing; load upload_helpers.js first"
+    );
+    return;
+  }
+
+  const {
+    ERRORS,
+    parseSignalName,
+    pairFilesByStem,
+    resolvePeerFileName,
+    hoursLeft,
+  } = helpers;
+
   const DB_NAME = "pacfnet_upload_v1";
   const DB_VERSION = 1;
   const SESSION_STORE = "sessions";
@@ -14,25 +30,6 @@
   const PREFS_KEY = "last";
   const TTL_MS = 24 * 60 * 60 * 1000;
   const VERIFY_TIMEOUT_MS = 5000;
-
-  const ERRORS = {
-    INVALID_EXTENSION:
-      "Please select a .wav (PCG) or .dat (ECG) file",
-    PAIR_NOT_FOUND:
-      "Paired ECG/PCG not found: expected the same filename with the other extension in this folder",
-    NOT_IN_DATASET:
-      "These files do not match any hosted PhysioNet 2016 training-a sample",
-    HASH_MISMATCH:
-      "ECG and PCG do not match the same hosted record (or content was modified)",
-    VERIFY_TIMEOUT: "Verification timed out (>5s)",
-    FOLDER_PERMISSION_DENIED:
-      "Folder access denied; please select the folder again",
-    FOLDER_UNAVAILABLE: "Previously selected folder is unavailable",
-    FALLBACK_RESELECT_REQUIRED:
-      "Please reselect the paired .wav and .dat files",
-    SERVER_ERROR: "Verification service unavailable",
-    CANCELLED: "Upload cancelled",
-  };
 
   function UploadError(reason, message) {
     const err = new Error(message || ERRORS[reason] || reason);
@@ -43,22 +40,6 @@
 
   function supportsFsAccess() {
     return typeof global.showDirectoryPicker === "function";
-  }
-
-  function parseSignalName(fileName) {
-    const match = /^(.+)\.(wav|dat)$/i.exec(fileName || "");
-    if (!match) {
-      return null;
-    }
-    return {
-      stem: match[1],
-      ext: match[2].toLowerCase(),
-      fileName: fileName,
-    };
-  }
-
-  function otherExt(ext) {
-    return ext === "wav" ? "dat" : "wav";
   }
 
   async function sha256Hex(blob) {
@@ -86,72 +67,84 @@
     });
   }
 
-  function idbRequest(request) {
-    return new Promise((resolve, reject) => {
-      request.onsuccess = () => resolve(request.result);
-      request.onerror = () => reject(request.error);
-    });
-  }
-
-  async function withStore(storeName, mode, fn) {
-    const db = await openDb();
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction(storeName, mode);
-      const store = tx.objectStore(storeName);
-      Promise.resolve(fn(store))
-        .then((result) => {
-          tx.oncomplete = () => resolve(result);
-          tx.onerror = () => reject(tx.error);
-        })
-        .catch(reject);
-    });
-  }
-
   async function purgeExpired() {
     const now = Date.now();
-    await withStore(SESSION_STORE, "readwrite", async (store) => {
-      const all = await idbRequest(store.getAll());
-      await Promise.all(
-        (all || [])
-          .filter((session) => !session.expiresAt || session.expiresAt <= now)
-          .map((session) => idbRequest(store.delete(session.id)))
-      );
+    const db = await openDb();
+    const rows = await new Promise((resolve, reject) => {
+      const tx = db.transaction(SESSION_STORE, "readonly");
+      const req = tx.objectStore(SESSION_STORE).getAll();
+      req.onsuccess = () => resolve(req.result || []);
+      req.onerror = () => reject(req.error);
+    });
+
+    const expired = rows.filter(
+      (session) => !session.expiresAt || session.expiresAt <= now
+    );
+    if (!expired.length) {
+      return;
+    }
+
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(SESSION_STORE, "readwrite");
+      const store = tx.objectStore(SESSION_STORE);
+      expired.forEach((session) => store.delete(session.id));
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
     });
   }
 
   async function saveSession(session) {
-    await withStore(SESSION_STORE, "readwrite", (store) =>
-      idbRequest(store.put(session))
-    );
+    const db = await openDb();
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(SESSION_STORE, "readwrite");
+      tx.objectStore(SESSION_STORE).put(session);
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
   }
 
   async function getSession(id) {
     await purgeExpired();
-    const session = await withStore(SESSION_STORE, "readonly", (store) =>
-      idbRequest(store.get(id))
-    );
+    const db = await openDb();
+    const session = await new Promise((resolve, reject) => {
+      const tx = db.transaction(SESSION_STORE, "readonly");
+      const req = tx.objectStore(SESSION_STORE).get(id);
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => reject(req.error);
+    });
     if (!session) {
       return null;
     }
     if (session.expiresAt <= Date.now()) {
-      await withStore(SESSION_STORE, "readwrite", (store) =>
-        idbRequest(store.delete(id))
-      );
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction(SESSION_STORE, "readwrite");
+        tx.objectStore(SESSION_STORE).delete(id);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
       return null;
     }
     return session;
   }
 
   async function savePrefs(prefs) {
-    await withStore(PREFS_STORE, "readwrite", (store) =>
-      idbRequest(store.put({ key: PREFS_KEY, ...prefs }))
-    );
+    const db = await openDb();
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(PREFS_STORE, "readwrite");
+      tx.objectStore(PREFS_STORE).put({ key: PREFS_KEY, ...prefs });
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error);
+    });
   }
 
   async function getPrefs() {
-    const row = await withStore(PREFS_STORE, "readonly", (store) =>
-      idbRequest(store.get(PREFS_KEY))
-    );
+    const db = await openDb();
+    const row = await new Promise((resolve, reject) => {
+      const tx = db.transaction(PREFS_STORE, "readonly");
+      const req = tx.objectStore(PREFS_STORE).get(PREFS_KEY);
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => reject(req.error);
+    });
     if (!row) {
       return null;
     }
@@ -173,29 +166,41 @@
     return false;
   }
 
+  async function listDirectoryFileNames(dirHandle) {
+    const names = [];
+    for await (const entry of dirHandle.values()) {
+      if (entry.kind === "file") {
+        names.push(entry.name);
+      }
+    }
+    return names;
+  }
+
   async function pairFromDirectoryHandle(dirHandle, selectedName) {
-    const parsed = parseSignalName(selectedName);
-    if (!parsed) {
-      throw UploadError("INVALID_EXTENSION");
+    const names = await listDirectoryFileNames(dirHandle);
+    const resolved = resolvePeerFileName(names, selectedName);
+    if (!resolved.ok) {
+      throw UploadError(resolved.reason);
     }
 
-    const peerName = `${parsed.stem}.${otherExt(parsed.ext)}`;
     let selectedHandle;
     let peerHandle;
     try {
-      selectedHandle = await dirHandle.getFileHandle(selectedName);
-      peerHandle = await dirHandle.getFileHandle(peerName);
+      selectedHandle = await dirHandle.getFileHandle(resolved.selectedName);
+      peerHandle = await dirHandle.getFileHandle(resolved.peerName);
     } catch (err) {
       throw UploadError("PAIR_NOT_FOUND");
     }
 
     const selectedFile = await selectedHandle.getFile();
     const peerFile = await peerHandle.getFile();
-    const wavFile = parsed.ext === "wav" ? selectedFile : peerFile;
-    const datFile = parsed.ext === "dat" ? selectedFile : peerFile;
+    const wavFile =
+      resolved.selectedExt === "wav" ? selectedFile : peerFile;
+    const datFile =
+      resolved.selectedExt === "dat" ? selectedFile : peerFile;
 
     return {
-      localStem: parsed.stem,
+      localStem: resolved.localStem,
       wavFile,
       datFile,
       wavName: wavFile.name,
@@ -219,7 +224,6 @@
           },
         ],
       };
-      // Chromium can open the file picker rooted at the authorized directory.
       if (dirHandle) {
         pickerOpts.startIn = dirHandle;
       }
@@ -232,17 +236,15 @@
       return preferredName;
     }
 
-    for await (const entry of dirHandle.values()) {
-      if (entry.kind === "file" && parseSignalName(entry.name)) {
-        return entry.name;
-      }
+    const names = await listDirectoryFileNames(dirHandle);
+    const first = names.find((n) => parseSignalName(n));
+    if (!first) {
+      throw UploadError("PAIR_NOT_FOUND");
     }
-
-    throw UploadError("PAIR_NOT_FOUND");
+    return first;
   }
 
   async function pickWithFsAccess(prefs) {
-    // Resume last authorized folder and file pair when possible.
     if (prefs && prefs.mode === "fs-access" && prefs.directoryHandle) {
       const allowed = await ensureDirectoryPermission(prefs.directoryHandle);
       if (!allowed) {
@@ -256,7 +258,6 @@
         return await pairFromDirectoryHandle(prefs.directoryHandle, fileName);
       } catch (err) {
         if (err && err.reason === "PAIR_NOT_FOUND") {
-          // Folder still open, but previous files missing: ask user to pick again.
           const selectedName = await pickFileInDirectory(
             prefs.directoryHandle,
             null
@@ -270,7 +271,6 @@
       }
     }
 
-    // First-time / new folder: authorize a directory, then pick one signal file.
     const dirHandle = await global.showDirectoryPicker({
       id: "pacfnet-signals",
       mode: "read",
@@ -278,14 +278,15 @@
 
     const preferred =
       prefs && prefs.localStem ? `${prefs.localStem}.wav` : null;
-    let selectedName;
-    try {
-      if (preferred) {
-        await dirHandle.getFileHandle(preferred);
-        selectedName = preferred;
+    let selectedName = null;
+    if (preferred) {
+      const names = await listDirectoryFileNames(dirHandle);
+      const hit = names.find(
+        (n) => n.toLowerCase() === preferred.toLowerCase()
+      );
+      if (hit) {
+        selectedName = hit;
       }
-    } catch (err) {
-      selectedName = null;
     }
 
     if (!selectedName) {
@@ -301,67 +302,24 @@
       input.type = "file";
       input.accept = ".wav,.dat,audio/wav";
       input.multiple = true;
-      // Hint previous names where the OS allows it (not guaranteed).
-      if (prefs && prefs.fileNames && prefs.fileNames.length) {
-        input.setAttribute("data-last-files", prefs.fileNames.join(","));
+      // Prefer directory selection when supported so same-folder pairing works.
+      if ("webkitdirectory" in input) {
+        input.setAttribute("webkitdirectory", "");
       }
 
       input.onchange = () => {
         const files = Array.from(input.files || []);
-        if (!files.length) {
-          reject(UploadError("CANCELLED"));
+        const paired = pairFilesByStem(files, prefs);
+        if (!paired.ok) {
+          reject(UploadError(paired.reason));
           return;
         }
-
-        if (files.length === 1) {
-          const parsed = parseSignalName(files[0].name);
-          if (!parsed) {
-            reject(UploadError("INVALID_EXTENSION"));
-            return;
-          }
-          reject(UploadError("PAIR_NOT_FOUND"));
-          return;
-        }
-
-        const byStem = new Map();
-        for (const file of files) {
-          const parsed = parseSignalName(file.name);
-          if (!parsed) {
-            continue;
-          }
-          if (!byStem.has(parsed.stem)) {
-            byStem.set(parsed.stem, {});
-          }
-          byStem.get(parsed.stem)[parsed.ext] = file;
-        }
-
-        let chosen = null;
-        if (prefs && prefs.localStem && byStem.has(prefs.localStem)) {
-          const pair = byStem.get(prefs.localStem);
-          if (pair.wav && pair.dat) {
-            chosen = { stem: prefs.localStem, pair };
-          }
-        }
-        if (!chosen) {
-          for (const [stem, pair] of byStem.entries()) {
-            if (pair.wav && pair.dat) {
-              chosen = { stem, pair };
-              break;
-            }
-          }
-        }
-
-        if (!chosen) {
-          reject(UploadError("PAIR_NOT_FOUND"));
-          return;
-        }
-
         resolve({
-          localStem: chosen.stem,
-          wavFile: chosen.pair.wav,
-          datFile: chosen.pair.dat,
-          wavName: chosen.pair.wav.name,
-          datName: chosen.pair.dat.name,
+          localStem: paired.localStem,
+          wavFile: paired.wavFile,
+          datFile: paired.datFile,
+          wavName: paired.wavName,
+          datName: paired.datName,
           directoryHandle: null,
           mode: "fallback",
         });
@@ -373,21 +331,25 @@
   }
 
   async function verifyWithServer(wavHash, datHash, signal) {
-    const response = await fetch("/api/verify-signal", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ wavHash, datHash }),
-      signal,
-    });
+    let response;
+    try {
+      response = await fetch("/api/verify-signal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ wavHash, datHash }),
+        signal,
+      });
+    } catch (err) {
+      if (err && (err.name === "AbortError" || signal?.aborted)) {
+        throw UploadError("VERIFY_TIMEOUT");
+      }
+      throw UploadError("SERVER_ERROR");
+    }
 
     let payload;
     try {
       payload = await response.json();
     } catch (err) {
-      throw UploadError("SERVER_ERROR");
-    }
-
-    if (!response.ok && !payload) {
       throw UploadError("SERVER_ERROR");
     }
 
@@ -432,6 +394,12 @@
         expiresAt: result.expiresAt,
       });
     }
+
+    const localMeta = document.getElementById("selectedLocalMeta");
+    if (localMeta) {
+      localMeta.style.display = "inline-flex";
+      localMeta.textContent = `Local · ${hoursLeft(result.expiresAt)}h left · ${result.localStem}.wav/.dat`;
+    }
   }
 
   async function runUploadPipeline(pair, abortSignal) {
@@ -472,6 +440,31 @@
       localStem: pair.localStem,
       expiresAt: session.expiresAt,
     };
+  }
+
+  /**
+   * Test/helper entry: verify an already-paired File/Blob pair without pickers.
+   */
+  async function verifyLocalPair(pair, options = {}) {
+    const timeoutMs = options.timeoutMs || VERIFY_TIMEOUT_MS;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      return await runUploadPipeline(
+        {
+          localStem: pair.localStem,
+          wavFile: pair.wavFile,
+          datFile: pair.datFile,
+          wavName: pair.wavName || `${pair.localStem}.wav`,
+          datName: pair.datName || `${pair.localStem}.dat`,
+          directoryHandle: pair.directoryHandle || null,
+          mode: pair.mode || "programmatic",
+        },
+        controller.signal
+      );
+    } finally {
+      clearTimeout(timer);
+    }
   }
 
   async function startLocalSignalUpload() {
@@ -518,29 +511,15 @@
         error: "",
       });
 
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), VERIFY_TIMEOUT_MS);
+      const result = await verifyLocalPair(pair);
 
-      try {
-        const result = await Promise.race([
-          runUploadPipeline(pair, controller.signal),
-          new Promise((_, reject) => {
-            controller.signal.addEventListener("abort", () => {
-              reject(UploadError("VERIFY_TIMEOUT"));
-            });
-          }),
-        ]);
-
-        setUploadUiState({
-          busy: false,
-          message: `Verified as ${result.id}`,
-          error: "",
-        });
-        await applyVerifiedUpload(result);
-        return result;
-      } finally {
-        clearTimeout(timer);
-      }
+      setUploadUiState({
+        busy: false,
+        message: `Verified as ${result.id}`,
+        error: "",
+      });
+      await applyVerifiedUpload(result);
+      return result;
     } catch (err) {
       const reason = (err && err.reason) || "SERVER_ERROR";
       const message =
@@ -555,7 +534,7 @@
       if (reason !== "CANCELLED") {
         console.error("[upload]", err);
       }
-      throw err;
+      return null;
     }
   }
 
@@ -573,22 +552,28 @@
     };
   }
 
-  // Public API
   global.PACFNetUpload = {
     startLocalSignalUpload,
+    verifyLocalPair,
     getLocalSignalBlobs,
     purgeExpired,
     getPrefs,
     getSession,
     supportsFsAccess,
+    pairFilesByStem,
+    parseSignalName,
     ERRORS,
   };
 
-  // Convenience for inline onclick handlers
-  global.startLocalSignalUpload = startLocalSignalUpload;
+  global.startLocalSignalUpload = function startLocalSignalUploadSafe() {
+    return startLocalSignalUpload().catch((err) => {
+      console.error("[upload]", err);
+      return null;
+    });
+  };
   global.getLocalSignalBlobs = getLocalSignalBlobs;
+  global.verifyLocalPair = verifyLocalPair;
 
-  // Cleanup expired sessions on load
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       purgeExpired().catch(() => {});
