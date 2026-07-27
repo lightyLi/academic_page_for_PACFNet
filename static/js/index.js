@@ -640,7 +640,7 @@ function filterSignals() {
 }
 
 // Select a signal
-function selectSignal(signalName) {
+function selectSignal(signalName, options = {}) {
     currentSignal = signalName;
 
     // Update UI
@@ -654,11 +654,29 @@ function selectSignal(signalName) {
         selectedContainer.style.display = "block";
     }
 
+    const localMeta = document.getElementById("selectedLocalMeta");
+    if (localMeta) {
+        if (options && options.localUpload) {
+            const hours = options.expiresAt
+                ? Math.max(
+                      1,
+                      Math.ceil((options.expiresAt - Date.now()) / 3600000)
+                  )
+                : 24;
+            const stem = options.localStem || signalName;
+            localMeta.style.display = "inline-flex";
+            localMeta.textContent = `Local · ${hours}h left · ${stem}.wav/.dat`;
+        } else {
+            localMeta.style.display = "none";
+            localMeta.textContent = "";
+        }
+    }
+
     // Show visualization area
     const vizArea = document.getElementById("signalVisualization");
     if (vizArea) {
         vizArea.style.display = "block";
-        // 强制触发一次 resize，避免图表在容器刚显示时宽度计算不正确
+        // Force a resize so charts compute width after the container becomes visible
         setTimeout(() => window.dispatchEvent(new Event("resize")), 50);
     }
 
@@ -678,7 +696,6 @@ function selectSignal(signalName) {
     // Scroll to visualization
     if (vizArea) {
         vizArea.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        // 再触发几次延迟 resize，确保图表在数据加载后也能匹配 70vw 宽度
         setTimeout(() => window.dispatchEvent(new Event("resize")), 200);
         setTimeout(() => window.dispatchEvent(new Event("resize")), 600);
     }

@@ -73,6 +73,7 @@
   <script defer src="static/js/bulma-carousel.min.js"></script>
   <script defer src="static/js/bulma-slider.min.js"></script>
   <script defer src="static/js/signal_charts.js"></script>
+  <script defer src="static/js/upload_signals.js"></script>
   <script defer src="static/js/index.js"></script>
   
   <!-- Structured Data for Academic Papers -->
@@ -262,6 +263,14 @@
                   <span>Browse Signal Files</span>
                 </button>
               </div>
+              <div class="control">
+                <button id="uploadLocalSignalsBtn" class="button is-link is-medium" onclick="startLocalSignalUpload()" style="border-radius: 8px; font-weight: 500; padding: 0.75rem 1.5rem;">
+                  <span class="icon">
+                    <i class="fas fa-upload"></i>
+                  </span>
+                  <span>Upload Local Signals</span>
+                </button>
+              </div>
               <div class="control" id="selectedSignalContainer" style="display: none;">
                 <div class="tags has-addons">
                   <span class="tag is-medium is-info" style="border-radius: 8px 0 0 8px; font-weight: 500;">
@@ -273,6 +282,11 @@
                   <span id="selectedSignalName" class="tag is-medium is-light" style="border-radius: 0 8px 8px 0; font-family: monospace; font-weight: 600;"></span>
                 </div>
               </div>
+              <div class="control" id="uploadSpinner" style="display: none; align-items: center;">
+                <span class="icon has-text-link">
+                  <i class="fas fa-spinner fa-spin"></i>
+                </span>
+              </div>
             </div>
             <p class="help" style="margin-top: 0.5rem; color: #7a7a7a;">
               <span class="icon is-small">
@@ -280,6 +294,12 @@
               </span>
               Choose a signal sample from the PhysioNet 2016 dataset (388 available)
             </p>
+            <p class="help" style="margin-top: 0.25rem; color: #7a7a7a;">
+              Or upload a local ECG (.dat) + PCG (.wav) pair with matching filenames; content is verified by hash against hosted training-a files (cached in this browser for 24 hours).
+            </p>
+            <p id="uploadStatusMessage" class="help has-text-success" style="display: none; margin-top: 0.35rem;"></p>
+            <p id="uploadErrorMessage" class="help has-text-danger" style="display: none; margin-top: 0.35rem;"></p>
+            <span id="selectedLocalMeta" class="tag is-warning is-light" style="display: none; margin-top: 0.5rem; border-radius: 6px;"></span>
           </div>
 
           <!-- Signal Visualization Area -->

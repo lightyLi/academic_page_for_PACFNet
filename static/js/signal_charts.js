@@ -852,13 +852,25 @@ function updateCombinedChart(signalName) {
  */
 async function loadECGSignal(signalName) {
     try {
-        // Load .dat file as binary (ArrayBuffer)
-        const response = await fetch(`static/signals/${signalName}.dat`);
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        let arrayBuffer;
+
+        if (typeof getLocalSignalBlobs === "function") {
+            const local = await getLocalSignalBlobs(signalName);
+            if (local && local.datBlob) {
+                arrayBuffer = await local.datBlob.arrayBuffer();
+            }
         }
 
-        const arrayBuffer = await response.arrayBuffer();
+        if (!arrayBuffer) {
+            // Load .dat file as binary (ArrayBuffer)
+            const response = await fetch(`static/signals/${signalName}.dat`);
+            if (!response.ok) {
+                throw new Error(
+                    `HTTP ${response.status}: ${response.statusText}`
+                );
+            }
+            arrayBuffer = await response.arrayBuffer();
+        }
 
         // Parse binary data as 16-bit signed integers (PhysioNet format)
         // PhysioNet 2016 uses 16-bit signed integers in little-endian format
@@ -1044,13 +1056,26 @@ function parseWavFile(arrayBuffer) {
  */
 async function loadPCGSignal(signalName) {
     try {
-        // Load audio file as array buffer
-        const response = await fetch(`static/signals/${signalName}.wav`);
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        let originalBuffer;
+
+        if (typeof getLocalSignalBlobs === "function") {
+            const local = await getLocalSignalBlobs(signalName);
+            if (local && local.wavBlob) {
+                originalBuffer = await local.wavBlob.arrayBuffer();
+            }
         }
 
-        const originalBuffer = await response.arrayBuffer();
+        if (!originalBuffer) {
+            // Load audio file as array buffer
+            const response = await fetch(`static/signals/${signalName}.wav`);
+            if (!response.ok) {
+                throw new Error(
+                    `HTTP ${response.status}: ${response.statusText}`
+                );
+            }
+            originalBuffer = await response.arrayBuffer();
+        }
+
         const decodeBuffer = originalBuffer.slice(0); // copy for Web Audio API
 
         // Try Web Audio API first, fallback to manual parsing

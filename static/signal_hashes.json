@@ -1,0 +1,2336 @@
+{
+  "algo": "SHA-256",
+  "dataset": "physionet_2016_training-a",
+  "filter": "dual_modality_and_sqi_eq_1",
+  "count": 388,
+  "files": {
+    "a0001": {
+      "wav": "54af4b3bf9646860bf1c6fd6fd2ccc4241012bce730b116fd732375e6d7e8aa0",
+      "dat": "0a89b1d739ae5524cf530249b92a26ca07727b15965c71bfb332701ceb2a7bcd",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0002": {
+      "wav": "b669be688b1eccffcfb7358ed2c55d47feb59f7b2c8cd3135d545e05ecbb16ab",
+      "dat": "498be4b2c19e757644def16500c05a76b44eb0e270bad79d83dde00e229133d4",
+      "wavBytes": 83358,
+      "datBytes": 83314
+    },
+    "a0003": {
+      "wav": "b10bca567fe8d0c637c1b593011cca6183c5eb5d064440cd3f8d477f5b6542bd",
+      "dat": "ef5ef711007ad08a824420364d0e4fd89ff32c5ad9cbfa50b07877ff1916fcf9",
+      "wavBytes": 122924,
+      "datBytes": 122880
+    },
+    "a0004": {
+      "wav": "76119b7a07eb78746d2dbb300a16280b40b3a046b6d96c67afedfc45fd937320",
+      "dat": "d4777ef81792fb859d41ef696ff927d52328644b2c0c3a3eeefd02e3bbbdf7da",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0005": {
+      "wav": "23541d5b1997c159c9bbb742f5e368df598959dfdb220fc9f4cd74bb56f89449",
+      "dat": "d1bda89b40fd84661b4f572d73704424d16134f80b9c2b814876219f4204227a",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0007": {
+      "wav": "4b33f35384909b89dbed2c3cf798d4dcd35ba0e609ed1c6d7c077c1901ad9bca",
+      "dat": "1fb0113c6b121e6419290c20ebc1ff2df2841804f6f1907d4d2c489ab4e560b8",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0009": {
+      "wav": "370f2fc7967ea5dcdf66c7f3293c094a0494033990515302301ea42d1c233dc7",
+      "dat": "20c1ec92a545ff1cb078946c90d8fbb85e076e5e7dbb790b1ce42c7eae5b4506",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0010": {
+      "wav": "c9003d987e6a65dc4b1f1e10b75d041d320fd763b399257c01e75b2d32176363",
+      "dat": "e405a345ee46e6bb6752bcb18f1a258809b33a42892793a8a1e8e37381833b8c",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0011": {
+      "wav": "b25271be00df7fafeb9bcec91d0dc281d56caa30af8ff76d38a182d8a9c8027c",
+      "dat": "d54a916bbce7431a53343b79dcecca08d509194123022ba0f9c9b1675a536c27",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0012": {
+      "wav": "7ba0792e85d365d6ac4604be52b13f191daa1569bcb20ab5a437ec921cd9f0ed",
+      "dat": "fbe4df4378de7c3a5db7d16874fc954e082c3e4f745aee22881c4e936f02e0e2",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0013": {
+      "wav": "aab8c9604278848d13b12cf3843fd475ab5029eaaeffca34c4789af894268280",
+      "dat": "f021bd770f51a6700dfa7177dd07c444eb68946f6148f8aed84376c09c44ebfb",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0014": {
+      "wav": "d4cc511a483f97e7c38a5944301680b2e78a57a79ab981b7fa7f7ba3a5d5aba7",
+      "dat": "dfd52412145c2932fdaf65505aa0d16859e7c6eafc955ed31419c18fa9f11c14",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0015": {
+      "wav": "bb5c03b13726ad68070d245bb161fa746356925104ba2f3c71898dee3658330f",
+      "dat": "4905188feb7a1ad05c35843c4c27cfac262834559525ff17fa0b2b615dd94bef",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0016": {
+      "wav": "edcec1a7c77388a313ccdf974f49e42647c53daa8c1faeff93597adc22fba818",
+      "dat": "36c736be926278f56bf25e8753299df8d0a8bb2e97cc02cd1a2c6fe9c8a3c0b7",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0017": {
+      "wav": "ee991f7be03619279ebc49dc01426b05f421e1eda00e8250cb716486946fb766",
+      "dat": "6c5bd95dfe71bff1e3dee28d0489e86b07e9a7578ac20a33de453b58de4a864d",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0018": {
+      "wav": "29000ca1dde39b05f04eb9b42f01a5a445d40d4e8321e8a740fbbcb3796765d2",
+      "dat": "dfbafbd76215e9a2efb49838eaf3a3a13cd90786a8ef5624806fb5ef546efec6",
+      "wavBytes": 83636,
+      "datBytes": 83592
+    },
+    "a0019": {
+      "wav": "454db1a3a23a8799bc4de40ee47d25d91ad65d37e7a397ec0bb2979301dc8753",
+      "dat": "cf34c7a5377139352ca91349f42ce99024f5c52097760cb753963a2dd3ba1d54",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0020": {
+      "wav": "7a4f1ba42c6072e56ddf7640bfc4e9c6002beba59ed14acaa0aa35b8416162c2",
+      "dat": "9e4eae2fdfdfde8eb6c6bc83ba22f44a018a5b3e8a8eef00294948d11d950bbb",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0021": {
+      "wav": "8c80ce1c6ef7680fb46a1711ac5dc73d033e8f73e37558d7d198f6c309c5a5cf",
+      "dat": "e569896d8092f15a27eb3f48e84f80f2fad6353397c595a0fc4d686da759ffbc",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0022": {
+      "wav": "fc68e74167cb164886ab5d321cff5f6c03dec4859d0ef10fef320dc3a905742d",
+      "dat": "46184f8ca27fcc0a7cfe9dc156e25cd8ee78780abbcfc41cb6f73c39d483bc33",
+      "wavBytes": 144658,
+      "datBytes": 144614
+    },
+    "a0023": {
+      "wav": "6b9c36c3730cafa73f8d3bdff99a0f5b946020c41d43ed442b9a827f79fa0a3b",
+      "dat": "4f3362146d9496a9d9a225fb15f69fe0d9240f2879ed773077d511cb6bdf2ba5",
+      "wavBytes": 122368,
+      "datBytes": 122324
+    },
+    "a0024": {
+      "wav": "7a4f587fe885ba59ac1bf7fe9dfcf8e49377a3a4f1969bad55cd5c77ef0738da",
+      "dat": "5c4911d6c4f5d6c22017160439ce9a2ceb019cb32eb45c630770793de37269a5",
+      "wavBytes": 82800,
+      "datBytes": 82756
+    },
+    "a0025": {
+      "wav": "1b85201089712b7bac055f84b8316685e700aa4074a0e438232450cf4c2e12c0",
+      "dat": "093a21bd39b037a5469934567cf70db784410206a2ea8f22fc74362b948d8f26",
+      "wavBytes": 124596,
+      "datBytes": 124552
+    },
+    "a0026": {
+      "wav": "dbbccaf602d7a7728110dfb434de037ef3995de921cf65fc5836dd258b80caab",
+      "dat": "67a39008d9507f3511476a365515f63d23f1167d35bf1f7db2c5273398f0cebc",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0027": {
+      "wav": "47e8d944afe8ee8a58d423d26c8108af0dc649d62cb004afd651f7b01956e47a",
+      "dat": "61269e628cbd26d0b2977774e55413fe8489019e269049ddfec4870bd03d615b",
+      "wavBytes": 124596,
+      "datBytes": 124552
+    },
+    "a0028": {
+      "wav": "21faafb97b8d6c36c3b982ce9f01bd5214ba7afbf23f49e4fab921e6478756ab",
+      "dat": "3641dbe80eec3ec73b5a4854501a464cf4f2000b6ef9432b7f69653d43679e82",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0029": {
+      "wav": "9f31e857454a7c99a776c9faffcdad6985889db3d202d6acac1cb90504c21954",
+      "dat": "c07676ae68d2e6bd909811a7ddfd4d43e94b1500799aff6400f9ba7a6d3db791",
+      "wavBytes": 122924,
+      "datBytes": 122880
+    },
+    "a0030": {
+      "wav": "5c98bcef93cfc14884630b224dc3ca34eb97fc409a8c05d1ed05dcdb8ca3b1d5",
+      "dat": "047390b181938255e5007139d939c5bd8b6d830738b264e53a2aa2b9e7148715",
+      "wavBytes": 144938,
+      "datBytes": 144894
+    },
+    "a0031": {
+      "wav": "947291a44c1e6ab7f07921e5d9ec007148f445a013a656141094955083cd3f87",
+      "dat": "58a6de0ecb98427b9e4347ce80338e63437fa1e76b5d1a78913b5bfec3fb3798",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0032": {
+      "wav": "9008977928e771763eeeaab6eb6d56e88d3e5fba23f69408dee2e8703fd207ed",
+      "dat": "58fa5c66ba81c229f1e91ee2d27a02e2e3ea5f8b23c06779df986cd47dec3a9e",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0033": {
+      "wav": "67c74be5923775c5846520638c707a71701badbdf1fb29867d1e25580f3a790f",
+      "dat": "650fa09c06610a2ab1b42c3c8f488e0eb17a6ced63fcd57982c656167426d45c",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0034": {
+      "wav": "d2533d789754ba10a237a2a3ae0a8c85e237fd12b3fda6312588c91526f89266",
+      "dat": "cc1d8f2a70ffb09c4e243b1c2873e58a9053073ad76a924e6dd51562bb90e6db",
+      "wavBytes": 122368,
+      "datBytes": 122324
+    },
+    "a0035": {
+      "wav": "69d28184e54d267fa4d5deec2c7c5b244351ff277cbaabb0c9148449903ff1d6",
+      "dat": "ac08b8c3bde627294a361cd65acfee5f2f30e385fa2858c28588f9e1b904e76d",
+      "wavBytes": 115974,
+      "datBytes": 115930
+    },
+    "a0036": {
+      "wav": "235837b8c8a110e33ec045c6adb345569acd3ac11851e488ca181a27b56ebbb1",
+      "dat": "fb01405bf5ffc8debf52a88927eaf0f65136917fe1d02631b0c3db3ca66130a6",
+      "wavBytes": 143822,
+      "datBytes": 143778
+    },
+    "a0037": {
+      "wav": "13d76d37a0fb0184208209ea7d49c1c4fa0d2b16dc21b891a5aa213281d194fc",
+      "dat": "3874810f214ac0fd6139db106293723497408bd3c11f1bb27c1eee1352dc83eb",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0038": {
+      "wav": "05d8f97e7062a6bb5a9082319b57207632fc00976ee2aacda35d01364a2e6851",
+      "dat": "9c723e31fd714286d4698f5f144fe923035c713ab989f8c8696c9c00829bd5cd",
+      "wavBytes": 138564,
+      "datBytes": 138520
+    },
+    "a0039": {
+      "wav": "b88a89521d8392b73379891937ca99f864e21a68a6af4fa626a50ca97512b70d",
+      "dat": "c096b3080c13b89df70471f9217c3017d4457cd7449191a687e9cc753806be9b",
+      "wavBytes": 122924,
+      "datBytes": 122880
+    },
+    "a0040": {
+      "wav": "914677242e368b7c097c8f5b6428251c3636aa2b0d8731c6333a8cfb929fb774",
+      "dat": "c3581332d7acbb0e5d3d4b12124b099756e32d229053c3e9b603044d320ab5ee",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0042": {
+      "wav": "03221d72d0888ca86841b131fd5769342d1581f3641fec78bc694dfddef7e934",
+      "dat": "3ba820ec4348ada3690b2fdcaca40cad4f20d5094d470b575e558b37d705fa0e",
+      "wavBytes": 144658,
+      "datBytes": 144614
+    },
+    "a0043": {
+      "wav": "632ea107701375e400db806c924f28febcd5bb357ce1da8e50ffa976b754ab64",
+      "dat": "8d1836391d9d9a7f3f2953d9d72831cb05043ba020db81840daab249e07c2a1b",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0044": {
+      "wav": "7b58d6b159f509afc3d0931f04dca9e1ce5d210f91ab928eb94a18c2d3f87bbf",
+      "dat": "ae2fa373c470c3d88efb8240ab43d604fca1da6e894b3429be149546bbfcfc43",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0045": {
+      "wav": "ff55ec5f95185a1d2cd35893fcfb5291874b71a6d0fc3419080976a605110cda",
+      "dat": "b1dfe39693ccbacc87a4ac387dd886f1c05345afb52af6c1c817281d73fc0b88",
+      "wavBytes": 143544,
+      "datBytes": 143500
+    },
+    "a0046": {
+      "wav": "0970fab090886ae5f4d6274f4fb67d6d7da6a683f36ffa50d57a38a07cb2635a",
+      "dat": "e3aca65661cfee270f111ce6e4717077e59d74863d9acb5235d3ff1b93380d35",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0047": {
+      "wav": "a03fa4497c73ffae10ddd8f86e2db7398701e5e01946facd36f2015dd574bffe",
+      "dat": "f7332776be949fac8b2cede1e45af8833ec77ec28691108b0d4526c257023d95",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0048": {
+      "wav": "71d28ec9ef3f94884fa35990c43b999775032e4687bcedee2044138ca3f8714a",
+      "dat": "c3e8c2e7f35c3fdac7315645724a9db50659b57e8246af21c6a79bd0c884a90f",
+      "wavBytes": 144938,
+      "datBytes": 144894
+    },
+    "a0049": {
+      "wav": "7e58e7790d4a010c949fadbdc78ca09ac65e9a62a58fb99c808dae5bc323ca1e",
+      "dat": "b6c8c5638fde9ab5db52cb0762ea4b47f50d1648d75e84342a5e2e517695fd1c",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0050": {
+      "wav": "37d359e8d50fff45653da7b61dce4eed5072f6378fc8fac42c598a549aa17cb1",
+      "dat": "faa303bf783c4dad76d91a0e704045d711e6c6c749f9d18ded49250d0bcecc89",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0052": {
+      "wav": "d85bae724a84de9b4e81d8162a477ff7d3c3ff70ec05108bfdc8bcd6b2765347",
+      "dat": "37961bf9788143ebafc109d919648bbe9a4dfa34b435836589ea710c36ef64bb",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0053": {
+      "wav": "f417d348676fb2d754540511c5a91eaab73c32804831f77e2ad7e6512838b59e",
+      "dat": "cae74b925bcb6c5dcb99ba579d1a342d28feda9fe5a0c3095e70c0242451d1d8",
+      "wavBytes": 143544,
+      "datBytes": 143500
+    },
+    "a0054": {
+      "wav": "d848b45e245c3af63a03e48e2c9b021e355585e252db0ce2ecd422ebc2d0d217",
+      "dat": "fe65c9b8a8040fdd2e8835b505d72988ba28cce3a8840a8205cb3a9ffae69b55",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0055": {
+      "wav": "1da752b79688bc1cbdd470c4521cbd73ca8ba360a9eee34e38554161ae0da597",
+      "dat": "59cbc9c6e7ddcf6723e41173acecd32cecd07bca3e532d47cd6a685b69da4e09",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0056": {
+      "wav": "65d1d3c66bfbb863769132af3778704ac33c52bd6ff0f5a859d05658768ef1cf",
+      "dat": "58f5c630274a307ec1b2a87c36d92496e048e9a6ef4d082249b0ab2627a835c8",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0057": {
+      "wav": "b685662d6a494d2987c081ca3980ac76636e5f7ac96faff30266f7107bdbcdf4",
+      "dat": "5b469ab10b6f85fafaf3a38d6ca4e6fbb9529c57d89c4806e7eb3dd68bb0f320",
+      "wavBytes": 143822,
+      "datBytes": 143778
+    },
+    "a0058": {
+      "wav": "e4c30f1cf6e5a9c07e60c2719b570937f7e757ad924f1c7156ab7a3f05cfa098",
+      "dat": "74c50630068a3ceee1efe4d711f0004773d972e3bbbf7f8f8c7a02fb07a7de98",
+      "wavBytes": 82522,
+      "datBytes": 82478
+    },
+    "a0059": {
+      "wav": "3c253d9e4052b7842c3afcc82725d818152f53d6db5f5bca80d37a36ddf11920",
+      "dat": "cf9ee6bbb77cbf6905028c04b40bbb00c7a7373758f3b835d08c7bce7419c907",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0060": {
+      "wav": "5f7c2ad60561f31604df00d2f3412218073434c8a8c95b2617c8ba0f1b54c289",
+      "dat": "f3a6175fca915aec192f2f704069a56f6054e30d7bef5ba16ab5d90f72e387c6",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0061": {
+      "wav": "e9abdd1b40b8de305cf884ad218e2359fd009dab5e11f62b182de90074c57b32",
+      "dat": "4dbf9749bb9dd7175e9f771d9a289ac71fcb0c227b3971485ca540c67279867f",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0062": {
+      "wav": "13a9950cbd0f4bc3fce48225a185687b02123eba91e446ed94e07472bdb0f50f",
+      "dat": "c8e6cf57701753e471d96ee05124de229e5b3816830d1e3b39787255e24896e1",
+      "wavBytes": 144380,
+      "datBytes": 144336
+    },
+    "a0063": {
+      "wav": "c0ae3dc2785f6e4a6574b781899a3e3c72793fd346c35aaf4799ca2534deb6e3",
+      "dat": "1f382a1ca90e6008b1e91848144ad3f3a1ed410bf92de19c1609354813b5c798",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0064": {
+      "wav": "f773ac4d0bba7a9ceafa1fd6408db7211044d965fed94d6b7f5c8f171e7b6d92",
+      "dat": "2247b9214b38a643cdd79cb6e5d69629b34330c3433b59e2ae46c2af51090465",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0065": {
+      "wav": "56bb79608fc0c5b7834ba87ba69b09cd58f3e0b5196c0bb416183cf6427a4d2a",
+      "dat": "7507b06fc4ef95da87bc658871a78ce7d8dffba2bdecfaa4d6af1b018e9d8851",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0066": {
+      "wav": "ccf2ccaaceeb14d36be24cdcdbac252abc7b107b04b11aa12cf88ef62eded3e1",
+      "dat": "b9a868d01d73888ff5c968baa4007a83eff884a8c689793ed63ad64b7ab86bb4",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0067": {
+      "wav": "37e4ac4852dfffb913087a7e0b735dac43307a2915cba3077376254b469b818b",
+      "dat": "4fad2d0b9a71493250cc7ea730c7851da5ba1aac0fb0ecdc055c483efbb3ae75",
+      "wavBytes": 83358,
+      "datBytes": 83314
+    },
+    "a0068": {
+      "wav": "dd63e90bde6b7607d482e6a558f563c5067f0911eb8e540d1bdeb5166c39b30f",
+      "dat": "8dd4ea6379929a0125e3710f9f7ebe4e094d03dc79026762565a4f30f5344d8f",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0069": {
+      "wav": "79f8c0586af2f93d6b5d9f1d23197023d908287e3d05634e371e0608a931ae96",
+      "dat": "d163825ba33634c6f578fa4e1608ff3dbb61230035347e8ea631bef294d79e63",
+      "wavBytes": 124040,
+      "datBytes": 123996
+    },
+    "a0070": {
+      "wav": "a4720dcdf792ee12457a9eb95f537eadef8532b1c84edf6a2244f92178881587",
+      "dat": "be3dd05dff67d50b1c907e98c3f6572ab7aab773366fcf16db358c453b738542",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0071": {
+      "wav": "65f31bed6de8963ac72f12d9d3fa02dff67af756f05c6b0e93d51f25c0e45dfd",
+      "dat": "b67837537968898fec472ce300518472e011a7a25ed3959ab9b4507c1e4b5981",
+      "wavBytes": 118562,
+      "datBytes": 118518
+    },
+    "a0072": {
+      "wav": "8294f805c0dc703b8eca54d70cc7a33aa869d1ed83b73209e6a34165e7019254",
+      "dat": "e1befd117258174a98be2117751f7356bf40d6b14c58aa7adb32651a96a611ad",
+      "wavBytes": 145216,
+      "datBytes": 145172
+    },
+    "a0073": {
+      "wav": "27abbbf51e190f980e2113eabc19b0b1918632fc63a8d04419c84a6a56d2ec23",
+      "dat": "644b7e028cb219daeb3afbf5bd986e2c297ca727761a47e1a116719272e3d604",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0075": {
+      "wav": "60c1f573428daf0703a6c442c9a8516624a6a2a64c642e65bec79a55ba8e0d40",
+      "dat": "c59b17a40bb1487af86817f8c8d34906be5e352bc5ade82efb34f6ebbdae0a2c",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0076": {
+      "wav": "fbd2b75cca6f962fb7cdf9f0fff8569cee0f47421d749d4e2e9372b9798ea298",
+      "dat": "479f8ba2d781da470958dd829e8521b08505ee34d5344d6b240df9719bdfae06",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0077": {
+      "wav": "53ccbb37635b0df3d5c2d94fe343bd2167d2eba2dd77ad0b536b4871f1322dd9",
+      "dat": "b23390ecbd61ba83fadb7f5c6dff85897ca259ddc9614f89f71554af4c76f9ed",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0078": {
+      "wav": "eaa1e261bede02a9cb3ef1e48b5a95f7a2283b911bc878c8ebb946d2be34fd3e",
+      "dat": "07445c4a106ebc352257e40d6985d3c15c6336f7a92f08b9fdca69be3909bf72",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0079": {
+      "wav": "4b548e5f633bab0a0c549779351b7e18bec3673cf1f069c5e80bdb8318a4e127",
+      "dat": "f27c9c6d1239e3651c642f2b26a93bffca999dc9a806fd2d3c4de9e1d93a49cb",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0080": {
+      "wav": "d241a94b9a6be29d0b3df93d0fb13924ab930c2ebc381d9697648c03838e0105",
+      "dat": "be8675dff361e4ea977c689d1ff66e6918fd634b96cba80574488fa295afdc65",
+      "wavBytes": 124040,
+      "datBytes": 123996
+    },
+    "a0081": {
+      "wav": "48f6f969a47c3417b47640c78dfaf356e4ed59b25d9bcd7b87fbcdec06f28f43",
+      "dat": "5e13f195b78aa2fc7902b647974e3cbb4c9c55b1bcd0ad15abb4732539aee1c7",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0082": {
+      "wav": "64ab70998cecc165189bdfe527dcbb1a5f8a05cb98558f7ff9e8a12e3c8f0669",
+      "dat": "f9e6243e19a29ecbe3ac79b03bf97731be562d47b2372232523e98940a6e15a5",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0083": {
+      "wav": "acb1dc9bd09e4eb5d8027afe7d109380b840ed1073b55ee6f8e33c8093ae7765",
+      "dat": "82424c69c76c17d07f35f05c28c0f78ed475aed50a366687df207076ea302588",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0084": {
+      "wav": "bbbeea73db4e7b38fcb656d81ac342366e9c1791ffd1bd0810b44702e2fea5df",
+      "dat": "47bb1bdc028da203d01d6bd3c91ae904ba017462de6bc4eeb632f24db435af04",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0085": {
+      "wav": "4b9f0dc70add8617f4825296f863d1048ad7bb2a995a8522ac3acdd64c19981e",
+      "dat": "8ff217951bf6a703af8b8fcb2b32a0b87dc399326cbda9dd9855a7cee8ec1310",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0086": {
+      "wav": "73c652751f1f577fd34db3c4645e2684dda15d8e8a80515b36679c74dfea9ec0",
+      "dat": "933661a36856f5926fcd6ab2149fea49e9f99b66bf36536b51179221388170c7",
+      "wavBytes": 144938,
+      "datBytes": 144894
+    },
+    "a0087": {
+      "wav": "14fac5f373e0797410e3aba13482880427f751ae17950a4bdca4a8d038da410e",
+      "dat": "80ac18a1a32585f3e4a0c15ea9baaffc45eaf4e3d5a53cb2a84abf342d93640a",
+      "wavBytes": 82522,
+      "datBytes": 82478
+    },
+    "a0088": {
+      "wav": "9cc18508907b62f60815d098c4c9b2efdaa3d342d1479b62cedcab5aeaff605e",
+      "dat": "d6d95700b77eaf2434d8638a1f3463b701872577e1403be49cc6653a5bba6c03",
+      "wavBytes": 144102,
+      "datBytes": 144058
+    },
+    "a0090": {
+      "wav": "ea659b288b43ccd8f54869b1a373376adc230caafb32d1baf9b872f884757a38",
+      "dat": "7193126b0da59efa7bc38bd7162df0a6fd8fa70abb41ecf66264f2d402283a0d",
+      "wavBytes": 81686,
+      "datBytes": 81642
+    },
+    "a0091": {
+      "wav": "8be9ee4e5ab9ed83ec45a6dfb073a20fcea940abf25221d258399eda8ab28520",
+      "dat": "5eded58ef93e370f17ac68cf57f3dc746f5fcdf80184fed8ef19e5e80edef72a",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0092": {
+      "wav": "e792d5a18a994681bd5ebbc447b452154859cacaf668dff7d94f2a0e0a6e430b",
+      "dat": "b4588e3c984996d1c549f83f4181972bf11cfa4461590bc4cd9777f41b4b86cf",
+      "wavBytes": 143544,
+      "datBytes": 143500
+    },
+    "a0093": {
+      "wav": "29f2b3cb1510ad32d32e0b8d8b0ee2c709deac1c27efd266c824533ef9c46e14",
+      "dat": "8f4ac4c97d1681034c8ef689059d0195ccb388a624568edaeece4a5a140f10dc",
+      "wavBytes": 122924,
+      "datBytes": 122880
+    },
+    "a0094": {
+      "wav": "36774cfad4294284fd49608808bd950caf27e8ac940baa21e9886a14b161b309",
+      "dat": "389fe6860aa0906a103cda154934440feae72086e24b98e75901d26c72293382",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0095": {
+      "wav": "d1b4970aa666128f61684c727e4672955af85c3063b695cfc30da126ca7c701d",
+      "dat": "522ba00227c2decd6a7701a08de1c2be976dc42be360a3e2e13ea86b26909061",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0096": {
+      "wav": "10439f7eee3bf65bcbba4e544b3be498e23c53735133aa1cd86dbf357dfc476f",
+      "dat": "9c8e0b307c4d380372e8d77b6e787a74e5bf6ff56e39bc00704c3ff025b2cd3f",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0097": {
+      "wav": "12d23f73b1671467d32aaf605a3e46080dbd224eacd8a0cde809a7dc05684508",
+      "dat": "e95b30967a8c1a7a43852843b67720782af09751cac0b6b49318a531f35c1e80",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0098": {
+      "wav": "be0a2344c1ea1771a14a271adbe069a7b2ec4fa1ca36ad6460d2613f61c1bce4",
+      "dat": "ce15882d0e65bf556d0b6ef797c918c8b11ea4a6db344aecb8f38a4cbb343bed",
+      "wavBytes": 114214,
+      "datBytes": 114170
+    },
+    "a0099": {
+      "wav": "2e95a6523c3ed04b2a4eb2deec88b646791bd0958e732db3affdf9d0e5bebc98",
+      "dat": "63d10fce51cbe96ee30a80b9063fce95e10aefbd94e8923cba12e106817383b5",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0100": {
+      "wav": "65aa2517b33b4044a828c52b3118655667b3cf73a62c9e290259d869469550e3",
+      "dat": "c46820e51b38701c08c52e21bd26aa3fcaf277452ad3d2103a07873691d22b4d",
+      "wavBytes": 82522,
+      "datBytes": 82478
+    },
+    "a0101": {
+      "wav": "000c6dc462fdf318083ff65eb8a94b4ae8a3272a2eb641e7964e091a675498a7",
+      "dat": "e0f5b44ba2c94b816e1022301228857d1ffb1e2e1a57c3e3f56f1fe92ee1fe27",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0102": {
+      "wav": "3e30ba85a25f6a3ea9bd10876d5ca22897a0d65ec6f7c50ccbf40ddf4ac3c91f",
+      "dat": "b18f03d016b792f15d5887f4eafe0061928f236dac4f4029c3a1c00dc5c1e013",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0103": {
+      "wav": "3d0c16671a168d9e8f559e57e26d82f35208c454ee631a0e25090bdfa11b20c8",
+      "dat": "e3f3f85b8837c30e8fcb7a637f1cd0d4d20ff9b81051b9a90a8ffe4b02da310e",
+      "wavBytes": 83636,
+      "datBytes": 83592
+    },
+    "a0104": {
+      "wav": "c0e6d46e8f1b71498ef520057650098df29b382a01458776f01a0ec0f41a1abf",
+      "dat": "3881487dc806359d5a4bd6f61686cc9b0efb5bb1a358846a476164b7b6990348",
+      "wavBytes": 82522,
+      "datBytes": 82478
+    },
+    "a0105": {
+      "wav": "233e7f8cc84d87bffacb7794023b1337ff6976950e65dd3538320165da48dca3",
+      "dat": "06f478d5becdb17fe1326cb24a86e0e11af33ea91002f391fc3b03fd589a5ee8",
+      "wavBytes": 141014,
+      "datBytes": 140970
+    },
+    "a0106": {
+      "wav": "ad2b1127dd4c4d5a3f4aeb64c83f15ee80490a75f910270a3a1208ded59711e0",
+      "dat": "5d29d86a2b4ef71b4097c59913fa910c4fc2cebb4dbec02b872aad6583cdd566",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0107": {
+      "wav": "af8ebe886fd4a1f4cde46f0fdc5d9e2136448dbfbe671cabfe10c46e910e3d5d",
+      "dat": "abdf68c4d6cfb3c879322bfb6080b3f23d4a511adaf9a343dab263f1fd6a94d5",
+      "wavBytes": 145216,
+      "datBytes": 145172
+    },
+    "a0108": {
+      "wav": "8b358f6d7aa5fb190623fc9268743836cdbd547ba114db58286378fd588fba8f",
+      "dat": "db33907c317e6cc95e8085b17384f7e4c284f344fcc04ff1ecc8fdad0ed07892",
+      "wavBytes": 129982,
+      "datBytes": 129938
+    },
+    "a0109": {
+      "wav": "095407427b06126e79b1366a4947fa814428b68994cf560a669f3bbbdb7c6fad",
+      "dat": "4dfc8f84cb93252ec36f753b2901faf82659a36f53d5e538e4ec2c8c701b703d",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0110": {
+      "wav": "3359b8b948f837af9416bf1d64c365eff7d4415af264ce192e47bf0e5da72b54",
+      "dat": "e2374ce147d342b5de0e26089a8e4879cae8f2ed6d18f593eae4a9f42ea6136b",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0112": {
+      "wav": "5cc1e24e326f57438a14cfe10e23bd200c9eabd9ce65be9f3036116639f561ad",
+      "dat": "244469fd4b8cb31ea7a650f3bd960b8a63c4cb89be4c01f113933a23949fe243",
+      "wavBytes": 144658,
+      "datBytes": 144614
+    },
+    "a0113": {
+      "wav": "98138db634b2028149943159bcd40bbce7350b7c8a8ea500bd67665d5522297a",
+      "dat": "af054b9728324a7c924cedd70297ca4cd08cd9ae5c8081e9b4f3c2e9babcebec",
+      "wavBytes": 144658,
+      "datBytes": 144614
+    },
+    "a0114": {
+      "wav": "87786f58b266bb801cbba0c26525a4c29e3b95a393492ad0674299ad2771fc15",
+      "dat": "a5d28f6d4d26a86ed093da095161a8c3ebf8de7d5bddfeb62c214541b72c68ce",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0115": {
+      "wav": "25d80626aa1e815b8a599373e5bf1a08709c7242e317e8a8309b80010eb0a445",
+      "dat": "6270f5acf13691e7f4ca161aa21cc7349780ab02bb28d2f08ef2b77ca46c5e95",
+      "wavBytes": 144102,
+      "datBytes": 144058
+    },
+    "a0116": {
+      "wav": "70ac0cf406cde79a3c05440412a002f219232f9ece3c32d87d670b1990c376e3",
+      "dat": "45ae5d3958fd72b0eeba727bc6eabdf6462c4997b4be6513860fb82c91d47877",
+      "wavBytes": 82800,
+      "datBytes": 82756
+    },
+    "a0118": {
+      "wav": "95a46a4448a5e1701a49afd41a374085b20f3f4177b863099d789b2bc99cb90f",
+      "dat": "43b5751f7021eadc9b1af56100c5c1a46b193de580e59d1b34db01eb23dc2d19",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0119": {
+      "wav": "ab058a55ca19064f74eadeac6baa64eafb038f2f817d015c5f987c08aae97dc9",
+      "dat": "1407f08e5fe4af9d76ad6f7231c9d3f86c30561919c6b8e00a6663cc9c57c18a",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0120": {
+      "wav": "4f9ba15f71bde1c860a3c89ce3f604c0234d0534164689b10a7716f2d9114a98",
+      "dat": "57b13138decae370e979bfcdac99201325415270c44f5f96dc4fd34a459ef3c5",
+      "wavBytes": 144380,
+      "datBytes": 144336
+    },
+    "a0121": {
+      "wav": "460f618859b685c39b38d9d670603b25ce0edee0826ec606eaac270a6745551e",
+      "dat": "05eddbc2749dbf9f165f05362d56d6af852ee81578bd9bd8a53c1bb3d8422a86",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0122": {
+      "wav": "6a5cb84b7cda1f516e65fef47fb434a08bd3864f8ab2739b59bd9b036223f1c9",
+      "dat": "4d8d54dc483357a3b999a39f4337367bfefd165981fffee8c4cbb325bdc25501",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0123": {
+      "wav": "2647bde3c77a5b42f6ef843633c8b5519fb525bfa97a53175bf3482fcc24898e",
+      "dat": "5010d34734d9e6f3cf2d09d33c2cff09333f7d98b5a326a8b0cf707ec73403c1",
+      "wavBytes": 82522,
+      "datBytes": 82478
+    },
+    "a0124": {
+      "wav": "5dc63813889831374c6200e52cc2a3a93ad66c696729fb9928b9c47b4ab038c0",
+      "dat": "c849e3b870750a275b44c9ea40deace25053f7005cb23b89f97ca47b8fb59b6e",
+      "wavBytes": 143544,
+      "datBytes": 143500
+    },
+    "a0125": {
+      "wav": "cd52455b3c31d8ca960e0dfe257fb5bac8aaf1160608459afaa0f3be275c65b9",
+      "dat": "b61735b627c05f05888a1aa13123b5053428871e615708b1f94738f928ce0edf",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0126": {
+      "wav": "34c14c7ab7451249ee6c1ce06216273c02c2b8b13353b7192417ad3b939190d5",
+      "dat": "4e6c186e9af3fdb20e78360472e7e3a477aa790ef36e984982547e150d623020",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0127": {
+      "wav": "41ba74d87deef68df801d7227d1f1d72e8b9b8965d8f933055d109a7f3800bee",
+      "dat": "107ae41b9fa072f54062c969d6a36841862dde3fe20e5c0c5cc6a13814b2f017",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0128": {
+      "wav": "5e8b7f8358fdd339f0544680e8243b316e8d148c82d83dbcaec474b88c35ff6e",
+      "dat": "86b9f20da9b096c4d2f25b66e62bb9ab7532a5f68313b06d974c8426adeb1c12",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0129": {
+      "wav": "b8b9a7263c9e12a1563b19229142e99b8e120633d10c3cb8dd1bf814c798c34b",
+      "dat": "2752b2df5b1c78c16a546a593050c9e4d0d59328dd6b01952aba2235d6ad49ec",
+      "wavBytes": 145216,
+      "datBytes": 145172
+    },
+    "a0130": {
+      "wav": "33e8354b1d2f2ef01c40305d3e9e45574b913d205c8e289cb6945fd2f5c3c9d9",
+      "dat": "1f37e98c61037dddb0324b0d69ed2157c3bf31fb5c528905234bb9469be20f3f",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0131": {
+      "wav": "87ca8402234d5d679168c63174de0300296a183bff6864d8bd143f434f32cc0a",
+      "dat": "b09b252c4bb946876c0e6bbe58d72ba7df6d277a2f2f0d7ca92b319193715511",
+      "wavBytes": 77866,
+      "datBytes": 77822
+    },
+    "a0132": {
+      "wav": "30e093466735b31947c8abdfa9f14eb47f39e29a4daf576b418a05772938b21a",
+      "dat": "d0498c2e4a13d07196165b9f644642429255f22b48c89a4ee94932bb851a9407",
+      "wavBytes": 122530,
+      "datBytes": 122486
+    },
+    "a0133": {
+      "wav": "a9011f478150c7ae6784cce093c52181fbfb823d8008015b0083f1d434d8199c",
+      "dat": "c440d9a16cd4856a5e2092febddf04035d95762e010d06e79f013d3ba9fbb8fd",
+      "wavBytes": 144658,
+      "datBytes": 144614
+    },
+    "a0134": {
+      "wav": "bf8eeacc3c3dd5b7a9cae30686b5db237a99bcb74f5b2b59a502c8a3031c21d5",
+      "dat": "d16b6de61ebe34e92e55c0f43c17f7776ccc65ee86078991e5262a19f03870b2",
+      "wavBytes": 143822,
+      "datBytes": 143778
+    },
+    "a0135": {
+      "wav": "7adcfe03a0ce2059aa2ded43340f81f00f3e42f547c7503367b6fb3acab28eb3",
+      "dat": "1c33ada265245ff30a051572d28362fa4d5ad7023b850a3fd6576514ecb797fb",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0136": {
+      "wav": "c4557e96bede331b55ba8726b0abbf27420969209c3a401346192109d516cedb",
+      "dat": "ce7966b322eb1282dd486bda2001423227115b6d209ae8c550f3be7b2b7996b0",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0137": {
+      "wav": "579691162064837829b6a08a7de8bf886838bc7a775c377963490648591f8f31",
+      "dat": "9f42277c099ba03c5f1cf0a8c36b4bfe4088d58bb4530415cd7ae73a92377175",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0139": {
+      "wav": "86b61c0682b68f121251a3890739e30d91beddad6764750e3fd80ff6142ddddc",
+      "dat": "c4d8c1bdb18eb680437f3089dcae298846edc54f722d3644ea05821b01a42590",
+      "wavBytes": 124596,
+      "datBytes": 124552
+    },
+    "a0140": {
+      "wav": "d7e6594917d92d38f9cf6599dca334e4c0551892b1c6c28234cde023deeaf078",
+      "dat": "6305ee06af8582bea3401402bf1621b540a25cc9a26c01f4f64e10d8d3f87729",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0141": {
+      "wav": "decc3f4655e871170564e0ca7480168ff1e115ac197e7d8ffd3d968d105fbbdd",
+      "dat": "6dc1b6bdc0be49a65bae423b8e2adb6d52cf1589fd0dbe57cf7f2be4d6ba61b9",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0142": {
+      "wav": "d9480a821d1b5a8da4613b2dc7398e039128242bd73d2224b673cc272783bac9",
+      "dat": "cf6e62249c4652fe115e6d9722413a80c27810e86c8e7984354f560a0e497447",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0143": {
+      "wav": "d10d48d9f54f4d126ce4350cab9b47ed068451482357ea9eb0f4061480446d47",
+      "dat": "43b8606057fa3f4bca9dc7e178316378b8afa2cb1aa974364e10e48845bd8f91",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0144": {
+      "wav": "985283282357936ed83d4490caa654e24ae12acc67995ab288ca7ae22c6cd26f",
+      "dat": "6fced6cb039391c6cd3b0fd828169633d26e428f07290c3b98b23ef6d51369e3",
+      "wavBytes": 145216,
+      "datBytes": 145172
+    },
+    "a0145": {
+      "wav": "3911615846ebeed6740d85d4ac4775213c211a99c9619e398f40e7fa8e6e8971",
+      "dat": "167dd24f33b24928308669b70fd82e516c36c64b1689e9c786a156c1d513648d",
+      "wavBytes": 145216,
+      "datBytes": 145172
+    },
+    "a0146": {
+      "wav": "b454b9635d1b5a8da33b660850e9bf0960f1377d5c82d7b7973c83fc196861f1",
+      "dat": "23c3977c6d043544493c69fedd3f6f423a0dac47996fddd3854a116cb91b6973",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0148": {
+      "wav": "ae5032e30091c32d504d2b1e2f49a34e8dc7089a44f0e16227d566dfb8b195f2",
+      "dat": "da5c5a2b58d0b4a1ca081233cd99f053f151dc629ad1542cd727b7c168e0131a",
+      "wavBytes": 144380,
+      "datBytes": 144336
+    },
+    "a0149": {
+      "wav": "8f251e8d2bace96db3703f8ba86771fd963c26312985b0dfb53b1f1a3afdc5a3",
+      "dat": "3b11fa7101433ee54a4c99195763cc1f295ac0278b0a96a8122410fe8251454d",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0150": {
+      "wav": "ff6022fe930eeacc068ae7fe82565f6746d3767967ae91be25cef0711e4ff713",
+      "dat": "348de6f67c4e0140799e2f2cdea54b1458baf6969a42c149e2ccaaf787fe2957",
+      "wavBytes": 144102,
+      "datBytes": 144058
+    },
+    "a0151": {
+      "wav": "e0af3edd073ada784d6ddde2858a4e2eb00275bdd819bdd6c6cf13ca50575217",
+      "dat": "e330080ceea48c09244ccf884d6f326f85e5439e27bb0ac73fbc47581df0e03d",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0152": {
+      "wav": "bed220c8b445fd2db4aa1674a92da528336b884cb5fc236aee54ce506342ee28",
+      "dat": "e5b16256b6aac06894c96b1b3ff9aaab4027bc59b49dcb7227d14c7c915202b3",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0153": {
+      "wav": "b47744c4da254f5e2ba81eba859fe0f6b8204e476b5426a715e8061b19e74907",
+      "dat": "cea0a9fa4688f8c8e7af5e7e9bad5f7c93ab3699761b77597bc80c3bc986de59",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0154": {
+      "wav": "4501c1c15913f468a0e7268ab748314495466bfc47afc443fd536c9f7ff70ef9",
+      "dat": "28a3ccd5f8494a6c751d663312b14e54cba931d02389804097b235ba4a43435c",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0155": {
+      "wav": "e41babd517fd382adcefbf223d9a85295d7f27ddd08203f33c313dd65bc523c8",
+      "dat": "d3739d6954e5579894e0fd4e500a95167049edd479fecfeaf393dfee50276447",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0156": {
+      "wav": "deb071d1b794c777b1022bcd580e73113fc0b04257138a56f15a4699c2c84189",
+      "dat": "a443c1c6f307dcdc596d3884d5867d39502e5956648d185d6d54bafc46d47c1e",
+      "wavBytes": 83080,
+      "datBytes": 83036
+    },
+    "a0157": {
+      "wav": "f79f38e2f8a2c6680a5b49af4c25a3c3421fcb275017b1dfe2c085ab5d9f2a20",
+      "dat": "671a877e2634ad41b1e3e6632bd5bef64c418e7345c1e7d3459dfa635fcec504",
+      "wavBytes": 143822,
+      "datBytes": 143778
+    },
+    "a0158": {
+      "wav": "9c8e853f9c360443a8db8b7f381b9e00dfdf893d40c72d3effab1dfdec8e1aec",
+      "dat": "5658662a7f2651d92c67983674747bfd95aa6d744ba3e3b96c62897d84f50237",
+      "wavBytes": 83358,
+      "datBytes": 83314
+    },
+    "a0159": {
+      "wav": "643597be36b8e3b4c2fc6b9fb2a811202f6791dd135aca6ced0d6eb81fb59ddd",
+      "dat": "f3f35dd7a343de70e02c742b26a79db011d3b504b67c9e38fdfe7104da245d17",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0160": {
+      "wav": "c2cd5dd34209c1ac3b79b77a664bd395d7e3cf2c4a1cd0a6063d49a2751755d2",
+      "dat": "643639d927845f3cf9b9eb8efd9d78c825c6437fa45545d2d7400883e061a10d",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0161": {
+      "wav": "44ad8bf90721cacf91e4f1169ea8e9427426e4bd0a3a6bafe7603e4cb8aac54c",
+      "dat": "b9f1f27c20bae5a22ba629b0ce3d0b9f3b43721cbb7ea03b38486ddafc7b34b4",
+      "wavBytes": 143544,
+      "datBytes": 143500
+    },
+    "a0162": {
+      "wav": "2317b9d4c743387b67c6f336fefb3b7a26edb6107640b2c656b0d4e592f4b725",
+      "dat": "67cc51bf82cbbc38f02541cdc8cf66b7d83238ff3a98342fb5b713ee25e4d8cb",
+      "wavBytes": 82522,
+      "datBytes": 82478
+    },
+    "a0163": {
+      "wav": "9a586fee171254517f03e3947ed95de501d53ade53745cdfb9485c3132635c88",
+      "dat": "40a34dd571053e0435e5d63d80b8533fb10a50785dd44b778315f128c2474bb8",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0165": {
+      "wav": "146d911a41f68190a0f897b38f31ecf0b113f57e33bb6484ba317b0a99668c61",
+      "dat": "11680773808cdc9288e356c8024a80207951cd78e00d0ac87700ca0b11abcdb0",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0166": {
+      "wav": "1f9eca6fb41dd3e0e69fd96fa452007fc83405cbf0ce728ac31d16621f6f8509",
+      "dat": "38ae2e9afda0de4dfac61d0d1e49b88f9b0cc1786530a8eb743141df1b15a192",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0167": {
+      "wav": "edc5cc0d73d074d2ea1e146b9749ed87ae4a40fb24ff79199fc526047ba32802",
+      "dat": "4f3d3378ec4e3295a9679f6e2cda38b65c30a2d784fe6e03e33e959927db40d2",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0168": {
+      "wav": "460525b16157dca5c247b795a227859673a0c3b15e57c6dd09d3a310deef8c0b",
+      "dat": "513517998b8b5d9a1e337610089c1abcf50ee229c42cd7720bfefef910a44a9c",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0169": {
+      "wav": "ccfb974a289830dbee96a5bfa294d41910fbfb9d98d855d2c6e52eaaceed3b88",
+      "dat": "06a1982cab0919242cb45feb9e5ceb14696f1960b7dbfbd65b19c0d17efd4900",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0170": {
+      "wav": "6c5ffa9f46d893a59146809a898c33523f8be7f329d621507659808b95864e01",
+      "dat": "52d65c33997df05186da7b9043232ea58cc162497a5b526ea1e22210ae3ff67d",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0171": {
+      "wav": "b197d998e6a75e278fcbefcebd50682bb26e3b7dde4933f394a13e885d27ca6c",
+      "dat": "095ea388f3b6ddf0ac110df5aa28ce2a8edd153e51935cdd2c182fed9f424846",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0172": {
+      "wav": "f70fba7f286b1c1cf694b9d04ee72319658725af716e999e4a69975ecbe62c19",
+      "dat": "c97310bbfae9c31cc60f9dd70316f46328d6cb8ce46af94b49b9089f08785729",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0173": {
+      "wav": "b5e62d2e4d85d92dbf1dde8c29bfd4bacb81eaf92640b15f13338ab7a9674507",
+      "dat": "a499298bb92d52b0665d3a25446a899ce3bcc2abf9a943aff9309fa5203f32a9",
+      "wavBytes": 82800,
+      "datBytes": 82756
+    },
+    "a0174": {
+      "wav": "fce44faf0c82335abdd42527578f5b5bd8c81d8006d268bf9f91af9478ea5290",
+      "dat": "97be4eec86c15d43f2162ccb827ab1a207bd82f133b32c32b76173fda43c66bf",
+      "wavBytes": 84752,
+      "datBytes": 84708
+    },
+    "a0175": {
+      "wav": "a9e695765e743ba8f8ad87084613e49722b404b6e4facc9341023dee4e7c7054",
+      "dat": "c217d8abe1d4208a3ae9de7b7e6fd09a526f063c72d61733b20170e764896f42",
+      "wavBytes": 122368,
+      "datBytes": 122324
+    },
+    "a0176": {
+      "wav": "9d7c290077a80032e45e288bb686e39f352fab472255c24feccac78dfbde096f",
+      "dat": "a90ec85889dd3c581843ac063441b29182f7293f13600a42389aa381c14a213e",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0177": {
+      "wav": "572ae84fe8cd783b5598cf4dd8864d92a241ac8b867a6f92588d32ec74b74774",
+      "dat": "243f731c8a90d4e6e76252d873c917cdec2dde569765a00ac262a8fd448f4340",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0178": {
+      "wav": "a07c7599883e94ee55f29db182b40e3cc1bcdb0ff9eecb392aca4be532e87a3c",
+      "dat": "b44bd0512198cfb1e8e9b6cda8960234811cd6d6d3496e6b86c702373969a0cf",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0179": {
+      "wav": "c72ba0d24a411efa37bf8a580c593da70b81230cad29f0ce24949e0faa4539fb",
+      "dat": "6094b238a16415689484239414ed05516d8b3824ef51dea66b3df94d5a760159",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0180": {
+      "wav": "5f126c22250ae954160c5ee0fa1082c0635f2de8d21ffb1d1ec764563f239d67",
+      "dat": "6fd58b2b76c3e494889c317a03a7ee99a78d5f7ce7a4e2973f6e480d6aace934",
+      "wavBytes": 144102,
+      "datBytes": 144058
+    },
+    "a0181": {
+      "wav": "449f1b95e8fd81e4d33891e93a281303a47b4ff3a3f1c299cae380a4e1ca7753",
+      "dat": "dac7708c0042792b3306cc4d8bf2a23d13e3b594df55e93ea041cee56306d17f",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0182": {
+      "wav": "b596189ea8e738ddf525ad0d063dde311938743a67683165b29be7b6c6dbd100",
+      "dat": "6d3abdbddff6a1330ee787a485e33e4fe3cde3c9869c6ec420ac35a53b5b3001",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0183": {
+      "wav": "9906f7e5ee528dbe9a519f67fa19f1a3a314018544dac14579b33c3021a10b92",
+      "dat": "81b72456fdc1e672f87f0cb2ea99628f6975807de9386e676dc0a7970c588829",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0184": {
+      "wav": "7474b1a078f0f64cdbae922728bd15cfe135b30b37318d188e0ba330418c48c6",
+      "dat": "5eff2b8f5292dff7adc0a087e968caf9fa428c330ce30461c96d7bce6fa83bad",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0185": {
+      "wav": "3b9df5f9e2924fb058e74ed7252fe4b8375dc4309886f32b6c8cf0c6afafeb7a",
+      "dat": "52c11aadcfd5a4805ef802d0e453f1278b91136560872c87613aadfea1f036ed",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0186": {
+      "wav": "5b9923af73bbe47b351e99ddacff6d22308890eabac2f48b150ce6a4c648f2fd",
+      "dat": "310ade811f91b6aa4ea2401ceb57c42b707d147770f5d3e21acefe9f3a6b448d",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0187": {
+      "wav": "0d2c37fd52038ac823972365025e3c8c856a2ad1085275491fe200bd765d303c",
+      "dat": "96e58ec40257d86186f5573b6efead85a79e251fb15acdc7bfa348bf333a2c3d",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0188": {
+      "wav": "94fd65c65c5fa88118c7bfd4aa9bc2bbb94be9d99eb7d8f1d7529193f24bf262",
+      "dat": "e870635882388663a826c2cd082f3a056c66934681c2484cfda5234a5cc0a162",
+      "wavBytes": 145216,
+      "datBytes": 145172
+    },
+    "a0189": {
+      "wav": "c2f69ad17d1fc56907018eb41ec9648dc4c8b3731f68f09115ec97ac337cb1f2",
+      "dat": "0a62ebc72663440c1812cd9add8ce294f97d51abc07a01dacf919a54a0d4ad6a",
+      "wavBytes": 144102,
+      "datBytes": 144058
+    },
+    "a0190": {
+      "wav": "196f9a674551c7618b23a5e3c9a7a054feccec268ab610b09d43c2be46479dc1",
+      "dat": "fbb8994058b056207590f164614248d1851f1cb3a1f8962d7fe4120cfbba832b",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0191": {
+      "wav": "9795ab293c31af7394aad9f0fe7c0aff7e89953e74e7058655e34bf9eefb1e01",
+      "dat": "c5c41e99ddfa47b4c4fff2f24828669dce945e2995a3ddf948430fdffd5e9eb1",
+      "wavBytes": 144938,
+      "datBytes": 144894
+    },
+    "a0192": {
+      "wav": "85ee74f3ffa82857d2f09a91f59f8baf088f0c607d8a13385b18c49c912f5483",
+      "dat": "080d5a7cf5e4d4cd593ca518aff1cf7cf92608f6a12b3260bcfc72ea78a4cf4e",
+      "wavBytes": 143544,
+      "datBytes": 143500
+    },
+    "a0193": {
+      "wav": "714d0837ad5991536b5ed923b0394425abc7d2e508ba9dd08e01d223541820fb",
+      "dat": "2f6dc0c7cb74dd178045233e31444f1be8aeb951f681bfc0c921f3cd6259090f",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0194": {
+      "wav": "48cff0f54ec5629b287d1fd7a7655073cacaf3d92476230ca41e7d191f652f76",
+      "dat": "432d3d8092cae0b75ee2707e0a1950adbebe9a9ac7ae99391d86ad9bb383d54b",
+      "wavBytes": 82800,
+      "datBytes": 82756
+    },
+    "a0195": {
+      "wav": "0b916156c6e60f1913bc303f568783873e4e0c621754b563d95ba4ebd41314e0",
+      "dat": "89c497d4d594017ac199a3dc076e364e91cba0840890a116819c5abff0d117ec",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0196": {
+      "wav": "acb6ed36a3b01ee8fe0d218fda2b8a0e1a2b2f64ecbd48b33ccb1551f3c1ff94",
+      "dat": "c265350396ffd16b2fa74449eabefd5cb9f9e6457811c5fb4d91f31e7429be8d",
+      "wavBytes": 122924,
+      "datBytes": 122880
+    },
+    "a0197": {
+      "wav": "75f88e3aaf4d63f800c0ba7d9d9e5d9a1e1268da1963475d28414679149a9acd",
+      "dat": "427c0c7548fd70435b9b53762270d95e4828a27538b414359fb009ba93ae2c23",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0198": {
+      "wav": "fda835c09ae5c9f70f4183aeedbd6d5719e1eb513e19b5404816e3bc6b210a47",
+      "dat": "80862e5a387ad5dcd66af30f934f214a2f368c24aca95bb93cead01d8d7302cd",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0199": {
+      "wav": "7e0347dbdf2cdf702f6ad0e85643ba7adb83033275802224f42cb861ea5ae90a",
+      "dat": "2fec6f6dbd9912eed85dd31d919474eb8c527428419e5818cd6d1c3ad2414760",
+      "wavBytes": 143544,
+      "datBytes": 143500
+    },
+    "a0200": {
+      "wav": "5b0c3cd804accc6be6dac4974fdd0bc3904889e8aac30caacaba60d7d194850a",
+      "dat": "430a5a03fa6bed086cca15bb79623068a1fcdeb9e66685d38ee8a4d4af607a93",
+      "wavBytes": 144102,
+      "datBytes": 144058
+    },
+    "a0201": {
+      "wav": "bb10a4f5bee5fe22935ceac3221cdf5776192eb8282d9c0659e08cc597414057",
+      "dat": "95bfa2fb6ef1f1aaf12e4f73922be2cba0b148b6062385a78f9cd7032f75c1c7",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0202": {
+      "wav": "ca55b9eaf6af5cb5e6297c9284252abdf9909ecd1471dfef87c3c1820004b812",
+      "dat": "d9f0c4f2e71684d5e7267e1c8416a4e6d22eb715e52b01e39291a3254fd779c9",
+      "wavBytes": 144658,
+      "datBytes": 144614
+    },
+    "a0203": {
+      "wav": "43ca2a93cab307ff25afd16ea1b75537e2a85e641827aaa5f376f4202e9c28ff",
+      "dat": "21a205070c6218d0a0fa93b6c0e2436c9bb197861a413564a5f68e7144bf8df0",
+      "wavBytes": 143544,
+      "datBytes": 143500
+    },
+    "a0204": {
+      "wav": "957a79798d01bfe483070f8d9a134b121a0c00ebb69e29bc8331922cf4584574",
+      "dat": "2646cc727276da93cc6af985c755c7d53dbe561a7fd267449b77508e7559c260",
+      "wavBytes": 124318,
+      "datBytes": 124274
+    },
+    "a0205": {
+      "wav": "2c13df07b872b8c94b6971b1f8019395cdd71f163aedb733ca7bf5bba094e0b1",
+      "dat": "a495fd9a7d47214e8c1e4f23f5b5b948560c33c369d4c4172167bbd6aeb14cb6",
+      "wavBytes": 82522,
+      "datBytes": 82478
+    },
+    "a0206": {
+      "wav": "1574c495b5837c9712be66fd9fa121d06098f3b7c14a22f108cce4153d4ef712",
+      "dat": "102ac139179bcb92d3a4041f979b0e4f2510d90c5e713b2fab2ae5a77b41bc37",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0207": {
+      "wav": "7e4381bedb6a5847dc5757111a243f341a08ebb60228eda8677a0757d995d998",
+      "dat": "31045a787a506ed343a2536a2ef6580507e1a8f74cb8e8ff8ea8763a43909a87",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0208": {
+      "wav": "f401ac7d63c3a96583911311d7462285bbdb64cd2ece790797b7587b7854c0ab",
+      "dat": "9a05a5636a0dacb93580d3deee65849ca6a0f07308dbfa547ecb694ce5dfccb2",
+      "wavBytes": 132966,
+      "datBytes": 132922
+    },
+    "a0209": {
+      "wav": "bda2727585fe1d831943c5d0a56ca2ebaefa71f253872255b9312f6a90a150df",
+      "dat": "74936a6d4c9ee94bbc3f07d6635120767179e608e0e33c0dd75556fb35348ea4",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0210": {
+      "wav": "fc75ede1d1301cd38626b80b86e5cb2b863480f5a534d0221ff8042e54e1d448",
+      "dat": "2a1fc46e934ff34342638bb7b20c3935b26745ae1f925d1840133d608ed276aa",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0211": {
+      "wav": "ec7ec0dfe4f85f6493e27f0c517fe24c3600891d3fa365526ef1226d9d8c5eac",
+      "dat": "a670764968511a57f0ae1260c7b7c87d1bea90c3cdbe57c300f3aa23507ae31f",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0212": {
+      "wav": "ba8e1692f594876178c2a30f72c121b1d84adc11afaefc5954582436cf5673d2",
+      "dat": "08ddc633c2dc1c6fcb887dddcfff81160fabf29eb73853b3c11078da42d50730",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0213": {
+      "wav": "42cf4b3807b4392d3779d6e73e8de0058553bc80f7c1f3e7c26c89cc6cb59a34",
+      "dat": "391988474ad5cf06719f39808249b116bb31e074c68da3ddeb290a916db9781f",
+      "wavBytes": 144380,
+      "datBytes": 144336
+    },
+    "a0214": {
+      "wav": "2031885d7b816c98ea2a310ac582f8c9e31f4b5ebf782896907f7a2f63d36ebc",
+      "dat": "24fd773fd30c25ccf3bdd22e551fd35cdcb5607e54986643f4b78a7164ac857b",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0215": {
+      "wav": "fb81ec0646672d4ebb8dfc147adf1abfff3ba66cb6c45456d595fb02bc9d1d6d",
+      "dat": "6ae6463ef896408573052d604e5911a195497200d2248695cdb4efc81c15ee29",
+      "wavBytes": 144658,
+      "datBytes": 144614
+    },
+    "a0216": {
+      "wav": "e1f7ee785d5c05d3fa14ed147555aafb4282945ed9457dfce39171892c154f8c",
+      "dat": "95e4d39e830d869aa93045a115d921bf5456a6b7d86e9d17812972fc5e5e97b2",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0217": {
+      "wav": "a948243633037df5c1265f036f1475f1323cd359cd524802e55589142c7bdf76",
+      "dat": "1eabc4f13c2c3e9191ff34452f9ab3b193bb095871f78680e9c6004b31f61bdb",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0218": {
+      "wav": "a0d8a34ac920a59aa36b7db020bc6b296b89e628a3a80847ef80ef03c635219e",
+      "dat": "d3a22093d22174a796b28562d3c900c49c3b714b6ad96bb0f1fb1b6a0214f9d2",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0219": {
+      "wav": "dfb553b0fa9dad59e12c4ae3cfd6256014ebfa82c7d29f2b7df5384bf8beef31",
+      "dat": "7eb5692de79e129fcff772669c8043cf3cb0ad2a49a41a585cabae2dfdd9e403",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0221": {
+      "wav": "15ec9d3ff419083cea0942ef5032c216d966f2bea745425d3f5da1fa73252445",
+      "dat": "6debbe60edcc814e4a73d4dfceb9f2feaaa69837d35b800f080bae5c938c4126",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0222": {
+      "wav": "351471638a1045be02448061f620be00457c47431a3500c44f8966efa3b696cd",
+      "dat": "46213f222af9ebe55fdc87a206c342b53347f7114099a34f43cc36ac1f368aed",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0223": {
+      "wav": "b16b90eb3e1ceab06b78789864ac3b26bf131e7d7f81188e4506b937ee75948b",
+      "dat": "7247833e25ed9f186b7f0df164607ef698d15609a6a89b04245354f1ef198a50",
+      "wavBytes": 82800,
+      "datBytes": 82756
+    },
+    "a0224": {
+      "wav": "062142711b495a0eb4398e39ed04ead9cf0f07528abb4bcd3fc70af73fc59915",
+      "dat": "0150a9f15a387a9bbfee23e7e602e2cb3db918700219835915a94d05193be8f2",
+      "wavBytes": 144938,
+      "datBytes": 144894
+    },
+    "a0225": {
+      "wav": "c52fa7362f9cb279ba9c485c09ee9e1bca3d070f79c9cbc11c02f5a4f2c4a361",
+      "dat": "4f4d763be73457799aa7685d799c7eac7c4de4ccc6199c92112acb45fae7337a",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0226": {
+      "wav": "eeaa0c29c43a572f17b9950d897176ff6105d0d361e45fd034973a20840c8dba",
+      "dat": "c4b1a0e6eab76214c2dab9b4bd17a53ce7d09e96643cbf92bc3db94aa88f6a29",
+      "wavBytes": 124220,
+      "datBytes": 124176
+    },
+    "a0227": {
+      "wav": "46c5bc2bf070d02b96b8621264f832ff7446d09f3a678922a6f03b4c73f169da",
+      "dat": "78ecd94bedc8e44cbaab35302c3dd1ed3a6f7af5d6e814ac93e5ac3f40ef80e2",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0228": {
+      "wav": "f712cb7e9a471c36dafddc498a5cade7ee0ba50354c86bf3cc14776d1194c20e",
+      "dat": "e6ca7f3f3ae7cfc4108862a4841dec512f5e5768d18dacdb25d76d9f46a7f8f7",
+      "wavBytes": 108714,
+      "datBytes": 108670
+    },
+    "a0229": {
+      "wav": "4aadda71a2cbc927561f2a66c4da1141335d133ec02ba5ae67854012c566c4d4",
+      "dat": "f9d91706e5af00efbb8f2aa1541aa76dbdd9cda8a7c772fa226eccaae612faea",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0230": {
+      "wav": "4c757932cba61fdb50b560ef3142f63631672221bd924ed48e3cd0dc29e6541d",
+      "dat": "2cb0fba45ee1021ebd3b5bd162a3b76ae0760b8f17368fbc4fa7991aa414fcf9",
+      "wavBytes": 144938,
+      "datBytes": 144894
+    },
+    "a0231": {
+      "wav": "820e158a43672d6cc794e56cda72daf854c1f9182d9eaa789982e306f66acd82",
+      "dat": "880bbbeee5604af5b8e0164d332c35167301170dc4d0bc0b9c4571b058f183d8",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0232": {
+      "wav": "2efe056e13f28526544f1b62af5648601922a8b9fd025000e0c2a1a5cafcb308",
+      "dat": "a0d7673c3d1da86b55aec4cc16cafcaad2110889d65921ef8b17a6eaa79b6851",
+      "wavBytes": 144938,
+      "datBytes": 144894
+    },
+    "a0234": {
+      "wav": "668d44daaebcfae914bc4902909cc81f9660a6eb4e3c2b311be6824d5c421840",
+      "dat": "27cc07b0db5be9ee631927b7504a849e357076850d88196bf5a8e00237361473",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0235": {
+      "wav": "914012102602e4a6e4a74653268f23e813a51e8ed8f6b130950ef4923db1b203",
+      "dat": "e03cbc613da907d3d046b917be03fe5b51d8f7ff55bd56eeac4ce07dc95705f3",
+      "wavBytes": 122368,
+      "datBytes": 122324
+    },
+    "a0236": {
+      "wav": "13e9ccfebf0cdde90ee0346bfd26b611906f7b41366d3751f029319ecf714499",
+      "dat": "b57493a0cf6bccca140892f2d04236edecdaccd293b43d7cd94e2314bd6cd73e",
+      "wavBytes": 144102,
+      "datBytes": 144058
+    },
+    "a0237": {
+      "wav": "b9cd1599fa32dea1b8db2d00313d8aafecf1dd6ae60814adad56cd1607e2c0ed",
+      "dat": "83fc619f9119385e7c8dad25252bd6777230e36b46bedc998d24dd55e4afe48b",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0238": {
+      "wav": "6f4aae010c0a903131122ce96f13da5f64f4fc2a14eb8423fb9faadc427a87b5",
+      "dat": "ff84378c0c187d87cec8b5288ed8be38d7d35a611fd5b1bd735383683d176958",
+      "wavBytes": 37104,
+      "datBytes": 37060
+    },
+    "a0239": {
+      "wav": "bc34a3421e1ee1174be95799208b3f16395930c03a72aafbce97bad46f90a1a8",
+      "dat": "33f10674bb9b6ffd6d841292732413cd96aed2289f1192251bfc27c2d4b04257",
+      "wavBytes": 83636,
+      "datBytes": 83592
+    },
+    "a0240": {
+      "wav": "5e699f090c1704ad5152b58aab1ab566f68fa9618c33b78273431b236fb736bd",
+      "dat": "26c50768c15a49225d2512c90ad9ba9aa4b669fffaf55de640b9f336ce2762f5",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0241": {
+      "wav": "b5dce66c68db40d24b79f0ca92dbaaf1d3783a5bbf1614eb3941f1d7aad9c6d0",
+      "dat": "fb29ad35f6a6f567de2081b7ede191c9755412f1425351000a472f46625d1535",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0242": {
+      "wav": "e2f94dbe83e0f14eee2fe3fd4b1dea1be0824a05f59eaecf6a1baf1211a00511",
+      "dat": "a1cec8ebdbb99f6ec1fb9ba204ef99d2fd9edc8fe122a62b0b55569d5bbfb7b0",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0243": {
+      "wav": "6d84e0e68a67e105b56dd5c7a4ed9314a412dc9e323f4c1c7acdc0b8cad7b50c",
+      "dat": "1e605681b0cc586f5597bb04171d08bee909487d1dc4de4dc44aa72f1c11b141",
+      "wavBytes": 144938,
+      "datBytes": 144894
+    },
+    "a0244": {
+      "wav": "939279cde593ad6880274ce8080be6a5a48e8d6d6daedfa9925555bb159b0e31",
+      "dat": "168fdcb5db2ed8effc63710061c8949a499a569ecaf9eb1f574da378143b4ed0",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0245": {
+      "wav": "339bf11dfb6e5497786f4e82f82b985e655e65af4a19a0c3046244e8863ed797",
+      "dat": "a7575000c9de53e98d1f9781e3307851f9ea046e01c9d6f7029e2a491d9bd053",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0246": {
+      "wav": "ca0255da0d6fd49c0befa7dbd1c2af436395c8004794fa27865417f80537d583",
+      "dat": "c82054522ae030edbb35592899cc0fbb58fd1dff88ff4a05f90ceea1e4878704",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0247": {
+      "wav": "be2a61bd6bcee4b4b31cbecf23c653428945a09dce421c3771325871c2bb24a5",
+      "dat": "5cc0d70815f860e8ebabbfb9f2aba43b3d1ec505574fb5ee5b686208a8bb8c58",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0248": {
+      "wav": "80ca31863b683c2433bc23af8a36aa4e5bc219df0842d88633f3c17a2f853c0e",
+      "dat": "6fcd3ccc0a903e37848edbb3de368fb8e9bdd4f5de495857f53c22d8e61104b4",
+      "wavBytes": 122170,
+      "datBytes": 122126
+    },
+    "a0249": {
+      "wav": "052550d88d9812e4f8b43d1f818ddbd222c4952a53fd84c9298a1425b6a40bfd",
+      "dat": "f93818a8bbdf3357c55adcc71843259742621759068508ae26bf6e3a17223e8d",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0250": {
+      "wav": "3ec0340e020bf3dbb1ab8c292ca8325c57cce22c7653dbab176c653cf6785c5a",
+      "dat": "88419a965f2b1712c24a9e4d313ecefea81c7813c5276f8f957c3731a0a8600a",
+      "wavBytes": 124040,
+      "datBytes": 123996
+    },
+    "a0252": {
+      "wav": "3e1e60d89802c60cb7d6ab4093b1dfd937c69a308e57df02ce002f1121dae273",
+      "dat": "04ef21c202078a255c6d11b3526c68719690c62890c04c15e357ff5b333fb76b",
+      "wavBytes": 84194,
+      "datBytes": 84150
+    },
+    "a0253": {
+      "wav": "79c9f689bfd3975c5e66f3bbaac8ea554f135099ab2048dfa47a4f3b7f275a3c",
+      "dat": "234b3dba8ce5ea56e46b783b396b1690e37a80d65a23a75ea19289b12cbe5cab",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0254": {
+      "wav": "244ab14a58158c078dde8b005677b1fd37a244bf8f853d5230edfaeeaf14eb1b",
+      "dat": "b36fbf2da1bf0fec7f4f9d7a90f2742f8e3ab4e88d770b083bc32e9e5adfaecc",
+      "wavBytes": 125346,
+      "datBytes": 125302
+    },
+    "a0255": {
+      "wav": "85525ea90573d2f991b547386f39bdfa2b8b74db3ca3c9177d2630e735907570",
+      "dat": "4db329753e84f192ab6045e8a42bbff8befd24e89e7881409f92ddd0b8d3e278",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0256": {
+      "wav": "e448c6f18041917a1a7d8ef8a95196d6b6ec995d39d8ecd2b5a2eff567c27329",
+      "dat": "9ff0a26bcf89115e949c1a0e8d4613b024f6c8e8c0a9be003175ac42fbfef0c2",
+      "wavBytes": 83358,
+      "datBytes": 83314
+    },
+    "a0257": {
+      "wav": "67e0ef5fcd066516330f57e15143376d0c8661b11f53f48317f69e33948b9b4c",
+      "dat": "69f23652185479ed0c916a9607a57bbe25b8b3a531b3702cc518a910209f2183",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0258": {
+      "wav": "f8c78e1e5640e5d11fcfc40313777aad478d807dc820634f6d3f6960b4a495b1",
+      "dat": "cb5442327172f9f4939154f190a6bf80c4404422dfe15c0ef7a78ccaf1aadf04",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0259": {
+      "wav": "0350acfc1e768c1069b72706b7ab9e503aebc94a07396ef58e622109d283b07d",
+      "dat": "3adf41e75121c9b7e4ba3d83df4dae7d71c797b545958f2eb9f87bba06220ea6",
+      "wavBytes": 143822,
+      "datBytes": 143778
+    },
+    "a0260": {
+      "wav": "dbed04f98727403be367bf2513355b5b9787051f6d111647f19b7b4a6e4de947",
+      "dat": "093e0484ccf03ffc01facafbd1c960d761dda59fd39c3b09797c820f04bc77cc",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0261": {
+      "wav": "e5bcca56355c1c6cc32e43075e44d93c83e786a0017d500d6ed17505f64f0da2",
+      "dat": "063c211399f1ba5a9eb51a88cd9dd31e5f4ac37030e61215bc6286e1dca6b1e4",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0262": {
+      "wav": "f7e8d894637c2c29c568a8b928244fd7effd8d77cfac2d2df84c1dabe37b28a6",
+      "dat": "fe5949aaf33c2bbcda5b9ea336a8de21e7bc1c4d501d089e8e99f580ae3f624e",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0263": {
+      "wav": "b811d85338a36bd554f69d05f4d7cb650dfc79e7c51e5577ce3863e001bd1ece",
+      "dat": "d76920f8e32d90138fe7779480d3dbc83ff3e407deafdc5e081173521f25bd22",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0264": {
+      "wav": "5c370a04b3539db1da6b18bd909a8b8ce60d1be52873c16903c77cbe362214ae",
+      "dat": "6409f82450fc9ab890f8abf2a0bc90b319e483b92f65421f45f8c3d4781fb386",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0265": {
+      "wav": "41cccacc6b2437925979648c8c6566253a3b5d81d60c271f58c2955d52d138ed",
+      "dat": "738916e456ab6237e28bfb32623dc99ff132bcfb027caaadf4eb9adfa2a1574e",
+      "wavBytes": 83916,
+      "datBytes": 83872
+    },
+    "a0266": {
+      "wav": "c18ca3daf6c2b564c4786fcec158a7d57be552e42265830cfe0092593cc3004d",
+      "dat": "c3a6b8c27d7e4344fb2aadb903dec22a031a3c61afad75ba89a9d29b5aff4efa",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0267": {
+      "wav": "e8991af82482f4b68473d3bd14df642d399d8bad0eeba20acd93f77a97a12c75",
+      "dat": "a55c7da0ecfb10fea6f13e7625425eb0e66b67f0465866d4ffa49ce3833a4e29",
+      "wavBytes": 82800,
+      "datBytes": 82756
+    },
+    "a0268": {
+      "wav": "04118230ac4fa355d97500831f95bd805f444283252e021e5178c1b82baaf6cc",
+      "dat": "28b636f508c7b4bb5190a7a7b5e4f5b9900cdd2be6f91907c15be9362781c086",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0269": {
+      "wav": "e12fbc8eb889d52405553f1a11567cb0548c741263682d33d01ce9c841127b6d",
+      "dat": "8bb7eaeebb4073372fe775e5ee494e5b885f3887dca574752dcc5580fa537f65",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0270": {
+      "wav": "abbb202ba9f3358dea3d39d68f22238d2905d8b1d526d531a4b9b1eee29ff01b",
+      "dat": "21d1f13af268a00c21be48fd5b731eea9ab42b9a756fa03e171d72abfb967b92",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0271": {
+      "wav": "d1439371c1761add9dde29bdd5db6e77639504fa6fd4e735193e776d1b40cc53",
+      "dat": "f1c6bbb16f0620b3e5d3ae79406c55effee9c704298205ced3d1e852f8578ccd",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0272": {
+      "wav": "521a948ca2e808f5d739de1a74244aa5f7b2e5f86358292543f82722be130bb9",
+      "dat": "9315f6af2c29116059b989885eb0c03af9cb15ca6dd43c94643ede88ca0b636f",
+      "wavBytes": 143544,
+      "datBytes": 143500
+    },
+    "a0273": {
+      "wav": "fb934795532be0b061c7e431be71b6003449ce87a148d3b3b17df19025186346",
+      "dat": "a905b6cd8e00ff30da0562711c19e031698476417c6749851122afd7caf55cf8",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0274": {
+      "wav": "47b02464c5fb90f1f7c98b256be29d5cf39da4929f51f10294b905f02b3bdaa1",
+      "dat": "137e66660e64bc28c06b787092ce35f8b78968972fc15060043f6789ba32342a",
+      "wavBytes": 144938,
+      "datBytes": 144894
+    },
+    "a0275": {
+      "wav": "2678f059ee08b54954981c62e9dab1d1165ecdacb2560cd93d186c8942325752",
+      "dat": "206d72f11ce092e89af55a15e5f4fe915de09b3be463e5777550970abeec37c1",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0276": {
+      "wav": "156c888ebf85ffe07161dd76b1d1ce16b5321d340d63b51429e492e4e9089536",
+      "dat": "65332ddb2bc5c5bfc62f6ab153822df24f690b4928140fe436501184835ea45f",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0277": {
+      "wav": "a16945b3cfb72a1d29fca2f3fe47f0a13216ab73cef16295116ae83e6886e10f",
+      "dat": "bec6732161986fd2b142e9962ea31ab6d23bb7be9df21ac45cd9da00470ea195",
+      "wavBytes": 124596,
+      "datBytes": 124552
+    },
+    "a0278": {
+      "wav": "a8cb698400089f8f1cd2afe78f69a8759631a629619fb00fc1e5d86aba92e86f",
+      "dat": "d9c7033c3d9f2500ab762e32dafd8ebb2725a426ddd48cbb744bd6e9be0b5b29",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0279": {
+      "wav": "66f093b8526bed8fe42e92e088e026822f47cf1d60e7ac9900fea87c6d28a7cd",
+      "dat": "dd110b4988c42abdfd3b813a74a300f2a64f84cb29e607e957a9febb1bc253cb",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0280": {
+      "wav": "89ab61378cf4228c22235aec18d186d1bf601195899fe5c5821e6e0ebeb6175c",
+      "dat": "60ee7724f1bbf8b78590f897ed95d44b4d47b67ecfe77e6411999a7ccef630dd",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0281": {
+      "wav": "ef35e76cbccd63f2d4a7eab3f09b31ab6e8e388e188c4da4fafff626e1506ff1",
+      "dat": "47527be2b54007d9428716931ff363debaaacfaa14a0d221c52a46280efd45f5",
+      "wavBytes": 114340,
+      "datBytes": 114296
+    },
+    "a0282": {
+      "wav": "e5735c5a9d35fa0e7ad8040028b6d367b0a81c6aa3db4e116514f3b3ee6f801e",
+      "dat": "ccbb1b897716ff29d22837b4c170cac1d35ad8c1bd72a462bf4981cd20dda9ea",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0283": {
+      "wav": "d6895843820c27c5f2b8ddb3194c144f9740798ec7f7cacc92c7b1d9caf4e882",
+      "dat": "5af446620f4cf84df989d9df143708d42cac39d139dacef2b359b007b65f7520",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0284": {
+      "wav": "ac68ad459ad26536f95f09b9b7a8f82f065e382e6fa5cc9876240446f1f74262",
+      "dat": "6ec1a2a52a93ac9473e96430db1c7ae381c88239e8d0c3fc4f34c07a4206cd18",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0285": {
+      "wav": "295d468e5489066748d38ecfbba62e82fb60f22f3f06c9376c5eb74d5750b863",
+      "dat": "e7895935a0ebe945029159a4efe6621d5b30a40b22cf9118167ed1155c19f69b",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0286": {
+      "wav": "d7050d2503c6efd43e297b0d1d9572f5f67d556b8a55b9cce23ab349a834b6be",
+      "dat": "2f4cfb8ed2e903e5374fa51e2bc3c61f8b10706297ad2acbe9f8286a298d0813",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0287": {
+      "wav": "69d2ab869c7adb62bba11cac03493eb5562c4bc41b96231ab00e6097cfe950c8",
+      "dat": "f5ec38eadf5993310f87da2c050d0f8c453aa63ba8154f5ee5b95c34acbfb7fa",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0288": {
+      "wav": "b1fd28406d877ea4bdc51874fa5add8bb453f3271ace4aaa4010f3c9d9c6bb8c",
+      "dat": "22d7aecc3eb9a8c637e1638885c635486f3669ed05677ff8c5440aedb45e3818",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0289": {
+      "wav": "58a356a4db84672ebe066b8f779ae9f49e1d0dcdad92fc76ea10ad2414337aae",
+      "dat": "a764bc0beef8884a679bf4278a6c49cd8f57861af1431b952d8d8375b90c0672",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0290": {
+      "wav": "3190afbfb721402fb66e626aa8fbcdf6bd005569d0f923d32349d8343dad3fc8",
+      "dat": "3a2ac4c2d422f97c72c569b482d128abdae9f90974d84fdb88760c79fb880603",
+      "wavBytes": 124596,
+      "datBytes": 124552
+    },
+    "a0291": {
+      "wav": "16d55fab042d641f9d1f3d2f778616d04459c7f4f9350174c737d7b5cfb518d7",
+      "dat": "c65045bfa14e0efc95ea87481167c1128e681881747eecec4c6d74c17a08966e",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0292": {
+      "wav": "c02867d8cf1e96ac35aedc0c22c24b7f25707f0c90174fffa21827474161bc92",
+      "dat": "8200579d6b3848eae5398bab85098148e7ecfec715f660c98503de55747884ca",
+      "wavBytes": 144938,
+      "datBytes": 144894
+    },
+    "a0293": {
+      "wav": "aa7c1760247c49f296cc55cc914b650ba36484fd5a8a0ff05493cb81d37d00ac",
+      "dat": "ae735fd71b0a4f6ee75bc2544212973c8c61d04b0821d905d4d0cd6891fcb813",
+      "wavBytes": 122924,
+      "datBytes": 122880
+    },
+    "a0294": {
+      "wav": "82e1807ca21082f28b168b61d54b478c020f007efacdb5c3f8e65d53660c0193",
+      "dat": "4f02a804b998b699c4970dba84f082d6e5c01eeb1c110fc8b82f61a29120f966",
+      "wavBytes": 143544,
+      "datBytes": 143500
+    },
+    "a0295": {
+      "wav": "a919857d9889877950df0a9414091fe24c4a40d617eb3e8500d95c1e11bdb5d2",
+      "dat": "a957fb70998709acb60d1470053e0f19973c6784da5ff67e9b446cde0741b04e",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0296": {
+      "wav": "41bf3d9721c2dbf60e150636965af10e8970bde7176be567c2a0a529beb88b5a",
+      "dat": "b1fe7204d96935dd23b48179cede2e551cc371fbc7fc5abca9ea7d7bb867dfe7",
+      "wavBytes": 51954,
+      "datBytes": 51910
+    },
+    "a0297": {
+      "wav": "5d95c655f2105ce54a65e0a70ed54e8ede0668b76b1925d860b3df889afaf46c",
+      "dat": "4847ca0d3d927df3b0552237f0c682a9ac1f33334ef954e4f7f5d4230995ccd4",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0298": {
+      "wav": "686e93cf429e0c59fd2643e5a11d4cf4c63525f58406340ba1c26aaf17da6242",
+      "dat": "8356a6c82e50517d2eadd2b3226ce061c5b2951766834aea4def26b2735a1351",
+      "wavBytes": 124040,
+      "datBytes": 123996
+    },
+    "a0299": {
+      "wav": "bb37ccf60d5243adfe7637a5944d329b55c3bbf7fb8d030cf625ccade5ad7150",
+      "dat": "090e0c7323f45ae6c1ca292217663547b2c545b6cc3d1f1c76ef12380fd46b51",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0300": {
+      "wav": "8613009cdc599baf8281168d34c683a3882b5435af4aee84d02b1c48c01b3be2",
+      "dat": "ad743b323706807a996999d459df3f4bf7585aa27e6af2eed2be74c57b26c88a",
+      "wavBytes": 122924,
+      "datBytes": 122880
+    },
+    "a0301": {
+      "wav": "cde06e60f20b03883e50014cb0aa8245a831285022c33bed2bff581b42973676",
+      "dat": "ae854914737c2863cb75dae5eb054f84e701285bf17283205fb51d301c086c20",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0302": {
+      "wav": "ac33ae5b2e9c0e58242f0bf93dbd11f7f36d0344727b3479fd46de77c0427e31",
+      "dat": "8ee8949cd07f74326466530d2056e85a41e3854bc6b21640143bf274fc12b87c",
+      "wavBytes": 144102,
+      "datBytes": 144058
+    },
+    "a0303": {
+      "wav": "25467ce10645446cd735534ba6bab995fde4dae0e47ea9da6bbf01c4571cca6d",
+      "dat": "3070299a1eb111d3e5193f26f7875a0e61e0baffd9a40dd65c1d651930a12d11",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0304": {
+      "wav": "3435064214ab8e89e9a58ed3156fa9b8564c3e66aaf400b4fdd75c55738f66d6",
+      "dat": "d78621a0e1f9f548148f30bce10f715550cc1d4a47d05c6deecef53b3ed26794",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0305": {
+      "wav": "067d9de3c3c269a7c101334c9af466df7679693fe0f79a2422fd0529dfbc0948",
+      "dat": "116a9a97fc05bf1434ca1e70e2bc3e64936a258fdbc276d0c436c387c746d24c",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0306": {
+      "wav": "1bbe6cba34b0a5621a0487cf330882ef8407706e7967fb92b3384aa2fe3906ee",
+      "dat": "bfcd062f47ff324f8c521943dbf075b12d06800e07a34c38ef307c0850d16b81",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0307": {
+      "wav": "dadcffdf6b55547d241fdb8b64d84ad4dd3c9124abe5dc18ad722652daf13a6a",
+      "dat": "9f95b5cd8be256f957e93ac312818428f192111948c57e019b318990966787f5",
+      "wavBytes": 136704,
+      "datBytes": 136660
+    },
+    "a0308": {
+      "wav": "45d22ef1d9f02436b447cf3b363598b483563722e49d738f28d85f58d7c3fd5a",
+      "dat": "d6eb05f16fb2146cf5dc22450b86d06e3c7506e624fc4b703b988150e14634e8",
+      "wavBytes": 131812,
+      "datBytes": 131768
+    },
+    "a0309": {
+      "wav": "ed6a756d7798891b1da3468cf7676ef10182d3d046ba3a4adeafdc9d258ea8f3",
+      "dat": "bf27fee96dc99a41f5954bbd18bd1853cf8a4f45050a4e266aeec0d61848be8a",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0310": {
+      "wav": "2d932f90d2083866763dc6fdb33cb8a77945b275f61fd01a988f5190bc746c57",
+      "dat": "25aaa2d42feff1d6ee36fdf588e8c8420393cb55d73d42b9894d5afbb38a55de",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0311": {
+      "wav": "1eb202e518a644ded1038da98816287b535d914e12da0ecb77b7348847f59ffd",
+      "dat": "615de763f0f548f0d0f666f95abdd2e24269b25647b3ef9f0f009791e37e80f9",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0312": {
+      "wav": "4e30b0e2ff5be11a5ff959f2af8f9e96e81efcef2f42ee072b18612067c91f49",
+      "dat": "d3a89a4235f2178e807a7fdc37e614e0fc7f4bf65cdb7e1e99707c26016f7758",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0313": {
+      "wav": "4447a3056cbd68a4c5c87f7b8add8c6ccf1d4f7a43fc1a3dfe78ebde66b46869",
+      "dat": "c52f18c062f40e172adfff50e6bee2e62e5066eb3ecc72c3fbff4809533d011b",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0316": {
+      "wav": "8ba139399f99b00f7d63cb56271b63d3f9c2586365ac5ef7c9d0595cd600b86f",
+      "dat": "2f29748bb429b1d1c7136ff360e7abc130aed27e2a459d73c615caff0c91c932",
+      "wavBytes": 82522,
+      "datBytes": 82478
+    },
+    "a0317": {
+      "wav": "e45e3464a3dca798debffccea9df1e3a3fbc29df85b4b9fccfac0d6ef82694fb",
+      "dat": "ca6c1017070679c1e861b654fd9682dcdcef3413130bcaebc4f5b8519036e012",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0319": {
+      "wav": "6e3aaa6bea50bf34f7a61778d5f348f70b2ee4fb43823eff1f8818b038b3ddb9",
+      "dat": "f8e7cba3640daf3c9d7a83f208d64e76fdec118fb98ef8318ce3ef359a84cdf5",
+      "wavBytes": 144102,
+      "datBytes": 144058
+    },
+    "a0320": {
+      "wav": "8bdd794216c37a798751cf4606c05bc7787877301f885a85b280a8725d8840ad",
+      "dat": "1dc52fee973d31a50933e006a326886a7e2d6b2b5d7fdede0923d945d2b0cbc1",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0321": {
+      "wav": "a30f0aee42ca5a9c522750a59269e98c77a55db4458ebe1f83a74e36ab7c54d2",
+      "dat": "738faa9915162fdb8ad535db181c363b651618b0bdbc2e7ae635321c7f4b0d19",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0322": {
+      "wav": "1d94a163472f51a444640d7aad42f4a075d55618bc1d6e872f76be21f0d40310",
+      "dat": "842352ca48dd76306b972e6efd709b355db31bb117687b32b8de2b3ff46f5832",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0323": {
+      "wav": "2b2b86312ac89fc3ae483734935f2f5bcc244d0408c28d62ffd8c95d65671545",
+      "dat": "009ab400c09ef9a41f611fe5a203cbdb95214c4f88310fed3df727e4fb99982b",
+      "wavBytes": 82522,
+      "datBytes": 82478
+    },
+    "a0324": {
+      "wav": "aa76b7c3e0e82b4810a629a87a874f87798c2a182f3c34a3c1cefcc9e2a2a724",
+      "dat": "decfc85021ba2ba1d957d1b7e03a2bcf6bcc11ebdfcce148be027726217c7c50",
+      "wavBytes": 146052,
+      "datBytes": 146008
+    },
+    "a0325": {
+      "wav": "4141972ca62cd0302e9d37366d5c444868b5d8bfccb61e7a29abd960b4025ad2",
+      "dat": "648adbdfe4d6ee39ffccef8940263e3b78e5f18f755ca8d9c07810fad24414e2",
+      "wavBytes": 144658,
+      "datBytes": 144614
+    },
+    "a0326": {
+      "wav": "2fa3e9cc5dbe44c89223a3d0652a1c5653e7baf948e5c668fa721d2b6ca22b59",
+      "dat": "07b2a41a55c60d19f2041f462c4f102b4d4668a3bee453c75d57696164ee9137",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0327": {
+      "wav": "12cc02955afa6bf00a01a235bfce78b706051bbc4e631fb62af564d41c623880",
+      "dat": "80e55c359ac172a14a7782375524a9ec611939e541b11c4b370991ceed88f616",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0328": {
+      "wav": "dfcfa83f9289ac0917c6883084391a33b4e9e3aed861158da2676979c543c269",
+      "dat": "2892ce7875c13ad11c50a0e29cdd95cfa761dba3a687c1b801a0410ba0788544",
+      "wavBytes": 122924,
+      "datBytes": 122880
+    },
+    "a0329": {
+      "wav": "d25559619d4107572592619a3f40be73ee4839604570123e9fd2e9ed5b720700",
+      "dat": "c941664a04bccca4557bce4a38e44733b660cb62a1ae378a9f734c5e5d798623",
+      "wavBytes": 144658,
+      "datBytes": 144614
+    },
+    "a0331": {
+      "wav": "f1c042ef07e0cf5fe42e8645904cd7bcb5d275c4bc2f689d0ca5ce1d622ed111",
+      "dat": "31ce7548e41b892970e9a2fe22939010cc3606564cb968c280897ccecb3553e8",
+      "wavBytes": 114288,
+      "datBytes": 114244
+    },
+    "a0332": {
+      "wav": "afa402abbc666c2959b6d33892d61603f74323410890b78191cae7fabb287641",
+      "dat": "4f573ff8325e919a790023711894e05198e16b9a0d5dc4b66f78c7c7b3e158fc",
+      "wavBytes": 144380,
+      "datBytes": 144336
+    },
+    "a0333": {
+      "wav": "0e7b20d11b02fb7e85317e1723395da2fad4753166de62a960fda93cc64c65b1",
+      "dat": "aac5839e8cf89f0ffcb915a61b60cfcd39da016fec1b087fb44990c2b9dd8d6a",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0334": {
+      "wav": "433ae969547a5dd997ac3b497475ea8fbf213eb273cf54320f2bbb814717d161",
+      "dat": "3507d254f8c0c94af69e24bb2d7e72703f3ceaae9aaa5828b3efd63d30b05661",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0335": {
+      "wav": "a191f3a9b4750164946fa8e22f41a3eb7517eb27c6b6281c816d864b5528a3b9",
+      "dat": "4f883e638225ed7bf35044566aec08f4d433b698e87da76f2e23f2cefdc496f3",
+      "wavBytes": 145216,
+      "datBytes": 145172
+    },
+    "a0336": {
+      "wav": "288dd295cce1018fb57056cfc340aaed17b11bdba84e7f05a23fb4f963e80c1a",
+      "dat": "2018d78a1a0a3cceec4d8aa1a7577709e201fc958f1696cbd7a97f8fcf265842",
+      "wavBytes": 51222,
+      "datBytes": 51178
+    },
+    "a0337": {
+      "wav": "e9f30fecc7b29e4228f06760bcedb9d6d1669e2dc031716c5074cfd75f7362f0",
+      "dat": "02002899ca55081bc622666a4ff05086d7cf1de680e96905c7d1bbedac7df280",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0338": {
+      "wav": "1a8cc4f8660e1c15a5cff98c7a527856f8bacb93256331a74f718ae6045f67eb",
+      "dat": "b71e604a96c36c7a93f6ab0c199eb500b75f82ecaeb6dc49adeb7a007bf16c42",
+      "wavBytes": 143544,
+      "datBytes": 143500
+    },
+    "a0339": {
+      "wav": "fd52fb345d3ac45c8cbc0c0296a0d453e964509e988eb94f4937fc721e956e6d",
+      "dat": "81379b930a934c52953d748946d79e973345ad0ffd0cd3c5f420b4921a8f711c",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0340": {
+      "wav": "f0a71404d2c344fa9d3107a85fdeaca30fb32ae1cb9e704accc6fba2ea72a73f",
+      "dat": "a3576f7a7c24db552d02729a9f5a0de26f4d9938ec43889daa5a17dcb8482f0d",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0341": {
+      "wav": "cf629f9ad66a5ece4d44eedd86f462d6cc9a6f9730b6c7c7857dbf777bf3991a",
+      "dat": "de6b333bfffa971f004caa457c030ccd73c9d4867fe694e0cf8659de76ac0554",
+      "wavBytes": 133478,
+      "datBytes": 133434
+    },
+    "a0342": {
+      "wav": "122f7ffe26ad077e8f8b278e833991dacde9e5950e098f4519d23dfe7d8d046d",
+      "dat": "a2747071cf457437c9dafea5074b4e7d278acfc47156264f91acd20a8abe68bb",
+      "wavBytes": 124596,
+      "datBytes": 124552
+    },
+    "a0343": {
+      "wav": "09ac8c3889477e1bc086dc3345f1f93540bf3bf4954c8144fa615c5c4c5e653f",
+      "dat": "7e613aa5e8c67a189da95d2066bea4db82b31e57b2ca3602dc0a9ced4d05a1b5",
+      "wavBytes": 145216,
+      "datBytes": 145172
+    },
+    "a0344": {
+      "wav": "dfb1bf5e3bfe0294c42ac9d3fa7ea9a80a5973d8aa653a7e4fd1a851dfa62745",
+      "dat": "9c9197a326f0e65da53c5746a8ea7bf3ea30d5486a98df7be924234452fc1f91",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0345": {
+      "wav": "d8bb56c44b72efc93b6d1cc4e0902f1d4c94ccfb0534400c8d2d3667841fcffd",
+      "dat": "2492ef17381622fed36569e488e1512523184ebc806b7a64cb85508df2ec27e8",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0346": {
+      "wav": "b2e9f809c8b9cb2832958edfcc419278f147cddfb0808591569e775209da9786",
+      "dat": "296e653561eddd4c3206961550b0d347bd786b4a1296cdbf3cb93b24a39dd820",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0347": {
+      "wav": "23fd88e5e195d1a09bc4d8744c7430baec047b791b001a71b70926253417cf27",
+      "dat": "2842636f0f2a8cc591c4ae82dafd813ff43053a16ba212061e56e1d961e6f76f",
+      "wavBytes": 82800,
+      "datBytes": 82756
+    },
+    "a0348": {
+      "wav": "7e24ed9be4af1caa5bbff0faada208d818b18bbf8aed3fee00220d6f6d755ef8",
+      "dat": "98ea108507873dd471daa35ed0769a83c75725a455a5a39e6486b272501e653e",
+      "wavBytes": 144658,
+      "datBytes": 144614
+    },
+    "a0349": {
+      "wav": "43f18da14af0b13793deb97a89894dbf68fbd2460278614b288c5f4b73aee779",
+      "dat": "92acb7f573c25f90efb0632cb153334d048b68956b41924471fe5328740dc0fa",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0350": {
+      "wav": "66113c8354e5b69d4fd38ce285267c827009f219c0ff4a13f62c17456e54f94d",
+      "dat": "bbba6f52a73a7b100db53420a6987c0c45966574e7873f68198b1faeefd2e2a7",
+      "wavBytes": 128358,
+      "datBytes": 128314
+    },
+    "a0351": {
+      "wav": "a64da09a02b4fcfaefcf11b28ee9f1cf9e04d9916fa2149d4a4d692acd3bd47d",
+      "dat": "b94cd9e1ba231be4400ebe677d3ce23502d6cb33aa72d2399aa1c13cc23e6c30",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0352": {
+      "wav": "3adf8da7ab3d7beb8421d22dc45a2af901d9126671cdce610945a16bdd86a371",
+      "dat": "b5cd200ec3d272397f8af3681e51aafa14f533cac6675243ba86812af2ec7d51",
+      "wavBytes": 145216,
+      "datBytes": 145172
+    },
+    "a0353": {
+      "wav": "0ead3c65ae63f5835a45641da39578acd683d0353c4b80ff0d85ba5e1ea91765",
+      "dat": "44cdda8b55b633033cdc86138ee1baca919a62c9a35718dc54e987022ca2d349",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0354": {
+      "wav": "b7f2a3fc896b19f37c91277758f306f241d50d66611b543331863f1efe2c49ba",
+      "dat": "457914179466ee3c531b3ab5760d942bb2652c046d82e936138303f0bd28eb30",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0355": {
+      "wav": "b1c91cd2cb4a87a33e04bf7183ebf41b54d92531507626001c680c2a940f2df3",
+      "dat": "16145bcbb98658c48d4ead6d4a422fd2fef5756daaa159fd0511def44356acce",
+      "wavBytes": 144938,
+      "datBytes": 144894
+    },
+    "a0356": {
+      "wav": "a4ab47f79a4bc764842aae29f267194c82c4ddca99b3cc11359cc9da187ee226",
+      "dat": "ef47a7b057a8f540429e6256890dc303197d491ab3a453a37af9c0570c01fc0a",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0357": {
+      "wav": "d1e072c5003f35cf415aa16408ed8645e234ada3f8d0201f75faf724814986f2",
+      "dat": "1cce31da634ca86fc5142d7d70ba1296a11a512c3f0b0d9b20fa7c457f128ad0",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0358": {
+      "wav": "e66680a5feb8602b292ac3ac032b9f404826ac50058b18bd387e109b419253a7",
+      "dat": "7f382a944f441e01b2adf1e1eaf3c15e918a5d28149060e1fbb7e5788e3549b3",
+      "wavBytes": 82522,
+      "datBytes": 82478
+    },
+    "a0359": {
+      "wav": "19eb9853d163b130feae84bca8d8b85274cfeae425ebcf21965bb22771f77240",
+      "dat": "c22748eef1259f9639309e1bc7e3f694d4fb853017102901e8e682ecafd09828",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0360": {
+      "wav": "63c4e70037258a115391db28acc076eaf9c2f921ec86d1ca06173dd877a816d1",
+      "dat": "bc0c261b421f1adbb1c3d692806793fafe194b0bb560c17747194413d33cf733",
+      "wavBytes": 82522,
+      "datBytes": 82478
+    },
+    "a0361": {
+      "wav": "c7f0a1e15bea73c6b3e6f4d9245a5a6b6da68301e35fd4e48ebb12af2b577853",
+      "dat": "48529c019a12ded3f59439e75556411ff24b3d36ff4abdc98c434c7f27c0a0ec",
+      "wavBytes": 124040,
+      "datBytes": 123996
+    },
+    "a0362": {
+      "wav": "02a3df6baf8bf5fec007c6db6389b8b354b633e67be0b1b8049c5cdc5936b472",
+      "dat": "8f7a09038aec6496f137d03d555c5467ca50d554cd932d11f035f808e703995e",
+      "wavBytes": 143544,
+      "datBytes": 143500
+    },
+    "a0363": {
+      "wav": "272230991b9239deb31f3e5464ff8c5504c79aeaccb2e1cb55d811edaa1631e6",
+      "dat": "724cc5fc3c6b917fcd0050df9abafc178f667ae608ab4e8bd8e5433e56861585",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0364": {
+      "wav": "39be41e1072048af7e49207c51fdb194db7bb1d888be15df073343204f3630c6",
+      "dat": "4d0d065d2d695466ed703555ff784fc906b6614df7fb90b17079afda5c86e9bb",
+      "wavBytes": 143822,
+      "datBytes": 143778
+    },
+    "a0365": {
+      "wav": "7736e0bb08da74d09ffa02be19c9627563226d4cbe44ed53cf24c26361430c97",
+      "dat": "46002b409f8770b7ccf486f26bb416f997d0a4d13b3f01d5e58e1b98db053fbf",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0366": {
+      "wav": "6b6aeb7f2dd5ce9565cbb4c02a47301ac862943681efaf9eac2c1aad1755028e",
+      "dat": "f574a881114d63f79bd66769f4ab37742face19af01420a847d80dc8004b0ef0",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0367": {
+      "wav": "3ad6e76a075634b09f356b92dcf4155c92fa327be819fbb1aaa5a8f66f690a2b",
+      "dat": "e2dfad944c0880a72081bec65aef079197002919bb6c325767573ef132839054",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0368": {
+      "wav": "7d895e7b9ec4c0c865fa02f37d116eaead62c99b5fcf3885aabf8f983a175f42",
+      "dat": "f4015d2549be7a94a34f6f63bbb959d48ab48038319e19fb0d5e4b391a1b4a89",
+      "wavBytes": 122924,
+      "datBytes": 122880
+    },
+    "a0369": {
+      "wav": "7a380a3e3035c5f8b46dc88c66506d6463a229419535bbd4545309130280d362",
+      "dat": "9d345a19de430734eae0097a16b0e5f5434f8d3ee76aaf706b80adb9ad5cbd43",
+      "wavBytes": 83358,
+      "datBytes": 83314
+    },
+    "a0370": {
+      "wav": "15fb39f2475ceeb7fb5b53cdfa6e7df5d09f64987c4eca59de9e044bdf221ecb",
+      "dat": "7308ed7f73f9e6314fca59981d002b9e11b515cbc1a5f4570ac846fd18712a8e",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0371": {
+      "wav": "2bf8d5f11a90b4eb6da1a6e03d1485a4235043f4734e2f89845b2b8ac2f4c5af",
+      "dat": "e22c4c8a737694b29bfbc9619886b877f576bd0acbcaa48b28875c0dfb9c577e",
+      "wavBytes": 83916,
+      "datBytes": 83872
+    },
+    "a0372": {
+      "wav": "a2780c719b838e3aa7f687a3b690ca929c7e5a6b6334459308a4c329275f2e6a",
+      "dat": "5381591b84bd2a978bae60bfde55430c0e30b08333d218335cacd5f8900eb4d0",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0373": {
+      "wav": "1d47d5f6d78f407613ee5c7e145a88a4205ae62e81bb105595e44ab69e50c5c5",
+      "dat": "da32f1cac18ec0ce53504c38283d816098559cfeecfc651a5d90cfbc22b78e59",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0374": {
+      "wav": "ae925632a4bcba00ce412504a2e6f1e8d52396f378ae064e2ef7463f086bf74a",
+      "dat": "0a9bd68a1441777070bce5631c2888df04ed693bd7f682e2e06e2e11c7139820",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0375": {
+      "wav": "83d9217015eb86e72baa02ab23a5fa44c1adab0119daad1cd4852f516cda678d",
+      "dat": "ab1b756cb6ca464273aa051ed92ef536ba70ed0b5c7ca3d858a65b7210b1d005",
+      "wavBytes": 123482,
+      "datBytes": 123438
+    },
+    "a0376": {
+      "wav": "bf9298e0b47b7cecf8c16b5771c1685d644769d95028991e9776f22dc4d1a8fd",
+      "dat": "c3a87b646c12af8e2add0e2be0b74d79b8d13201958a45cbaa15ac2cbcc7edd3",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0377": {
+      "wav": "d04333baec65eef9ed1389758545fbb1ef86cfbe4992f734103e6090a61a5764",
+      "dat": "888d3ec8d03f5a80db367143d98100fa624b8e24868d2fd5aa1a42680c8bdab1",
+      "wavBytes": 145216,
+      "datBytes": 145172
+    },
+    "a0378": {
+      "wav": "eeb74bb07a3d99704be9d16873588513846894376ecb1f44fa94827cc862c931",
+      "dat": "a7b6a0bcf5c6064eaf9144885be9ae862cda3636347e2a9e5556f1ac8144b55a",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0380": {
+      "wav": "95482dbcb906263a1d997afeccaac91d74550f490014dcd22308eac7131646e5",
+      "dat": "55c774517759200fd3b49f1123a55c0d2e8b775a798fa01dc7b96be37775ef8a",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0381": {
+      "wav": "5b5b486b1d673bb59540315ed2dfc8a9e3381d9f2fb9c06d6c0203347b813a67",
+      "dat": "f9973cf29f07d840b205a95b499896a33c6374793016e3731cdbfe2a9ca86e14",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0382": {
+      "wav": "121b7395106d71fe9488dfb35eaf0791f00fd8a078d76aa07a922ccc169679f5",
+      "dat": "1c2aa45212abff44da5a614def8bc8e6de5b448308016ad4a03a72bcee64588b",
+      "wavBytes": 83358,
+      "datBytes": 83314
+    },
+    "a0383": {
+      "wav": "0c96d20f088f6f82480573a962f6f70b050ad10dbcd06478c6a280e0a60286fa",
+      "dat": "1b520ffdb59b02a6b6248f1acf31cd76af5af00cef1dab86425223b3d90febe1",
+      "wavBytes": 83358,
+      "datBytes": 83314
+    },
+    "a0384": {
+      "wav": "43abde9da54d0150fce5550135254a0841e1461422903a2c8e82c2e0ac0cb3bb",
+      "dat": "0fd4f0adb852f099a6fefa14abb5718b496844c286434a6ac93811a6110d1c9c",
+      "wavBytes": 122924,
+      "datBytes": 122880
+    },
+    "a0385": {
+      "wav": "d52f8a8766cd62a97a645eddd0565de7f6bffd73b394fd1d15d046b6cd6a8d5b",
+      "dat": "3a29ca68b975b8914f2bfcf759aa820eedfdddd1c5fc8797ae5108e1102cf1f6",
+      "wavBytes": 83916,
+      "datBytes": 83872
+    },
+    "a0386": {
+      "wav": "c69ddfb262b9190910bc7e5d3781f249eaa7a0813f43242b680638db5a421838",
+      "dat": "a9580612dff432a6482e16800b3993e1acfeb60aa168ae234de66938a9a1585f",
+      "wavBytes": 144102,
+      "datBytes": 144058
+    },
+    "a0387": {
+      "wav": "586c0e3bfacadf549a363b8e7b84f1d458ae0d205f4d20e8caaf46e232d07532",
+      "dat": "10cedb597dc7c107e62a92c9e8f7c533291332a1be61a1c22676b79a6ba3d30f",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0388": {
+      "wav": "e9bea77a8793ecfab07c12a86824b191cd0c97920a81c9ef2ea39e1ed0c8948c",
+      "dat": "e32a63168400a93ce6049a3cbd84c625e883468f1acb2664500d7939f42975c4",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0389": {
+      "wav": "44ff4713f0a5a0ccce04706834142983548da560d6ccafd6d43423be8282a222",
+      "dat": "83143ce68426f4f59bb6f8e204ac367c15bb9ea39373df84edf78f8398b8e27e",
+      "wavBytes": 144938,
+      "datBytes": 144894
+    },
+    "a0390": {
+      "wav": "3073991db4ee29b2a62f7eccd567a68175ba655212dd7e27dcd193252c91225b",
+      "dat": "30749ed910e32de9d5d2d50cf4e48e8eb7a917249a31d1ae6d15f14679a9b8f4",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0391": {
+      "wav": "c5feb5c1d2c73ed67ed92c28bc9022efc3a4c7fc583d7cbe1c07465f4d173a1b",
+      "dat": "9f54640de1509816e7a059fffb6c372a509a992923457af4b5626681c2bd72f4",
+      "wavBytes": 142988,
+      "datBytes": 142944
+    },
+    "a0392": {
+      "wav": "ce585a8dfb2f5daadb56068d4bfa890e4365ce49f42b230eb55efe9c275f4ec7",
+      "dat": "2b944a20d03743295f44ef77f0a1dac7009e4c7a13d11905a353e1b36abccbc1",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0393": {
+      "wav": "456e8ac0a3d006c79306a003c997edd7126f55bc92f49cfccf146ad2bbf0c87c",
+      "dat": "f1ddc4bd8008e943b0f068d650c2ac7fb4fe68d510be2ae042078b26a347fd4d",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0394": {
+      "wav": "026b0b8b181cd45ad06961ae6b024bf23be15e3945df91ef5f1ab1dbce8adad8",
+      "dat": "05520850ecfa43e7a583687f573a75a0b6fbcefc001257e8ce54e2986ab5c974",
+      "wavBytes": 98810,
+      "datBytes": 98766
+    },
+    "a0396": {
+      "wav": "4d1bd100d45ace5751da6cd21a18747999f9deb170eddeeec6b79598748e5200",
+      "dat": "f6873469fab5b51c8d6406f16fedcdfc5201a67d0a121232a2c2a5e27b231cf5",
+      "wavBytes": 143266,
+      "datBytes": 143222
+    },
+    "a0397": {
+      "wav": "70bdf0dd0a74ade03d97660d65415addde0921d3634595716ac1ae32bc15cca7",
+      "dat": "8b65743becf9156b6f745dac43686f2aefd349855828f9f82a04e27d5bd4e564",
+      "wavBytes": 122646,
+      "datBytes": 122602
+    },
+    "a0398": {
+      "wav": "cf03aa8d507429c69d8e72ed472e2fda9f188e7849bf48dd7b5814d7eea61bd4",
+      "dat": "7962405d8323467f8230347ed0ceb961d4e779aa705d48abf5c2d47a8c6a9a3f",
+      "wavBytes": 143822,
+      "datBytes": 143778
+    },
+    "a0399": {
+      "wav": "11d4f325257c1f25bd8f44541d0d1cd5ee1eddda8ea5092e671801674827b7ca",
+      "dat": "e987da9cb8276bcd4e68318f83cdd1f3609ee1ed4ae980a25e0399315aa14bca",
+      "wavBytes": 144102,
+      "datBytes": 144058
+    },
+    "a0400": {
+      "wav": "8bd5233feea88a9aeb1c4a304147dbe42040c53bd039a40c3baa15c97a91ff81",
+      "dat": "7e5fa4ec32f82a88e2e1cb2f4fe36a6625256f9039565672a871ed9b354ee33a",
+      "wavBytes": 65344,
+      "datBytes": 65300
+    },
+    "a0401": {
+      "wav": "356fba83d6cfdc8103e517a22b34d24bd083303ca0791ccdf944920b27e9af27",
+      "dat": "b61704c61cd9cb074970c68ec7e82bafb5cb8a5d9af94083542ee243dddd9f1f",
+      "wavBytes": 144938,
+      "datBytes": 144894
+    },
+    "a0402": {
+      "wav": "a2afea3daa4a501dcb837bf2734d4e2fc8c7eee7c27c62b3b39674b1ecf32bb3",
+      "dat": "b9a45ffa364fc78f4409e0c4b7669ea5cd1df3d87473f3d111a58f68565368f8",
+      "wavBytes": 145216,
+      "datBytes": 145172
+    },
+    "a0404": {
+      "wav": "6fcf5d91a69c07490786d776370cb509594b233c66276fa1b089dace143561ff",
+      "dat": "224bf73d8af1de82013fb2b2a0549a6f53a2c971ad70557658265a388a79727a",
+      "wavBytes": 123204,
+      "datBytes": 123160
+    },
+    "a0405": {
+      "wav": "c619752fda0e172f7a125d1abe26164cc4dc585d1e915b8cb2a43e70818fa8ce",
+      "dat": "9d24e0eab0c14d0514fc5430020ddbe28a9f16c927457794d01e9ef97dd1a4f9",
+      "wavBytes": 50166,
+      "datBytes": 50122
+    },
+    "a0406": {
+      "wav": "f4fea360e2371b59b1e71f478ef2661a945beade2ff761d5c43f04bad816f957",
+      "dat": "2971ad13073bb7152994029077db650f4b6d49abe2eb62fbdef7b4234ff24031",
+      "wavBytes": 142430,
+      "datBytes": 142386
+    },
+    "a0407": {
+      "wav": "d1729c727b4eae6b27b2e42e7ed24cf61a7996ac20b84de2aa83c5c0eedd6ce6",
+      "dat": "43ace04ec16f0a1e707bd152e2ce7ef71f38ea5b8ba3ab40873ef54f716c5aa6",
+      "wavBytes": 142708,
+      "datBytes": 142664
+    },
+    "a0408": {
+      "wav": "e5ad426fb6ca117437f336e966d3a2d7ad2f0f68e9196c42bc389cf51207a853",
+      "dat": "7175f193ff3db4b646b7b64c21a24e03ef5e7a1503b2995958a03817f9d3b5e5",
+      "wavBytes": 122368,
+      "datBytes": 122324
+    },
+    "a0409": {
+      "wav": "f1a1224ea12b3bb05f1e3d460270d4f2b10a62a0991660e6cb282901e8f038f3",
+      "dat": "34411bca557cc21a6052fafa7936a07d16c8c30f626654d6017265f17400a8c9",
+      "wavBytes": 122924,
+      "datBytes": 122880
+    }
+  }
+}

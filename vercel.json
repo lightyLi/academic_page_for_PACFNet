@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "api/verify-signal.js": {
+      "memory": 128,
+      "maxDuration": 5,
+      "includeFiles": "static/signal_hashes.json"
+    }
+  }
+}
