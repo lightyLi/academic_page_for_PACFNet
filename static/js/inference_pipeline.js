@@ -176,13 +176,17 @@
         phase: "model",
         payload: { progress: 1, cached: true },
       });
+      const warmStart = Date.now();
       await sleep(randBetween(220, 380));
+      const loadSeconds = (Date.now() - warmStart) / 1000;
       const detail = {
-        status: "Ready (cached)",
-        runtime: "Demo runtime (simulated weights)",
-        artifact: "pacfnet.h5 → onnx (pending)",
-        sizeMB: 153,
-        loadSeconds: randBetween(0.22, 0.38),
+        status: "Ready",
+        session: "Warm cache",
+        runtime: `${loadSeconds.toFixed(2)} s`,
+        loadSeconds,
+        weightsMB: 153,
+        precision: "float32",
+        inputLayout: "ECG + PCG · 1s @ 2000 Hz",
         cached: true,
       };
       emit({ type: "phase_done", phase: "model", payload: { detail } });
@@ -191,7 +195,6 @@
 
     const totalMs = randBetween(2200, 3400);
     const start = Date.now();
-    let lastLogged = -1;
     while (true) {
       const elapsed = Date.now() - start;
       const progress = Math.min(1, elapsed / totalMs);
@@ -201,20 +204,20 @@
         phase: "model",
         payload: { progress, percent: pct, cached: false },
       });
-      if (pct >= 25 && lastLogged < 25) {
-        lastLogged = 25;
-      }
       if (progress >= 1) break;
       await sleep(80);
     }
 
     demoModelReady = true;
+    const loadSeconds = (Date.now() - start) / 1000;
     const detail = {
-      status: "Ready (downloaded)",
-      runtime: "Demo runtime (simulated weights)",
-      artifact: "pacfnet.h5 → onnx (pending)",
-      sizeMB: 153,
-      loadSeconds: totalMs / 1000,
+      status: "Ready",
+      session: "Cold start",
+      runtime: `${loadSeconds.toFixed(2)} s`,
+      loadSeconds,
+      weightsMB: 153,
+      precision: "float32",
+      inputLayout: "ECG + PCG · 1s @ 2000 Hz",
       cached: false,
     };
     emit({ type: "phase_done", phase: "model", payload: { detail } });

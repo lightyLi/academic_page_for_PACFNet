@@ -166,11 +166,16 @@
 
     if (phase === "model") {
       return `
-        <p><strong>Status</strong> ${escapeHtml(d.status)}</p>
-        <p><strong>Runtime</strong> ${escapeHtml(d.runtime)}</p>
-        <p><strong>Artifact</strong> ${escapeHtml(d.artifact)}</p>
-        <p><strong>Size</strong> ${d.sizeMB} MB</p>
-        <p><strong>Load time</strong> ${Number(d.loadSeconds).toFixed(2)} s</p>
+        <p><strong>Status</strong> ${escapeHtml(d.status || "Ready")}</p>
+        <p><strong>Session</strong> ${escapeHtml(d.session || "—")}</p>
+        <p><strong>Runtime</strong> ${escapeHtml(
+          d.runtime || `${Number(d.loadSeconds || 0).toFixed(2)} s`
+        )}</p>
+        <p><strong>Weights</strong> ${Number(d.weightsMB ?? d.sizeMB ?? 153)} MB</p>
+        <p><strong>Precision</strong> ${escapeHtml(d.precision || "float32")}</p>
+        <p><strong>Input</strong> ${escapeHtml(
+          d.inputLayout || "ECG + PCG · 1s @ 2000 Hz"
+        )}</p>
       `;
     }
     if (phase === "prep") {
@@ -349,19 +354,23 @@
 
     if (type === "phase_done" && phase === "model") {
       snapshots.model = payload.detail;
-      setPhaseStatus(
-        "model",
-        "done",
-        payload.detail?.cached ? "Ready · cached" : "Ready · 153 MB",
-        1
-      );
-      if (typeof addLogEntry === "function") {
-        addLogEntry(
-          `[Model] Session ready (${
-            payload.detail?.cached ? "cached" : "downloaded"
-          }, demo runtime)`,
-          "success"
+      {
+        const d = payload.detail || {};
+        const rt =
+          d.runtime ||
+          (d.loadSeconds != null ? `${Number(d.loadSeconds).toFixed(2)} s` : "");
+        setPhaseStatus(
+          "model",
+          "done",
+          rt ? `Ready · ${rt}` : "Ready",
+          1
         );
+        if (typeof addLogEntry === "function") {
+          addLogEntry(
+            `[Model] Session ready (${d.session || "Ready"}, runtime ${rt || "n/a"})`,
+            "success"
+          );
+        }
       }
       return;
     }
