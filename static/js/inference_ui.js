@@ -24,6 +24,8 @@
     infer: null,
     vote: null,
   };
+  /** Live tally while classifying; shown in Vote hover details. */
+  let liveTally = { current: 0, total: 0, normal: 0, abnormal: 0 };
   let sampleId = "";
   let unsub = null;
   let lastModelLogPct = -1;
@@ -42,6 +44,7 @@
 
   function resetStageboard() {
     snapshots = { model: null, prep: null, infer: null, vote: null };
+    liveTally = { current: 0, total: 0, normal: 0, abnormal: 0 };
     lastModelLogPct = -1;
     popoverPhase = null;
     hidePopover();
@@ -52,7 +55,6 @@
       board.classList.add("is-running");
       board.classList.remove("is-finished");
     }
-    resetVoteMini();
 
     PHASES.forEach((phase) => {
       const card = document.querySelector(
@@ -108,62 +110,53 @@
     });
   }
 
-  function resetVoteMini() {
-    const seg = document.querySelector(
-      '.inference-stage-card[data-phase="vote"] .inference-vote-seg'
-    );
-    const nEl = $("voteCountNormal");
-    const aEl = $("voteCountAbnormal");
-    const nFill = $("voteFillNormal");
-    const aFill = $("voteFillAbnormal");
-    if (seg) seg.textContent = "Segment —";
-    if (nEl) nEl.textContent = "0";
-    if (aEl) aEl.textContent = "0";
-    if (nFill) nFill.style.width = "0%";
-    if (aFill) aFill.style.width = "0%";
-  }
-
-  function updateVoteCard(payload) {
+  function updateLiveTally(payload) {
+    liveTally = {
+      current: payload.current ?? 0,
+      total: payload.total ?? 0,
+      normal: payload.normal ?? 0,
+      abnormal: payload.abnormal ?? 0,
+    };
+    // Option C: keep Vote card compact; only a short tally line while running.
     const card = document.querySelector(
       '.inference-stage-card[data-phase="vote"]'
     );
-    if (!card) return;
-
-    const current = payload.current ?? 0;
-    const total = payload.total ?? 0;
-    const normal = payload.normal ?? 0;
-    const abnormal = payload.abnormal ?? 0;
-    const maxVote = Math.max(1, normal + abnormal);
-
-    const seg = card.querySelector(".inference-vote-seg");
-    const nEl = $("voteCountNormal");
-    const aEl = $("voteCountAbnormal");
-    const nFill = $("voteFillNormal");
-    const aFill = $("voteFillAbnormal");
-
-    if (seg) {
-      seg.textContent =
-        total > 0 ? `Segment ${current} / ${total}` : "Segment —";
+    if (!card || card.dataset.status === "done" || card.dataset.status === "active") {
+      return;
     }
-    if (nEl) nEl.textContent = String(normal);
-    if (aEl) aEl.textContent = String(abnormal);
-    if (nFill) nFill.style.width = `${(normal / maxVote) * 100}%`;
-    if (aFill) aFill.style.width = `${(abnormal / maxVote) * 100}%`;
-
-    // Keep Vote card summary in sync while tallies accumulate.
-    if (card.dataset.status !== "done") {
-      const summary = card.querySelector(".inference-stage-summary");
-      if (summary && total > 0) {
-        summary.textContent = `${current}/${total} · N=${normal} A=${abnormal}`;
-      }
-      const bar = card.querySelector(".inference-stage-bar-fill");
-      if (bar && total > 0) {
-        bar.style.width = `${Math.max(0, Math.min(100, (current / total) * 100))}%`;
-      }
+    const summary = card.querySelector(".inference-stage-summary");
+    if (summary && liveTally.total > 0) {
+      summary.textContent = `N=${liveTally.normal} A=${liveTally.abnormal}`;
     }
   }
 
+  function voteDetailBarsHtml(normal, abnormal, total) {
+    const maxVote = Math.max(1, normal + abnormal);
+    return `
+      <p><strong>Segments</strong> ${total}</p>
+      <div class="inference-popover-tally">
+        <div class="inference-vote-row">
+          <span>N</span>
+          <div class="inference-vote-track"><div class="inference-vote-fill is-normal" style="width:${
+            (normal / maxVote) * 100
+          }%"></div></div>
+          <strong>${normal}</strong>
+        </div>
+        <div class="inference-vote-row">
+          <span>A</span>
+          <div class="inference-vote-track"><div class="inference-vote-fill is-abnormal" style="width:${
+            (abnormal / maxVote) * 100
+          }%"></div></div>
+          <strong>${abnormal}</strong>
+        </div>
+      </div>
+    `;
+  }
+
   function formatDetailHtml(phase) {
+    if (phase === "vote" && !snapshots.vote) {
+      return formatLiveVoteHtml();
+    }
     const d = snapshots[phase];
     if (!d) return `<p class="has-text-grey">No details yet.</p>`;
 
@@ -211,8 +204,7 @@
       const cls = d.label === 1 ? "ABNORMAL" : "NORMAL";
       return `
         <p><strong>Strategy</strong> ${escapeHtml(d.strategy)}</p>
-        <p><strong>Segments</strong> ${d.total}</p>
-        <p><strong>Normal / Abnormal</strong> ${d.normal} / ${d.abnormal}</p>
+        ${voteDetailBarsHtml(d.normal, d.abnormal, d.total)}
         <p><strong>Decision</strong> ${cls}</p>
         <p><strong>Confidence</strong> ${d.confidence.toFixed(1)}% (${Math.max(
         d.normal,
@@ -222,6 +214,21 @@
       `;
     }
     return "";
+  }
+
+  function formatLiveVoteHtml() {
+    if (!liveTally.total) {
+      return `<p class="has-text-grey">Voting details appear after classification.</p>`;
+    }
+    return `
+      <p><strong>Status</strong> Accumulating votes</p>
+      ${voteDetailBarsHtml(
+        liveTally.normal,
+        liveTally.abnormal,
+        liveTally.total
+      )}
+      <p><strong>Progress</strong> ${liveTally.current} / ${liveTally.total}</p>
+    `;
   }
 
   function escapeHtml(s) {
@@ -275,11 +282,17 @@
     });
   }
 
+  function canShowDetails(phase) {
+    if (snapshots[phase]) return true;
+    if (phase === "vote" && liveTally.total > 0) return true;
+    return false;
+  }
+
   function bindCardInteractions() {
     document.querySelectorAll(".inference-stage-card").forEach((card) => {
       const phase = card.dataset.phase;
       card.addEventListener("mouseenter", () => {
-        if (!snapshots[phase]) return;
+        if (!canShowDetails(phase)) return;
         showPopover(phase, card);
       });
       card.addEventListener("mouseleave", () => {
@@ -292,7 +305,7 @@
       });
       card.addEventListener("click", (e) => {
         e.preventDefault();
-        if (!snapshots[phase]) return;
+        if (!canShowDetails(phase)) return;
         if (popoverPhase === phase) hidePopover();
         else showPopover(phase, card);
       });
@@ -479,7 +492,7 @@
     if (type === "phase_start" && phase === "infer") {
       setPhaseStatus("infer", "active", `0 / ${payload.total}`, 0);
       setBtnLabel(`Inferring 0/${payload.total}…`);
-      updateVoteCard({
+      updateLiveTally({
         current: 0,
         total: payload.total,
         normal: 0,
@@ -499,7 +512,7 @@
         payload.current / payload.total
       );
       setBtnLabel(`Inferring ${payload.current}/${payload.total}…`);
-      updateVoteCard(payload);
+      updateLiveTally(payload);
       return;
     }
 
@@ -544,7 +557,7 @@
         `N=${payload.normal} A=${payload.abnormal}`,
         payload.progress ?? 0.5
       );
-      updateVoteCard({
+      updateLiveTally({
         current: total,
         total,
         normal: payload.normal,
@@ -558,7 +571,7 @@
       const d = payload.detail;
       const cls = d.label === 1 ? "Abnormal" : "Normal";
       setPhaseStatus("vote", "done", `${cls} · ${d.confidence.toFixed(1)}%`, 1);
-      updateVoteCard({
+      updateLiveTally({
         current: d.total,
         total: d.total,
         normal: d.normal,

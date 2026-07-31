@@ -1023,7 +1023,7 @@ a:focus {
   background: #fff;
   border: 2px solid #e0e0e0;
   border-radius: 10px;
-  padding: 0.75rem 0.65rem;
+  padding: 0.55rem 0.55rem 0.5rem;
   text-align: center;
   cursor: default;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
@@ -1136,50 +1136,38 @@ a:focus {
   line-height: 1.35;
 }
 
-.inference-vote-mini {
-  margin-top: 0.45rem;
-  padding-top: 0.4rem;
-  border-top: 1px solid #eef2f5;
-  text-align: left;
+.inference-popover-tally {
+  margin: 0.35rem 0 0.55rem;
 }
 
-.inference-vote-seg {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #17a2b8;
-  margin-bottom: 0.3rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.inference-vote-row {
+.inference-popover-body .inference-vote-row {
   display: grid;
-  grid-template-columns: 14px 1fr 22px;
+  grid-template-columns: 16px 1fr 28px;
   align-items: center;
-  gap: 0.3rem;
-  font-size: 0.68rem;
+  gap: 0.35rem;
+  font-size: 0.78rem;
   color: #4a4a4a;
-  margin-top: 0.2rem;
+  margin-top: 0.25rem;
 }
 
-.inference-vote-track {
+.inference-popover-body .inference-vote-track {
   height: 7px;
   border-radius: 999px;
   background: #eef2f5;
   overflow: hidden;
 }
 
-.inference-vote-fill {
+.inference-popover-body .inference-vote-fill {
   height: 100%;
   width: 0%;
   border-radius: inherit;
-  transition: width 0.2s ease;
 }
 
-.inference-vote-fill.is-normal {
+.inference-popover-body .inference-vote-fill.is-normal {
   background: #48c774;
 }
 
-.inference-vote-fill.is-abnormal {
+.inference-popover-body .inference-vote-fill.is-abnormal {
   background: #f14668;
 }
 
