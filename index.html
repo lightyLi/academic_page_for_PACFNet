@@ -76,6 +76,8 @@
   <script defer src="static/js/signal_charts.js"></script>
   <script defer src="static/js/upload_helpers.js"></script>
   <script defer src="static/js/upload_signals.js"></script>
+  <script defer src="static/js/inference_pipeline.js"></script>
+  <script defer src="static/js/inference_ui.js"></script>
   <script defer src="static/js/index.js"></script>
   
   <!-- Structured Data for Academic Papers -->
@@ -373,9 +375,46 @@
                 </div>
               </div>
 
+              <!-- Pipeline Stageboard -->
+              <div id="inferenceStageboard" class="inference-stageboard" style="display: none; margin-top: 2rem;" aria-label="Inference pipeline stages">
+                <div class="inference-stage-track">
+                  <article class="inference-stage-card" data-phase="model" data-status="idle" tabindex="0">
+                    <div class="inference-stage-icon"><span class="icon has-text-info"><i class="fas fa-cube"></i></span></div>
+                    <div class="inference-stage-title">Model</div>
+                    <div class="inference-stage-bar"><div class="inference-stage-bar-fill"></div></div>
+                    <div class="inference-stage-summary">Waiting</div>
+                  </article>
+                  <div class="inference-stage-connector" aria-hidden="true"></div>
+                  <article class="inference-stage-card" data-phase="prep" data-status="idle" tabindex="0">
+                    <div class="inference-stage-icon"><span class="icon has-text-info"><i class="fas fa-sliders-h"></i></span></div>
+                    <div class="inference-stage-title">Normalize &amp; Segment</div>
+                    <div class="inference-stage-bar"><div class="inference-stage-bar-fill"></div></div>
+                    <div class="inference-stage-summary">Waiting</div>
+                  </article>
+                  <div class="inference-stage-connector" aria-hidden="true"></div>
+                  <article class="inference-stage-card" data-phase="infer" data-status="idle" tabindex="0">
+                    <div class="inference-stage-icon"><span class="icon has-text-info"><i class="fas fa-microchip"></i></span></div>
+                    <div class="inference-stage-title">Classify</div>
+                    <div class="inference-stage-bar"><div class="inference-stage-bar-fill"></div></div>
+                    <div class="inference-stage-summary">Waiting</div>
+                  </article>
+                  <div class="inference-stage-connector" aria-hidden="true"></div>
+                  <article class="inference-stage-card" data-phase="vote" data-status="idle" tabindex="0">
+                    <div class="inference-stage-icon"><span class="icon has-text-info"><i class="fas fa-poll"></i></span></div>
+                    <div class="inference-stage-title">Vote</div>
+                    <div class="inference-stage-bar"><div class="inference-stage-bar-fill"></div></div>
+                    <div class="inference-stage-summary">Waiting</div>
+                  </article>
+                </div>
+                <div id="inferenceStagePopover" class="inference-stage-popover" hidden></div>
+                <p class="help inference-stage-hint">Hover or tap a finished stage for details</p>
+              </div>
+
+              <div id="inferenceLiveStrip" class="inference-live-strip" style="display: none;" aria-live="polite"></div>
+
               <!-- Inference Log -->
-              <div id="inferenceLog" style="display: none; margin-top: 2rem;">
-                <div class="box" style="background: #f5f5f5; border-left: 4px solid #3273dc;">
+              <div id="inferenceLog" style="display: none; margin-top: 1.25rem;">
+                <div class="box" style="background: #f5f5f5; border-left: 4px solid #17a2b8;">
                   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; cursor: pointer;" onclick="toggleInferenceLog()">
                     <h5 class="title is-5" style="margin: 0;">
                       <span class="icon has-text-info">
@@ -403,6 +442,7 @@
                     Prediction Results
                     <span class="tag is-primary is-medium" id="currentSampleTag" style="margin-left: 1rem; font-family: monospace; font-weight: 600;">a0040</span>
                   </h4>
+                  <p id="predictionVoteSummary" class="inference-vote-summary"></p>
                   <div class="columns is-multiline">
                     <div class="column is-half">
                       <div class="box has-text-centered" style="background: white;">
@@ -418,14 +458,17 @@
                     </div>
                     <div class="column is-full">
                       <div class="box" style="background: white;">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
                           <span class="tag is-info is-large" style="font-size: 1.1rem; font-weight: 600; padding: 0.75rem 1.5rem; border-radius: 8px;">
                             <span class="icon">
                               <i class="fas fa-brain"></i>
                             </span>
                             <span id="currentModelName">Proposed PACFNet</span>
                           </span>
-                          <p class="heading" style="margin: 0; font-size: 1rem; color: #7a7a7a;">Performance Metrics</p>
+                          <div>
+                            <p class="heading" style="margin: 0; font-size: 1rem; color: #7a7a7a;">Performance Metrics</p>
+                            <p class="help" style="margin: 0.15rem 0 0;">Paper-reported (held-out test)</p>
+                          </div>
                         </div>
                         <div class="columns is-multiline">
                           <div class="column is-3">

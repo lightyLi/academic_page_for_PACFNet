@@ -759,10 +759,18 @@ function randomDelay(min, max) {
     });
 }
 
-// Run model inference with time-segment based probabilistic prediction
+// Run staged inference pipeline (UI stageboard + synced log)
 async function runInference() {
     if (!currentSignal) {
         alert("Please select a signal first!");
+        return;
+    }
+
+    if (
+        typeof InferencePipeline === "undefined" ||
+        typeof InferenceUI === "undefined"
+    ) {
+        alert("Inference modules failed to load. Please refresh the page.");
         return;
     }
 
@@ -770,139 +778,57 @@ async function runInference() {
     const resultsDiv = document.getElementById("inferenceResults");
     const logDiv = document.getElementById("inferenceLog");
     const logContent = document.getElementById("logContent");
+    const stageboard = document.getElementById("inferenceStageboard");
 
-    // Show loading state
-    btn.classList.add("is-loading");
+    // Keep button label visible across phases (avoid Bulma is-loading hide).
+    btn.classList.remove("is-loading");
     btn.disabled = true;
-
-    // Hide results and show log
     resultsDiv.style.display = "none";
     logDiv.style.display = "block";
     logContent.style.display = "block";
-    clearLog();
+    document.getElementById("logToggleIcon").innerHTML =
+        '<i class="fas fa-chevron-up"></i>';
+    if (stageboard) stageboard.style.display = "block";
+
+    const bus = InferencePipeline.createEmitter();
+    InferenceUI.subscribeToBus(bus);
 
     try {
-        const selectedModel = "pacfnet";
-        const performance = modelPerformance[selectedModel];
-        const accuracy = performance.accuracy / 100;
-
-        // Get ground truth label
+        const performance = modelPerformance.pacfnet;
         const groundTruth = groundTruthLabels[currentSignal];
         if (groundTruth === undefined) {
-            addLogEntry(
-                `Error: No ground truth label found for ${currentSignal}`,
-                "error"
-            );
             throw new Error(
                 `No ground truth data available for ${currentSignal}`
             );
         }
 
-        // Get signal durations
-        const durations = window.signalDurations
-            ? window.signalDurations[currentSignal]
-            : null;
-        if (!durations || !durations.ecg || !durations.pcg) {
-            addLogEntry("Error: Signal durations not available", "error");
-            throw new Error("Please wait for signals to load completely");
+        const raw = window.currentSignalRaw;
+        if (
+            !raw ||
+            raw.signalName !== currentSignal ||
+            !raw.ecg?.length ||
+            !raw.pcg?.length
+        ) {
+            throw new Error(
+                "Please wait for ECG and PCG signals to finish loading."
+            );
         }
 
-        const effectiveDuration = Math.min(durations.ecg, durations.pcg);
-        const numSegments = Math.floor(effectiveDuration);
+        const result = await InferencePipeline.runPipeline({
+            emit: (event) => bus.emit(event),
+            raw,
+            sampleId: currentSignal,
+            groundTruth,
+            accuracy: performance.accuracy / 100,
+        });
 
-        // Step 1: Segmentation (0.5-1s delay)
-        addLogEntry(
-            `Initializing inference pipeline for sample: ${currentSignal}...`
-        );
-        await randomDelay(0.5, 1.0);
-        addLogEntry(
-            `Segmenting signal into beat-to-beat intervals (1-second duration)...`
-        );
-        addLogEntry(
-            `ECG signal duration: ${durations.ecg.toFixed(
-                2
-            )}s, PCG signal duration: ${durations.pcg.toFixed(2)}s`
-        );
-        addLogEntry(
-            `Effective analysis duration: ${effectiveDuration.toFixed(2)}s`
-        );
-        addLogEntry(
-            `Total segments generated: ${numSegments} segments`,
-            "success"
-        );
+        const pred = result.prediction;
+        const isAbnormal = pred.isAbnormal;
 
-        // Step 2: Data preprocessing (0.1-0.5s delay)
-        await randomDelay(0.1, 0.5);
-        addLogEntry("Applying data preprocessing pipeline...");
-        addLogEntry("  - Normalizing ECG and PCG signals to [0, 1] range");
-        addLogEntry("Data preprocessing completed", "success");
-
-        // Step 3: Model inference (5-8s delay)
-        addLogEntry(
-            `Running PACFNet model inference on ${numSegments} segments...`
-        );
-        await randomDelay(5.0, 8.0);
-        // Perform segment-wise prediction
-        let correctVotes = 0;
-        let incorrectVotes = 0;
-        let abnormalVotes = 0;
-        let normalVotes = 0;
-
-        for (let i = 0; i < numSegments; i++) {
-            const isCorrect = Math.random() < accuracy;
-            if (isCorrect) {
-                correctVotes++;
-                if (groundTruth === 1) abnormalVotes++;
-                else normalVotes++;
-            } else {
-                incorrectVotes++;
-                if (groundTruth === 1) normalVotes++;
-                else abnormalVotes++;
-            }
-
-            // Log progress every 5 segments or at the end
-            if ((i + 1) % 5 === 0 || i === numSegments - 1) {
-                addLogEntry(
-                    `  Progress: ${i + 1}/${numSegments} segments processed`
-                );
-            }
-        }
-
-        addLogEntry(
-            `Model inference completed for all ${numSegments} segments`,
-            "success"
-        );
-
-        // Step 4: Aggregation (0.1-0.5s delay)
-        await randomDelay(0.1, 0.5);
-        addLogEntry(
-            "Aggregating predictions using majority voting strategy..."
-        );
-        addLogEntry(`  - Abnormal votes: ${abnormalVotes}`);
-        addLogEntry(`  - Normal votes: ${normalVotes}`);
-
-        // Final prediction
-        const predictedLabel =
-            correctVotes > incorrectVotes ? groundTruth : -groundTruth;
-        const isAbnormal = predictedLabel === 1;
-        const totalVotes = correctVotes + incorrectVotes;
-        const winningVotes = Math.max(correctVotes, incorrectVotes);
-        const confidence = (winningVotes / totalVotes) * 100;
-
-        addLogEntry(
-            `Final prediction: ${
-                isAbnormal ? "ABNORMAL" : "NORMAL"
-            } (confidence: ${confidence.toFixed(1)}%)`,
-            "success"
-        );
-        addLogEntry("Inference pipeline completed successfully", "success");
-
-        // Update UI
         const currentModelNameEl = document.getElementById("currentModelName");
         if (currentModelNameEl) {
             currentModelNameEl.textContent = "Proposed PACFNet";
         }
-
         const currentSampleTagEl = document.getElementById("currentSampleTag");
         if (currentSampleTagEl) {
             currentSampleTagEl.textContent = currentSignal;
@@ -915,7 +841,12 @@ async function runInference() {
             ? "title is-3 has-text-danger"
             : "title is-3 has-text-success";
         document.getElementById("predictionConfidence").textContent =
-            confidence.toFixed(1) + "%";
+            pred.confidence.toFixed(1) + "%";
+
+        const voteSummary = document.getElementById("predictionVoteSummary");
+        if (voteSummary) {
+            voteSummary.textContent = `${pred.total} segments · Abnormal ${pred.abnormal} · Normal ${pred.normal}`;
+        }
 
         document.getElementById("metricAccuracy").textContent =
             performance.accuracy.toFixed(2) + "%";
@@ -926,24 +857,25 @@ async function runInference() {
         document.getElementById("metricF1").textContent =
             performance.f1.toFixed(2) + "%";
 
-        // Auto-collapse log after completion
-        await randomDelay(0.5, 0.5);
+        await randomDelay(0.35, 0.55);
         logContent.style.display = "none";
         document.getElementById("logToggleIcon").innerHTML =
             '<i class="fas fa-chevron-down"></i>';
 
-        // Show results
         resultsDiv.style.display = "block";
-
-        // Scroll to results
         resultsDiv.scrollIntoView({ behavior: "smooth", block: "nearest" });
     } catch (error) {
-        addLogEntry(`Error: ${error.message}`, "error");
+        bus.emit({
+            type: "pipeline_error",
+            phase: null,
+            payload: { message: error.message },
+        });
         alert(error.message);
     } finally {
-        // Remove loading state
         btn.classList.remove("is-loading");
         btn.disabled = false;
+        const label = btn.querySelector("span:last-child");
+        if (label) label.textContent = "Run Inference";
     }
 }
 

@@ -1000,6 +1000,223 @@ a:focus {
   transition: box-shadow 0.3s ease;
 }
 
+/* -------- Inference pipeline stageboard -------- */
+.inference-stageboard {
+  position: relative;
+  background: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.1rem 1rem 0.75rem;
+  box-shadow: 0 4px 12px rgba(23, 162, 184, 0.08);
+}
+
+.inference-stage-track {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0.35rem;
+}
+
+.inference-stage-card {
+  flex: 1 1 0;
+  min-width: 0;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 0.75rem 0.65rem;
+  text-align: center;
+  cursor: default;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.inference-stageboard.is-finished .inference-stage-card.is-done {
+  cursor: pointer;
+}
+
+.inference-stage-card.is-active {
+  border-color: #17a2b8;
+  box-shadow: 0 4px 12px rgba(23, 162, 184, 0.15);
+}
+
+.inference-stage-card.is-done {
+  border-color: #48c774;
+}
+
+.inference-stage-card.is-error {
+  border-color: #f14668;
+}
+
+.inference-stage-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #363636;
+  margin: 0.25rem 0 0.45rem;
+  line-height: 1.2;
+}
+
+.inference-stage-summary {
+  font-size: 0.72rem;
+  color: #7a7a7a;
+  font-variant-numeric: tabular-nums;
+  min-height: 1.1em;
+}
+
+.inference-stage-card.is-active .inference-stage-summary {
+  color: #17a2b8;
+  font-weight: 600;
+}
+
+.inference-stage-card.is-done .inference-stage-summary {
+  color: #257942;
+  font-weight: 600;
+}
+
+.inference-stage-bar {
+  height: 5px;
+  border-radius: 999px;
+  background: #eef2f5;
+  overflow: hidden;
+  margin-bottom: 0.4rem;
+}
+
+.inference-stage-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #17a2b8, #667eea);
+  transition: width 0.18s ease;
+}
+
+.inference-stage-connector {
+  flex: 0 0 18px;
+  align-self: center;
+  height: 3px;
+  border-radius: 999px;
+  background: #e0e0e0;
+  transition: background 0.3s ease;
+}
+
+.inference-stage-connector.is-filled {
+  background: #17a2b8;
+}
+
+.inference-stage-hint {
+  margin-top: 0.65rem !important;
+  text-align: center;
+  color: #7a7a7a;
+}
+
+.inference-stage-popover {
+  position: absolute;
+  z-index: 8;
+  min-width: 240px;
+  max-width: min(320px, 92%);
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  padding: 0.75rem 0.85rem;
+  text-align: left;
+}
+
+.inference-popover-title {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 700;
+  color: #363636;
+  margin-bottom: 0.45rem;
+  font-size: 0.92rem;
+}
+
+.inference-popover-body p {
+  margin: 0.2rem 0;
+  font-size: 0.8rem;
+  color: #4a4a4a;
+  line-height: 1.35;
+}
+
+.inference-live-strip {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-left: 4px solid #17a2b8;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+}
+
+.inference-live-votes {
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.inference-vote-row {
+  display: grid;
+  grid-template-columns: 72px 1fr 36px;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  color: #4a4a4a;
+}
+
+.inference-vote-track {
+  height: 7px;
+  border-radius: 999px;
+  background: #eef2f5;
+  overflow: hidden;
+}
+
+.inference-vote-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  transition: width 0.2s ease;
+}
+
+.inference-vote-fill.is-normal {
+  background: #48c774;
+}
+
+.inference-vote-fill.is-abnormal {
+  background: #f14668;
+}
+
+.inference-vote-summary {
+  margin: 0.25rem 0 1rem;
+  color: #4a4a4a;
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@media screen and (max-width: 768px) {
+  .inference-stage-track {
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .inference-stage-connector {
+    flex: 0 0 12px;
+    width: 3px;
+    height: 12px;
+    margin: 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inference-stage-card,
+  .inference-stage-bar-fill,
+  .inference-vote-fill,
+  .inference-stage-connector {
+    transition: none !important;
+  }
+}
+
 /* -------- Signal chart view controls -------- */
 .signal-chart-stage {
   position: relative;

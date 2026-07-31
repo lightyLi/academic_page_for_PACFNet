@@ -932,6 +932,22 @@ if (typeof window !== "undefined") {
 }
 
 /**
+ * Expose full-rate samples for inference preprocessing (z-score → segment).
+ */
+function publishRawSignalCache(signalName) {
+    if (typeof window === "undefined") return;
+    if (!ecgData?.samples || !pcgData?.samples) return;
+    window.currentSignalRaw = {
+        signalName,
+        sampleRate: DEFAULT_ECG_SAMPLE_RATE,
+        ecg: ecgData.samples,
+        pcg: pcgData.samples,
+        ecgDuration: ecgData.totalDuration,
+        pcgDuration: pcgData.totalDuration,
+    };
+}
+
+/**
  * Update or create the combined chart with ECG and PCG data
  */
 function updateCombinedChart(signalName) {
@@ -1111,8 +1127,11 @@ async function loadECGSignal(signalName) {
             points: points,
             totalDuration: totalDuration,
             downsampledCount: downsampledCount,
+            samples: Float32Array.from(samples),
+            sampleRate: sampleRate,
         };
         signalDurationData.ecg = totalDuration;
+        publishRawSignalCache(signalName);
 
         // Store ECG duration for inference
         if (typeof window.signalDurations === "undefined") {
@@ -1305,8 +1324,11 @@ async function loadPCGSignal(signalName) {
             points: points,
             totalDuration: totalDuration,
             downsampledCount: downsampledCount,
+            samples: Float32Array.from(samples),
+            sampleRate: sampleRate,
         };
         signalDurationData.pcg = totalDuration;
+        publishRawSignalCache(signalName);
 
         // Store PCG duration for inference
         if (typeof window.signalDurations === "undefined") {
