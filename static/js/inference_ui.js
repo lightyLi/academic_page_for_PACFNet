@@ -47,16 +47,12 @@
     hidePopover();
 
     const board = $("inferenceStageboard");
-    const strip = $("inferenceLiveStrip");
     if (board) {
       board.style.display = "block";
       board.classList.add("is-running");
       board.classList.remove("is-finished");
     }
-    if (strip) {
-      strip.style.display = "none";
-      strip.innerHTML = "";
-    }
+    resetVoteMini();
 
     PHASES.forEach((phase) => {
       const card = document.querySelector(
@@ -112,52 +108,59 @@
     });
   }
 
-  function updateLiveStrip(payload) {
-    const strip = $("inferenceLiveStrip");
-    if (!strip) return;
-    strip.style.display = "block";
+  function resetVoteMini() {
+    const seg = document.querySelector(
+      '.inference-stage-card[data-phase="vote"] .inference-vote-seg'
+    );
+    const nEl = $("voteCountNormal");
+    const aEl = $("voteCountAbnormal");
+    const nFill = $("voteFillNormal");
+    const aFill = $("voteFillAbnormal");
+    if (seg) seg.textContent = "Segment —";
+    if (nEl) nEl.textContent = "0";
+    if (aEl) aEl.textContent = "0";
+    if (nFill) nFill.style.width = "0%";
+    if (aFill) aFill.style.width = "0%";
+  }
+
+  function updateVoteCard(payload) {
+    const card = document.querySelector(
+      '.inference-stage-card[data-phase="vote"]'
+    );
+    if (!card) return;
+
     const current = payload.current ?? 0;
     const total = payload.total ?? 0;
     const normal = payload.normal ?? 0;
     const abnormal = payload.abnormal ?? 0;
     const maxVote = Math.max(1, normal + abnormal);
-    const lastLabel =
-      payload.label === 1
-        ? "Abnormal"
-        : payload.label === -1
-        ? "Normal"
-        : "";
-    const lastP =
-      typeof payload.p === "number" ? ` (${payload.p.toFixed(2)})` : "";
 
-    strip.innerHTML = `
-      <div class="inference-live-left">
-        <span class="tag is-info is-light">Segment ${current} / ${total}</span>
-      </div>
-      <div class="inference-live-votes">
-        <div class="inference-vote-row">
-          <span>Normal</span>
-          <div class="inference-vote-track"><div class="inference-vote-fill is-normal" style="width:${
-            (normal / maxVote) * 100
-          }%"></div></div>
-          <strong>${normal}</strong>
-        </div>
-        <div class="inference-vote-row">
-          <span>Abnormal</span>
-          <div class="inference-vote-track"><div class="inference-vote-fill is-abnormal" style="width:${
-            (abnormal / maxVote) * 100
-          }%"></div></div>
-          <strong>${abnormal}</strong>
-        </div>
-      </div>
-      <div class="inference-live-right">
-        ${
-          lastLabel
-            ? `<span class="tag is-light">seg${current} → ${lastLabel}${lastP}</span>`
-            : ""
-        }
-      </div>
-    `;
+    const seg = card.querySelector(".inference-vote-seg");
+    const nEl = $("voteCountNormal");
+    const aEl = $("voteCountAbnormal");
+    const nFill = $("voteFillNormal");
+    const aFill = $("voteFillAbnormal");
+
+    if (seg) {
+      seg.textContent =
+        total > 0 ? `Segment ${current} / ${total}` : "Segment —";
+    }
+    if (nEl) nEl.textContent = String(normal);
+    if (aEl) aEl.textContent = String(abnormal);
+    if (nFill) nFill.style.width = `${(normal / maxVote) * 100}%`;
+    if (aFill) aFill.style.width = `${(abnormal / maxVote) * 100}%`;
+
+    // Keep Vote card summary in sync while tallies accumulate.
+    if (card.dataset.status !== "done") {
+      const summary = card.querySelector(".inference-stage-summary");
+      if (summary && total > 0) {
+        summary.textContent = `${current}/${total} · N=${normal} A=${abnormal}`;
+      }
+      const bar = card.querySelector(".inference-stage-bar-fill");
+      if (bar && total > 0) {
+        bar.style.width = `${Math.max(0, Math.min(100, (current / total) * 100))}%`;
+      }
+    }
   }
 
   function formatDetailHtml(phase) {
@@ -208,6 +211,7 @@
       const cls = d.label === 1 ? "ABNORMAL" : "NORMAL";
       return `
         <p><strong>Strategy</strong> ${escapeHtml(d.strategy)}</p>
+        <p><strong>Segments</strong> ${d.total}</p>
         <p><strong>Normal / Abnormal</strong> ${d.normal} / ${d.abnormal}</p>
         <p><strong>Decision</strong> ${cls}</p>
         <p><strong>Confidence</strong> ${d.confidence.toFixed(1)}% (${Math.max(
@@ -475,7 +479,12 @@
     if (type === "phase_start" && phase === "infer") {
       setPhaseStatus("infer", "active", `0 / ${payload.total}`, 0);
       setBtnLabel(`Inferring 0/${payload.total}…`);
-      updateLiveStrip({ current: 0, total: payload.total, normal: 0, abnormal: 0 });
+      updateVoteCard({
+        current: 0,
+        total: payload.total,
+        normal: 0,
+        abnormal: 0,
+      });
       if (typeof addLogEntry === "function") {
         addLogEntry(`[Infer] Classifying ${payload.total} segments...`);
       }
@@ -490,7 +499,7 @@
         payload.current / payload.total
       );
       setBtnLabel(`Inferring ${payload.current}/${payload.total}…`);
-      updateLiveStrip(payload);
+      updateVoteCard(payload);
       return;
     }
 
@@ -528,15 +537,16 @@
     }
 
     if (type === "phase_progress" && phase === "vote") {
+      const total = (payload.normal || 0) + (payload.abnormal || 0);
       setPhaseStatus(
         "vote",
         "active",
         `N=${payload.normal} A=${payload.abnormal}`,
         payload.progress ?? 0.5
       );
-      updateLiveStrip({
-        current: (payload.normal || 0) + (payload.abnormal || 0),
-        total: (payload.normal || 0) + (payload.abnormal || 0),
+      updateVoteCard({
+        current: total,
+        total,
         normal: payload.normal,
         abnormal: payload.abnormal,
       });
@@ -548,6 +558,12 @@
       const d = payload.detail;
       const cls = d.label === 1 ? "Abnormal" : "Normal";
       setPhaseStatus("vote", "done", `${cls} · ${d.confidence.toFixed(1)}%`, 1);
+      updateVoteCard({
+        current: d.total,
+        total: d.total,
+        normal: d.normal,
+        abnormal: d.abnormal,
+      });
       if (typeof addLogEntry === "function") {
         addLogEntry(`  Normal: ${d.normal} | Abnormal: ${d.abnormal}`);
         addLogEntry(
