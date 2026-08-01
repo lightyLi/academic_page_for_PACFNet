@@ -131,6 +131,58 @@
     };
   }
 
+  /**
+   * Simulated classifier: record-level correctness, then vote margin in ~75–95%.
+   * Confidence = win/n (method A). Short n uses closest feasible strict majority.
+   */
+  function pickSimulatedWinCount(n) {
+    if (n <= 0) return 0;
+    if (n === 1) return 1;
+    if (n === 2) return 2;
+    if (n === 3) return 2; // 66.7% — closest strict majority under 100%
+
+    const lo = Math.ceil(0.75 * n);
+    const hi = Math.floor(0.95 * n);
+    const majorityMin = Math.floor(n / 2) + 1;
+    const minWin = Math.max(lo, majorityMin);
+    const maxWin = Math.max(minWin, hi);
+    const r = randBetween(0.75, 0.95);
+    let win = Math.round(n * r);
+    if (win < minWin) win = minWin;
+    if (win > maxWin) win = maxWin;
+    return win;
+  }
+
+  function pickRecordWinner(groundTruth, accuracy) {
+    if (groundTruth === 1 || groundTruth === -1) {
+      const correct = Math.random() < accuracy;
+      return correct ? groundTruth : -groundTruth;
+    }
+    return Math.random() < 0.5 ? 1 : -1;
+  }
+
+  function shuffleInPlace(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = tmp;
+    }
+    return arr;
+  }
+
+  /** Build shuffled segment labels with a controlled majority margin. */
+  function simulateSegmentLabels(n, groundTruth, accuracy = 0.9777) {
+    const winner = pickRecordWinner(groundTruth, accuracy);
+    const win = pickSimulatedWinCount(n);
+    const labels = new Array(n);
+    for (let i = 0; i < n; i++) {
+      labels[i] = i < win ? winner : -winner;
+    }
+    shuffleInPlace(labels);
+    return { labels, winner, winCount: win };
+  }
+
   function createEmitter() {
     const listeners = new Set();
     return {
@@ -292,6 +344,12 @@
       return detail;
     }
 
+    const { labels, winner, winCount } = simulateSegmentLabels(
+      total,
+      groundTruth,
+      accuracy
+    );
+
     const results = [];
     let normal = 0;
     let abnormal = 0;
@@ -301,14 +359,9 @@
       // Mimic per-segment classifier latency (~80–160 ms).
       await sleep(randBetween(80, 160));
 
-      let label;
-      if (groundTruth === 1 || groundTruth === -1) {
-        const isCorrect = Math.random() < accuracy;
-        label = isCorrect ? groundTruth : -groundTruth;
-      } else {
-        label = Math.random() < 0.5 ? 1 : -1;
-      }
-      const p = randBetween(0.62, 0.97);
+      const label = labels[i];
+      const p =
+        label === winner ? randBetween(0.75, 0.95) : randBetween(0.55, 0.72);
       if (label === 1) abnormal++;
       else normal++;
 
@@ -353,6 +406,8 @@
       abnormal,
       results,
       last: results[results.length - 1],
+      simulatedWinCount: winCount,
+      simulatedWinner: winner,
     };
     emit({ type: "phase_done", phase: "infer", payload: { detail } });
     return detail;
@@ -472,6 +527,8 @@
     zscoreInPlace,
     prepareSegments,
     majorityVote,
+    pickSimulatedWinCount,
+    simulateSegmentLabels,
     createEmitter,
     runPipeline,
     resetDemoModelCache() {

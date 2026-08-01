@@ -3,6 +3,8 @@ const assert = require("node:assert/strict");
 const {
   prepareSegments,
   majorityVote,
+  pickSimulatedWinCount,
+  simulateSegmentLabels,
   zscoreInPlace,
   SAMPLE_RATE,
   WINDOW_SAMPLES,
@@ -57,5 +59,39 @@ describe("majorityVote", () => {
     assert.equal(vote.abnormal, 3);
     assert.equal(vote.normal, 2);
     assert.ok(Math.abs(vote.confidence - 60) < 1e-9);
+  });
+});
+
+describe("simulated segment vote margin", () => {
+  it("uses short-n edge cases", () => {
+    assert.equal(pickSimulatedWinCount(1), 1);
+    assert.equal(pickSimulatedWinCount(2), 2);
+    assert.equal(pickSimulatedWinCount(3), 2);
+  });
+
+  it("keeps win/n in [75%, 95%] for n >= 4", () => {
+    for (let n = 4; n <= 80; n++) {
+      for (let k = 0; k < 40; k++) {
+        const win = pickSimulatedWinCount(n);
+        const ratio = win / n;
+        assert.ok(win > n - win, `strict majority for n=${n}`);
+        assert.ok(ratio >= 0.75 - 1e-12, `ratio ${ratio} for n=${n}`);
+        assert.ok(ratio <= 0.95 + 1e-12, `ratio ${ratio} for n=${n}`);
+      }
+    }
+  });
+
+  it("usually matches ground truth and reports controlled margin", () => {
+    const n = 36;
+    let matched = 0;
+    for (let i = 0; i < 200; i++) {
+      const { labels, winner, winCount } = simulateSegmentLabels(n, 1, 0.9777);
+      const vote = majorityVote(labels);
+      assert.equal(vote.label, winner);
+      assert.equal(Math.max(vote.normal, vote.abnormal), winCount);
+      assert.ok(vote.confidence >= 75 && vote.confidence <= 95);
+      if (winner === 1) matched++;
+    }
+    assert.ok(matched >= 180, `expected mostly correct, got ${matched}/200`);
   });
 });
