@@ -167,10 +167,14 @@
         <p><strong>Runtime</strong> ${escapeHtml(
           d.runtime || `${Number(d.loadSeconds || 0).toFixed(2)} s`
         )}</p>
-        <p><strong>Weights</strong> ${Number(d.weightsMB ?? d.sizeMB ?? 153)} MB</p>
-        <p><strong>Precision</strong> ${escapeHtml(d.precision || "float32")}</p>
-        <p><strong>Input</strong> ${escapeHtml(
-          d.inputLayout || "ECG + PCG · 1s @ 2000 Hz"
+        <p><strong>Weights</strong> ${Number(d.weightsMB ?? d.sizeMB ?? 44.8)} MB</p>
+        <p><strong>Provider</strong> ${escapeHtml(d.provider || "wasm")}</p>
+        <p><strong>Inputs</strong> ${escapeHtml(
+          d.inputs || d.inputLayout || "ECG_Input, PCG_Input"
+        )}</p>
+        <p><strong>Smoke test</strong> ${escapeHtml(d.smoke || "—")}</p>
+        <p><strong>Artifact</strong> ${escapeHtml(
+          d.artifact || "pacfnet_fold4.onnx"
         )}</p>
       `;
     }
@@ -333,13 +337,18 @@
     }
 
     if (type === "phase_start" && phase === "model") {
-      setPhaseStatus("model", "active", payload.cached ? "Checking cache…" : "Loading…", 0.02);
+      setPhaseStatus(
+        "model",
+        "active",
+        payload.cached ? "Warm cache…" : "Downloading ONNX…",
+        0.02
+      );
       setBtnLabel("Loading Model…");
       if (typeof addLogEntry === "function") {
         addLogEntry(
           payload.cached
-            ? "[Model] Checking PACFNet runtime (cached)..."
-            : "[Model] Loading PACFNet session..."
+            ? "[Model] Reusing cached ONNX Runtime session..."
+            : "[Model] Downloading pacfnet_fold4.onnx and creating ORT session..."
         );
       }
       return;
@@ -347,23 +356,33 @@
 
     if (type === "phase_progress" && phase === "model") {
       const p = payload.progress ?? 0;
-      setPhaseStatus(
-        "model",
-        "active",
-        payload.cached ? "Cached" : `Loading ${payload.percent ?? Math.round(p * 100)}%`,
-        p
-      );
+      let label = payload.cached
+        ? "Warm cache"
+        : `Loading ${payload.percent ?? Math.round(p * 100)}%`;
+      if (!payload.cached && payload.stage === "create") label = "Creating session…";
+      if (!payload.cached && payload.stage === "smoke") label = "Smoke test…";
+      setPhaseStatus("model", "active", label, p);
       if (!payload.cached && typeof addLogEntry === "function") {
         const pct = payload.percent ?? Math.round(p * 100);
-        if (pct >= 25 && lastModelLogPct < 25) {
-          addLogEntry("[Model]   Progress 25%");
-          lastModelLogPct = 25;
-        } else if (pct >= 50 && lastModelLogPct < 50) {
-          addLogEntry("[Model]   Progress 50%");
-          lastModelLogPct = 50;
-        } else if (pct >= 75 && lastModelLogPct < 75) {
-          addLogEntry("[Model]   Progress 75%");
-          lastModelLogPct = 75;
+        if (payload.stage === "download") {
+          if (pct >= 25 && lastModelLogPct < 25) {
+            addLogEntry("[Model]   Download 25%");
+            lastModelLogPct = 25;
+          } else if (pct >= 50 && lastModelLogPct < 50) {
+            addLogEntry("[Model]   Download 50%");
+            lastModelLogPct = 50;
+          } else if (pct >= 75 && lastModelLogPct < 75) {
+            addLogEntry("[Model]   Download 75%");
+            lastModelLogPct = 75;
+          }
+        }
+        if (payload.stage === "create" && lastModelLogPct < 90) {
+          addLogEntry("[Model]   Creating ONNX Runtime session (wasm)...");
+          lastModelLogPct = 90;
+        }
+        if (payload.stage === "smoke" && lastModelLogPct < 95) {
+          addLogEntry("[Model]   Running smoke inference on zero tensors...");
+          lastModelLogPct = 95;
         }
       }
       return;
@@ -384,9 +403,12 @@
         );
         if (typeof addLogEntry === "function") {
           addLogEntry(
-            `[Model] Session ready (${d.session || "Ready"}, runtime ${rt || "n/a"})`,
+            `[Model] Real ONNX session ready (${d.session || "Ready"}, ${rt || "n/a"}, ${d.provider || "wasm"})`,
             "success"
           );
+          if (d.smoke) {
+            addLogEntry(`[Model]   Smoke test ${d.smoke}`, "success");
+          }
         }
       }
       return;
@@ -499,7 +521,9 @@
         abnormal: 0,
       });
       if (typeof addLogEntry === "function") {
-        addLogEntry(`[Infer] Classifying ${payload.total} segments...`);
+        addLogEntry(
+          `[Infer] Classifying ${payload.total} segments (simulated segment classifier; ONNX used for Model load only)...`
+        );
       }
       return;
     }

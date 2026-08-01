@@ -159,67 +159,45 @@
     return min + Math.random() * (max - min);
   }
 
-  // Demo model session cache (mimics onnx session reuse).
-  let demoModelReady = false;
-
   async function runModelPhase(emit, options = {}) {
     const forceReload = !!options.forceReload;
+    const loader =
+      typeof OnnxModelLoader !== "undefined" ? OnnxModelLoader : null;
+    if (!loader || typeof loader.loadPacfnetOnnx !== "function") {
+      throw new Error(
+        "ONNX model loader is unavailable. Ensure onnxruntime-web and onnx_model_loader.js are loaded."
+      );
+    }
+
+    const cached = loader.isOnnxReady() && !forceReload;
     emit({
       type: "phase_start",
       phase: "model",
-      payload: { cached: demoModelReady && !forceReload },
+      payload: { cached, realOnnx: true },
     });
 
-    if (demoModelReady && !forceReload) {
-      emit({
-        type: "phase_progress",
-        phase: "model",
-        payload: { progress: 1, cached: true },
-      });
-      const warmStart = Date.now();
-      await sleep(randBetween(220, 380));
-      const loadSeconds = (Date.now() - warmStart) / 1000;
-      const detail = {
-        status: "Ready",
-        session: "Warm cache",
-        runtime: `${loadSeconds.toFixed(2)} s`,
-        loadSeconds,
-        weightsMB: 153,
-        precision: "float32",
-        inputLayout: "ECG + PCG · 1s @ 2000 Hz",
-        cached: true,
-      };
-      emit({ type: "phase_done", phase: "model", payload: { detail } });
-      return detail;
-    }
+    const { detail } = await loader.loadPacfnetOnnx({
+      forceReload,
+      onProgress(progress, meta = {}) {
+        emit({
+          type: "phase_progress",
+          phase: "model",
+          payload: {
+            progress,
+            percent:
+              meta.percent != null
+                ? meta.percent
+                : Math.round(progress * 100),
+            cached,
+            stage: meta.stage,
+            received: meta.received,
+            total: meta.total,
+            realOnnx: true,
+          },
+        });
+      },
+    });
 
-    const totalMs = randBetween(2200, 3400);
-    const start = Date.now();
-    while (true) {
-      const elapsed = Date.now() - start;
-      const progress = Math.min(1, elapsed / totalMs);
-      const pct = Math.round(progress * 100);
-      emit({
-        type: "phase_progress",
-        phase: "model",
-        payload: { progress, percent: pct, cached: false },
-      });
-      if (progress >= 1) break;
-      await sleep(80);
-    }
-
-    demoModelReady = true;
-    const loadSeconds = (Date.now() - start) / 1000;
-    const detail = {
-      status: "Ready",
-      session: "Cold start",
-      runtime: `${loadSeconds.toFixed(2)} s`,
-      loadSeconds,
-      weightsMB: 153,
-      precision: "float32",
-      inputLayout: "ECG + PCG · 1s @ 2000 Hz",
-      cached: false,
-    };
     emit({ type: "phase_done", phase: "model", payload: { detail } });
     return detail;
   }
@@ -497,10 +475,14 @@
     createEmitter,
     runPipeline,
     resetDemoModelCache() {
-      demoModelReady = false;
+      if (typeof OnnxModelLoader !== "undefined") {
+        OnnxModelLoader.resetOnnxCache();
+      }
     },
     isDemoModelReady() {
-      return demoModelReady;
+      return typeof OnnxModelLoader !== "undefined"
+        ? OnnxModelLoader.isOnnxReady()
+        : false;
     },
   };
 });

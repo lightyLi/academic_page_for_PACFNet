@@ -1,0 +1,86 @@
+{
+  "source_h5": "b2b_20241216_204934_fold_4_model.h5",
+  "onnx": "b2b_20241216_204934_fold_4_model.onnx",
+  "opset": 17,
+  "bytes": 47012650,
+  "method": "rebuild_dual_stream_model + load_weights + tf2onnx.from_keras",
+  "keras_inputs": [
+    {
+      "name": "ECG_Input",
+      "shape": [
+        null,
+        2000,
+        1
+      ],
+      "dtype": "<dtype: 'float32'>"
+    },
+    {
+      "name": "PCG_Input",
+      "shape": [
+        null,
+        2000,
+        1
+      ],
+      "dtype": "<dtype: 'float32'>"
+    }
+  ],
+  "keras_outputs": [
+    {
+      "name": "dense_43/Softmax:0",
+      "shape": [
+        null,
+        2
+      ],
+      "dtype": "<dtype: 'float32'>"
+    }
+  ],
+  "ort_inputs": [
+    {
+      "name": "ECG_Input",
+      "shape": [
+        "unk__2136",
+        2000,
+        1
+      ],
+      "dtype": "tensor(float)",
+      "feed_shape": [
+        1,
+        2000,
+        1
+      ]
+    },
+    {
+      "name": "PCG_Input",
+      "shape": [
+        "unk__2137",
+        2000,
+        1
+      ],
+      "dtype": "tensor(float)",
+      "feed_shape": [
+        1,
+        2000,
+        1
+      ]
+    }
+  ],
+  "ort_outputs": [
+    {
+      "name": "dense_43",
+      "shape": [
+        "unk__2138",
+        2
+      ],
+      "dtype": "tensor(float)",
+      "value_shape": [
+        1,
+        2
+      ],
+      "sample": [
+        1.9969814246678652e-08,
+        1.0
+      ]
+    }
+  ],
+  "tensorflow": "2.15.1"
+}
