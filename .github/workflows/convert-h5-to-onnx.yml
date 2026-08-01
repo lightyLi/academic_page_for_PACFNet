@@ -2,6 +2,9 @@ name: Convert H5 to ONNX
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - ci/convert-onnx
 
 jobs:
   convert:
