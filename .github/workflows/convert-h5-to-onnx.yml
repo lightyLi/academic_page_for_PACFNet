@@ -37,134 +37,11 @@ jobs:
             --dir tmp_convert
           ls -lh tmp_convert
 
-      - name: Convert H5 to ONNX
+      - name: Convert H5 to ONNX via rebuilt architecture
         run: |
-          python <<'PY'
-          import json
-          import traceback
-          from pathlib import Path
-
-          import numpy as np
-          import tensorflow as tf
-          import tf2onnx
-          import onnxruntime as ort
-
-          h5_path = Path("tmp_convert/b2b_20241216_204934_fold_4_model.h5")
-          onnx_path = Path("tmp_convert/b2b_20241216_204934_fold_4_model.onnx")
-          meta_path = Path("tmp_convert/b2b_20241216_204934_fold_4_model.onnx.json")
-
-          print("TF", tf.__version__)
-          print("Loading keras model...", h5_path, "size", h5_path.stat().st_size)
-
-          try:
-              model = tf.keras.models.load_model(h5_path, compile=False)
-          except Exception:
-              traceback.print_exc()
-              print("Retry with safe_mode=False if available...")
-              try:
-                  model = tf.keras.models.load_model(
-                      h5_path, compile=False, safe_mode=False
-                  )
-              except TypeError:
-                  raise
-
-          model.summary()
-          print("inputs:", [(i.name, i.shape, i.dtype) for i in model.inputs])
-          print("outputs:", [(o.name, o.shape, o.dtype) for o in model.outputs])
-
-          input_signature = []
-          for inp in model.inputs:
-              shape = [None if d is None else int(d) for d in list(inp.shape)]
-              input_signature.append(
-                  tf.TensorSpec(shape, inp.dtype, name=inp.name.split(":")[0])
-              )
-
-          print("Converting with opset 17...")
-          tf2onnx.convert.from_keras(
-              model,
-              input_signature=input_signature,
-              opset=17,
-              output_path=str(onnx_path),
-          )
-          print("Wrote", onnx_path, "bytes", onnx_path.stat().st_size)
-
-          sess = ort.InferenceSession(
-              str(onnx_path), providers=["CPUExecutionProvider"]
-          )
-          feeds = {}
-          inputs_meta = []
-          for i in sess.get_inputs():
-              dims = list(i.shape)
-              shape = []
-              for idx, d in enumerate(dims):
-                  if d is None or isinstance(d, str):
-                      if idx == 0:
-                          shape.append(1)
-                      elif idx == 1:
-                          shape.append(2000)
-                      else:
-                          shape.append(1)
-                  else:
-                      shape.append(int(d))
-              if len(dims) == 3:
-                  b = 1 if (dims[0] is None or isinstance(dims[0], str)) else int(dims[0])
-                  t = 2000 if (dims[1] is None or isinstance(dims[1], str)) else int(dims[1])
-                  c = 1 if (dims[2] is None or isinstance(dims[2], str)) else int(dims[2])
-                  shape = [b, t, c]
-              arr = np.zeros(shape, dtype=np.float32)
-              feeds[i.name] = arr
-              inputs_meta.append(
-                  {
-                      "name": i.name,
-                      "shape": list(i.shape),
-                      "dtype": i.type,
-                      "feed_shape": shape,
-                  }
-              )
-
-          outs = sess.run(None, feeds)
-          outputs_meta = []
-          for o, arr in zip(sess.get_outputs(), outs):
-              outputs_meta.append(
-                  {
-                      "name": o.name,
-                      "shape": list(o.shape),
-                      "dtype": o.type,
-                      "value_shape": list(arr.shape),
-                      "sample": arr.reshape(-1)[:8].astype(float).tolist(),
-                  }
-              )
-              print("output", o.name, arr.shape, arr.reshape(-1)[:8])
-
-          meta = {
-              "source_h5": h5_path.name,
-              "onnx": onnx_path.name,
-              "opset": 17,
-              "bytes": onnx_path.stat().st_size,
-              "keras_inputs": [
-                  {
-                      "name": i.name,
-                      "shape": [None if d is None else int(d) for d in i.shape],
-                      "dtype": str(i.dtype),
-                  }
-                  for i in model.inputs
-              ],
-              "keras_outputs": [
-                  {
-                      "name": o.name,
-                      "shape": [None if d is None else int(d) for d in o.shape],
-                      "dtype": str(o.dtype),
-                  }
-                  for o in model.outputs
-              ],
-              "ort_inputs": inputs_meta,
-              "ort_outputs": outputs_meta,
-              "converter": "tf2onnx.from_keras",
-              "tensorflow": tf.__version__,
-          }
-          meta_path.write_text(json.dumps(meta, indent=2))
-          print("Wrote meta", meta_path)
-          PY
+          python scripts/convert_h5_to_onnx/convert.py \
+            tmp_convert/b2b_20241216_204934_fold_4_model.h5 \
+            tmp_convert
 
       - name: Upload ONNX to GitHub Release
         env:
@@ -174,7 +51,7 @@ jobs:
             gh release create model-weights-onnx \
               --repo "${{ github.repository }}" \
               --title "PACFNet fold-4 ONNX weights" \
-              --notes "Converted in GitHub Actions from b2b_20241216_204934_fold_4_model.h5 (opset 17)."
+              --notes "Converted in GitHub Actions by rebuilding dual_stream_model() and loading H5 weights (opset 17)."
           fi
           gh release upload model-weights-onnx \
             tmp_convert/b2b_20241216_204934_fold_4_model.onnx \
