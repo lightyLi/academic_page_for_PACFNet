@@ -1,11 +1,11 @@
 /**
- * Real ONNX Runtime Web loader for PACFNet fold-4 weights.
+ * Real ONNX Runtime Web loader for PACFNet weights.
  * Only used in the Model stage; classification remains simulated.
  */
 (function (root) {
   "use strict";
 
-  const MODEL_URL = "static/models/pacfnet_fold4.onnx";
+  const MODEL_URL = "static/models/pacfnet.onnx";
   const ORT_WASM_PATH =
     "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/";
   const WEIGHTS_MB_FALLBACK = 44.8;
@@ -151,7 +151,7 @@
       inputs: inputNames.join(", "),
       outputs: outputNames.join(", "),
       smoke: `ok · out=[${smoke.shape.join(",")}]`,
-      artifact: "pacfnet_fold4.onnx",
+      artifact: "pacfnet.onnx",
       cached: false,
       realOnnx: true,
     };

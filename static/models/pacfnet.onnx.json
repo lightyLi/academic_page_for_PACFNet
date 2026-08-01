@@ -1,6 +1,7 @@
 {
   "source_h5": "b2b_20241216_204934_fold_4_model.h5",
-  "onnx": "b2b_20241216_204934_fold_4_model.onnx",
+  "onnx": "pacfnet.onnx",
+  "source_onnx": "b2b_20241216_204934_fold_4_model.onnx",
   "opset": 17,
   "bytes": 47012650,
   "method": "rebuild_dual_stream_model + load_weights + tf2onnx.from_keras",

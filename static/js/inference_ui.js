@@ -174,7 +174,7 @@
         )}</p>
         <p><strong>Smoke test</strong> ${escapeHtml(d.smoke || "—")}</p>
         <p><strong>Artifact</strong> ${escapeHtml(
-          d.artifact || "pacfnet_fold4.onnx"
+          d.artifact || "pacfnet.onnx"
         )}</p>
       `;
     }
@@ -348,7 +348,7 @@
         addLogEntry(
           payload.cached
             ? "[Model] Reusing cached ONNX Runtime session..."
-            : "[Model] Downloading pacfnet_fold4.onnx and creating ORT session..."
+            : "[Model] Downloading pacfnet.onnx and creating ORT session..."
         );
       }
       return;
